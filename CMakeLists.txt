@@ -8,4 +8,4 @@ add_subdirectory(mergers)
 add_subdirectory(camera)
 add_subdirectory(presentation_remote)
 
-add_subdirectory(platforms)
+add_subdirectory(platform)
