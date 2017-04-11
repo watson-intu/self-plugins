@@ -1,0 +1,3 @@
+[submodule "lab"]
+	path = lab
+	url = git@github.ibm.com:watson-labs-austin/lab-plugins.git
