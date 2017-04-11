@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="gestures">
+      <UniqueIdentifier>{2210cfa1-6b4f-4ebf-949e-ff11a63eef0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sensors">
+      <UniqueIdentifier>{f8ed9c2c-e7cb-4679-b003-f3cdbe34d226}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests">
+      <UniqueIdentifier>{65c261cf-f962-4962-9694-92c022725d06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{0da65c93-fbfd-41da-a28f-0201c0bbff01}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\platform\win\sensors\WinMicrophone.cpp">
+      <Filter>sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\platform\win\tests\TestWinMicrophone.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\platform\win\gestures\WinSpeechGesture.cpp">
+      <Filter>gestures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\platform\win\gestures\WinSoundGesture.cpp">
+      <Filter>gestures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\platform\win\tests\TestWinSoundGesture.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\platform\win\utils\QIRef.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\platform\win\sensors\WinMicrophone.h">
+      <Filter>sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\platform\win\gestures\WinSpeechGesture.h">
+      <Filter>gestures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\platform\win\gestures\WinSoundGesture.h">
+      <Filter>gestures</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

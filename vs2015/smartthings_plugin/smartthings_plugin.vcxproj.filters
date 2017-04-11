@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\smartthings\agents\MotionAgent.h">
+      <Filter>agent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\smartthings\sensors\ExampleSensor.h">
+      <Filter>sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\smartthings\classifiers\MotionClassifier.h">
+      <Filter>classifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\smartthings\blackboard\Motion.h">
+      <Filter>blackboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\smartthings\extractors\MotionExtractor.h">
+      <Filter>extractors</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\smartthings\agents\MotionAgent.cpp">
+      <Filter>agent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\smartthings\sensors\ExampleSensor.cpp">
+      <Filter>sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\smartthings\classifiers\MotionClassifier.cpp">
+      <Filter>classifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\smartthings\blackboard\Motion.cpp">
+      <Filter>blackboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\smartthings\extractors\MotionExtractor.cpp">
+      <Filter>extractors</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="agent">
+      <UniqueIdentifier>{f9959e3b-814d-45cf-a624-257b481bdc91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="blackboard">
+      <UniqueIdentifier>{60c60150-4918-4f0f-9c9d-86f19234ef6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="classifiers">
+      <UniqueIdentifier>{5c6dcb26-30aa-462f-9107-5f4fc421082e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sensors">
+      <UniqueIdentifier>{ae3c537b-98d4-4662-970d-5d8efc180ec6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extractors">
+      <UniqueIdentifier>{f4a6e063-4bcf-4553-b9d4-ce43cdeed6f0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
