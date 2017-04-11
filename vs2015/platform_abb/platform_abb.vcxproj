@@ -47,7 +47,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../../../wdc/src/;../../../src/;../../../lib/;../../../wdc/lib/;../../../wdc/lib/boost_1_60_0/;../../plugins/platform/abb/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../platform/abb/;../../../wdc/src/;../../../src/;../../../lib/;../../../wdc/lib/;../../../wdc/lib/boost_1_60_0/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
@@ -65,7 +65,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../../../wdc/src/;../../../src/;../../../lib/;../../../wdc/lib/;../../../wdc/lib/boost_1_60_0/;../../plugins/platform/abb/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../platform/abb/;../../../wdc/src/;../../../src/;../../../lib/;../../../wdc/lib/;../../../wdc/lib/boost_1_60_0/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

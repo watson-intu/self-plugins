@@ -56,7 +56,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DLL;WIN32;BOOST_ASIO_DISABLE_STD_CHRONO;BOOST_FILESYSTEM_VERSION=3;_DEBUG;_WINDOWS;_USRDLL;PLATFORM_NAO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../../../wdc/src/;../../../src/;../../../lib/;../../../wdc/lib/;../../../wdc/lib/boost_1_60_0/;../../lib/libqi/;../../plugins/platform/nao/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../platform/nao/;../../../wdc/src/;../../../src/;../../../lib/;../../../wdc/lib/;../../../wdc/lib/boost_1_60_0/;../../lib/libqi/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
@@ -81,7 +81,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_DLL;WIN32;BOOST_ASIO_DISABLE_STD_CHRONO;BOOST_FILESYSTEM_VERSION=3;NDEBUG;_WINDOWS;_USRDLL;PLATFORM_NAO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../../../wdc/src/;../../../src/;../../../lib/;../../../wdc/lib/;../../../wdc/lib/boost_1_60_0/;../../lib/libqi/;../../plugins/platform/nao/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../platform/nao/;../../../wdc/src/;../../../src/;../../../lib/;../../../wdc/lib/;../../../wdc/lib/boost_1_60_0/;../../lib/libqi/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
