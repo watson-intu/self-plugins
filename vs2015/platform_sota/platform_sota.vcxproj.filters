@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="gestures">
+      <UniqueIdentifier>{81e92992-06d1-4646-b250-fd0e8947a5b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sensors">
+      <UniqueIdentifier>{f1170fa8-f60b-4cd3-8948-7b6bb9292594}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\platform\sota\gestures\SotaSpeechGesture.cpp">
+      <Filter>gestures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\platform\sota\sensors\SotaMicrophone.cpp">
+      <Filter>sensors</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\platform\sota\gestures\SotaSpeechGesture.h">
+      <Filter>gestures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\platform\sota\sensors\SotaMicrophone.h">
+      <Filter>sensors</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
