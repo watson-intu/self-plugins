@@ -5,7 +5,7 @@
 #ifndef SELF_PTZCAMERA_H
 #define SELF_PTZCAMERA_H
 
-#include "services/IService.h"
+#include "utils/IService.h"
 
 class PTZCamera : public IService
 {
