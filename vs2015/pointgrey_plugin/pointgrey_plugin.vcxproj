@@ -20,10 +20,10 @@
     <ProjectReference Include="..\..\..\vs2015\self\self.vcxproj">
       <Project>{22fd607f-5015-49ea-9010-1ad4ba706e7f}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\wdc\vs2015\jsoncpp\jsoncpp.vcxproj">
+    <ProjectReference Include="..\..\lib\wdc-cpp-sdk\utils\vs2015\jsoncpp\jsoncpp.vcxproj">
       <Project>{28ba4301-4c55-41d2-b122-01dbde375452}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\wdc\vs2015\wdc\wdc.vcxproj">
+    <ProjectReference Include="..\..\lib\wdc-cpp-sdk\utils\vs2015\utils\utils.vcxproj">
       <Project>{df26e299-62e3-438a-8403-3d427bb81db1}</Project>
     </ProjectReference>
   </ItemGroup>
@@ -72,12 +72,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;POINTGREY_PLUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>include;../../pointgrey;../../../wdc/src/;../../../src/;../../../lib/;../../../wdc/lib/;../../../wdc/lib/boost_1_60_0/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../pointgrey;../../lib/wdc-cpp-sdk/src/;../../lib/wdc-cpp-sdk/utils/src/;../../lib/wdc-cpp-sdk/utils/lib/;../../lib/wdc-cpp-sdk/utils/lib/boost_1_60_0/;../../../src/;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../../../wdc/lib/boost_1_60_0/stage/lib/;lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../lib/wdc-cpp-sdk/utils/lib/boost_1_60_0/stage/lib/;lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>FlyCapture2d_v140.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
@@ -94,7 +94,7 @@ copy bin\libiomp5md.dll $(TargetDir)</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;POINTGREY_PLUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>include;../../pointgrey;../../../wdc/src/;../../../src/;../../../lib/;../../../wdc/lib/;../../../wdc/lib/boost_1_60_0/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../pointgrey;../../lib/wdc-cpp-sdk/src/;../../lib/wdc-cpp-sdk/utils/src/;../../lib/wdc-cpp-sdk/utils/lib/;../../lib/wdc-cpp-sdk/utils/lib/boost_1_60_0/;../../../src/;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -102,7 +102,7 @@ copy bin\libiomp5md.dll $(TargetDir)</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>FlyCapture2_v140.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../../../wdc/lib/boost_1_60_0/stage/lib/;lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../lib/wdc-cpp-sdk/utils/lib/boost_1_60_0/stage/lib/;lib</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>copy bin\FlyCapture2_v140.dll $(TargetDir)

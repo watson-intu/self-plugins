@@ -18,7 +18,7 @@
 #ifndef SELF_NAOURLSERVICE_H
 #define SELF_NAOURLSERVICE_H
 
-#include "services/IService.h"
+#include "utils/IService.h"
 #include "blackboard/URL.h"
 #include "SelfLib.h"
 #include "services/URLService.h"
