@@ -24,13 +24,13 @@
     <ClCompile Include="..\..\platform\win\tests\TestWinSoundGesture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\wdc\vs2015\jsoncpp\jsoncpp.vcxproj">
+    <ProjectReference Include="..\..\..\lib\cpp-sdk\vs2015\jsoncpp\jsoncpp.vcxproj">
       <Project>{28ba4301-4c55-41d2-b122-01dbde375452}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\wdc\vs2015\tinythread++\tinythread++.vcxproj">
-      <Project>{710e7386-c16f-4f84-8aeb-1c79428dc30b}</Project>
+    <ProjectReference Include="..\..\..\lib\cpp-sdk\vs2015\utils\utils.vcxproj">
+      <Project>{9b6c58b8-9a51-4634-ab23-f23f6a458bad}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\wdc\vs2015\wdc\wdc.vcxproj">
+    <ProjectReference Include="..\..\..\lib\wdc-cpp-sdk\vs2015\wdc\wdc.vcxproj">
       <Project>{df26e299-62e3-438a-8403-3d427bb81db1}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\..\vs2015\self\self.vcxproj">
@@ -86,7 +86,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;PLATFORM_WIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../../plugins/platform/win;../../../wdc/src/;../../../src/;../../../lib/;../../../wdc/lib/;../../../wdc/lib/boost_1_60_0/;../../lib/DirectX/Include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../platform/win/;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;../../lib/DirectX/Include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
@@ -94,7 +94,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../../lib/DirectX/Lib/x86/;../../../wdc/lib/boost_1_60_0/stage/lib;../../wdc/lib/openssl-1.0.1q-vs2015/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../../lib/cpp-sdk/lib/boost_1_60_0/stage/lib/;../../lib/DirectX/Lib/x86/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
@@ -111,7 +111,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;PLATFORM_WIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../../plugins/platform/win;../../../wdc/src/;../../../src/;../../../lib/;../../../wdc/lib/;../../../wdc/lib/boost_1_60_0/;../../lib/DirectX/Include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../platform/win/;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;../../lib/DirectX/Include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -120,7 +120,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../../lib/DirectX/Lib/x86/;../../../wdc/lib/boost_1_60_0/stage/lib;../../wdc/lib/openssl-1.0.1q-vs2015/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../../lib/cpp-sdk/lib/boost_1_60_0/stage/lib/;../../lib/DirectX/Lib/x86/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
