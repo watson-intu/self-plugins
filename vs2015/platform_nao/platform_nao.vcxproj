@@ -56,7 +56,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DLL;WIN32;BOOST_ASIO_DISABLE_STD_CHRONO;BOOST_FILESYSTEM_VERSION=3;_DEBUG;_WINDOWS;_USRDLL;PLATFORM_NAO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../../platform/nao/;../../lib/wdc-cpp-sdk/src/;../../lib/wdc-cpp-sdk/utils/src/;../../lib/wdc-cpp-sdk/utils/lib/;../../lib/wdc-cpp-sdk/utils/lib/boost_1_60_0/;../../../src/;../../lib/libqi/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../platform/nao/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../src/;../../lib/libqi/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
@@ -64,7 +64,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../../lib/wdc-cpp-sdk/utils/lib/boost_1_60_0/stage/lib/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../../lib/cpp-sdk/lib/boost_1_60_0/stage/lib/</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
@@ -81,7 +81,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_DLL;WIN32;BOOST_ASIO_DISABLE_STD_CHRONO;BOOST_FILESYSTEM_VERSION=3;NDEBUG;_WINDOWS;_USRDLL;PLATFORM_NAO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../../platform/nao/;../../lib/wdc-cpp-sdk/src/;../../lib/wdc-cpp-sdk/utils/src/;../../lib/wdc-cpp-sdk/utils/lib/;../../lib/wdc-cpp-sdk/utils/lib/boost_1_60_0/;../../../src/;../../lib/libqi/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../platform/nao/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../src/;../../lib/libqi/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -91,7 +91,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../../lib/wdc-cpp-sdk/utils/lib/boost_1_60_0/stage/lib/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../../lib/cpp-sdk/lib/boost_1_60_0/stage/lib/</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -166,6 +166,12 @@
     <ClCompile Include="..\..\platform\nao\utils\QiHelpers.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\lib\cpp-sdk\vs2015\jsoncpp\jsoncpp.vcxproj">
+      <Project>{28ba4301-4c55-41d2-b122-01dbde375452}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\lib\cpp-sdk\vs2015\utils\utils.vcxproj">
+      <Project>{9b6c58b8-9a51-4634-ab23-f23f6a458bad}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\libqi\libqi.vcxproj">
       <Project>{a98c57fb-2761-41a5-b047-28ee404e0e73}</Project>
     </ProjectReference>
