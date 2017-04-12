@@ -20,12 +20,6 @@
     <ProjectReference Include="..\..\..\vs2015\self\self.vcxproj">
       <Project>{22fd607f-5015-49ea-9010-1ad4ba706e7f}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\lib\wdc-cpp-sdk\utils\vs2015\jsoncpp\jsoncpp.vcxproj">
-      <Project>{28ba4301-4c55-41d2-b122-01dbde375452}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\lib\wdc-cpp-sdk\utils\vs2015\utils\utils.vcxproj">
-      <Project>{df26e299-62e3-438a-8403-3d427bb81db1}</Project>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{48D20533-1299-46C8-9F80-A807B50FC5B6}</ProjectGuid>

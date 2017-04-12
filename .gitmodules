@@ -1,6 +1,3 @@
 [submodule "lab"]
 	path = lab
 	url = git@github.ibm.com:watson-labs-austin/lab-plugins.git
-[submodule "lib/wdc-cpp-sdk"]
-	path = lib/wdc-cpp-sdk
-	url = git@github.ibm.com:watson-labs-austin/wdc-cpp-sdk.git
