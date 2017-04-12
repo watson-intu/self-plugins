@@ -1,1 +1,1 @@
-add_subdirectory(wdc-cpp-sdk)
+#add_subdirectory(wdc-cpp-sdk)
