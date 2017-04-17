@@ -110,9 +110,6 @@
     <ProjectReference Include="..\..\..\lib\cpp-sdk\vs2015\utils\utils.vcxproj">
       <Project>{9b6c58b8-9a51-4634-ab23-f23f6a458bad}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\lib\wdc-cpp-sdk\vs2015\wdc\wdc.vcxproj">
-      <Project>{df26e299-62e3-438a-8403-3d427bb81db1}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\vs2015\self\self.vcxproj">
       <Project>{22fd607f-5015-49ea-9010-1ad4ba706e7f}</Project>
     </ProjectReference>
