@@ -10,6 +10,45 @@
     <Filter Include="blackboard">
       <UniqueIdentifier>{c7434902-6956-4274-9b52-0a18fb4fbf36}</UniqueIdentifier>
     </Filter>
+    <Filter Include="services\Alchemy">
+      <UniqueIdentifier>{d6c1de73-5aa5-4dd9-82a7-327a0b03ef05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="services\Conversation">
+      <UniqueIdentifier>{80110c01-05b7-4c55-803d-f3819a360403}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="services\LanguageTranslator">
+      <UniqueIdentifier>{0f21d7fb-9c38-4eb9-bf12-65c2bb88122c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="services\NaturalLanguageClassifier">
+      <UniqueIdentifier>{0c6c987b-17d7-4f03-84d9-6642390b6f08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="services\NaturalLanguageUnderstanding">
+      <UniqueIdentifier>{bcf34aca-88a1-44de-967e-d23002747763}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="services\PersonalityInsights">
+      <UniqueIdentifier>{ebfc4b8d-d7f1-4480-9f20-57749db7c908}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="services\RelationshipExtraction">
+      <UniqueIdentifier>{218c1d47-6c2a-4b0d-8930-bf55e1fbc071}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="services\RetreiveAndRank">
+      <UniqueIdentifier>{db334daa-507a-494a-9795-e512153825d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="services\SpeechToText">
+      <UniqueIdentifier>{f8dac120-f895-4c6c-9f03-126f882a2ff1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="services\TextToSpeech">
+      <UniqueIdentifier>{6302e69d-a01a-4c7a-baf5-91da0af76cf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="services\ToneAnalyzer">
+      <UniqueIdentifier>{9bd4abae-fa4b-4d13-aed8-4dd487244ecd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="services\VisualRecognition">
+      <UniqueIdentifier>{2ac698a4-c101-42f1-a1e1-c61717ad7f2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="services\WeatherCompanyData">
+      <UniqueIdentifier>{945d0b6c-00a2-4fbd-ae3d-8be387efcf7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\watson\services\WatsonAvatar.cpp">
@@ -24,6 +63,45 @@
     <ClCompile Include="..\..\watson\blackboard\WEXIntent.cpp">
       <Filter>blackboard</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\watson\services\Alchemy\Alchemy.cpp">
+      <Filter>services\Alchemy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\Conversation\Conversation.cpp">
+      <Filter>services\Conversation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\LanguageTranslator\LanguageTranslator.cpp">
+      <Filter>services\LanguageTranslator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\NaturalLanguageClassifier\NaturalLanguageClassifier.cpp">
+      <Filter>services\NaturalLanguageClassifier</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\NaturalLanguageUnderstanding\NaturalLanguageUnderstanding.cpp">
+      <Filter>services\NaturalLanguageUnderstanding</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\WeatherCompanyData\WeatherCompanyData.cpp">
+      <Filter>services\WeatherCompanyData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\VisualRecognition\VisualRecognition.cpp">
+      <Filter>services\VisualRecognition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\ToneAnalyzer\ToneAnalyzer.cpp">
+      <Filter>services\ToneAnalyzer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\TextToSpeech\TextToSpeech.cpp">
+      <Filter>services\TextToSpeech</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\SpeechToText\SpeechToText.cpp">
+      <Filter>services\SpeechToText</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\RetrieveAndRank\RetrieveAndRank.cpp">
+      <Filter>services\RetreiveAndRank</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\RelationshipExtraction\RelationshipExtraction.cpp">
+      <Filter>services\RelationshipExtraction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\PersonalityInsights\PersonalityInsights.cpp">
+      <Filter>services\PersonalityInsights</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\watson\services\WatsonAvatar.h">
@@ -37,6 +115,69 @@
     </ClInclude>
     <ClInclude Include="..\..\watson\blackboard\WEXIntent.h">
       <Filter>blackboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\Alchemy\Alchemy.h">
+      <Filter>services\Alchemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\Conversation\Conversation.h">
+      <Filter>services\Conversation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\Conversation\DataModels.h">
+      <Filter>services\Conversation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\LanguageTranslator\DataModels.h">
+      <Filter>services\LanguageTranslator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\LanguageTranslator\LanguageTranslator.h">
+      <Filter>services\LanguageTranslator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\NaturalLanguageClassifier\DataModels.h">
+      <Filter>services\NaturalLanguageClassifier</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\NaturalLanguageClassifier\NaturalLanguageClassifier.h">
+      <Filter>services\NaturalLanguageClassifier</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\NaturalLanguageUnderstanding\NaturalLanguageUnderstanding.h">
+      <Filter>services\NaturalLanguageUnderstanding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\WeatherCompanyData\WeatherCompanyData.h">
+      <Filter>services\WeatherCompanyData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\VisualRecognition\VisualRecognition.h">
+      <Filter>services\VisualRecognition</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\ToneAnalyzer\DataModels.h">
+      <Filter>services\ToneAnalyzer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\ToneAnalyzer\ToneAnalyzer.h">
+      <Filter>services\ToneAnalyzer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\TextToSpeech\DataModels.h">
+      <Filter>services\TextToSpeech</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\TextToSpeech\TextToSpeech.h">
+      <Filter>services\TextToSpeech</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\SpeechToText\DataModels.h">
+      <Filter>services\SpeechToText</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\SpeechToText\SpeechToText.h">
+      <Filter>services\SpeechToText</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\RetrieveAndRank\DataModels.h">
+      <Filter>services\RetreiveAndRank</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\RetrieveAndRank\RetrieveAndRank.h">
+      <Filter>services\RetreiveAndRank</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\RelationshipExtraction\RelationshipExtraction.h">
+      <Filter>services\RelationshipExtraction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\PersonalityInsights\DataModels.h">
+      <Filter>services\PersonalityInsights</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\PersonalityInsights\PersonalityInsights.h">
+      <Filter>services\PersonalityInsights</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
