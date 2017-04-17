@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="services">
+      <UniqueIdentifier>{a9b8eee5-bac0-42d9-ad6d-4e38ebf178b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="agent">
+      <UniqueIdentifier>{9abdc915-f3d9-48a0-ba92-76c6bac1a311}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="blackboard">
+      <UniqueIdentifier>{c7434902-6956-4274-9b52-0a18fb4fbf36}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\watson\services\WatsonAvatar.cpp">
+      <Filter>services</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\WEX.cpp">
+      <Filter>services</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\agent\WEXAgent.cpp">
+      <Filter>agent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\blackboard\WEXIntent.cpp">
+      <Filter>blackboard</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\watson\services\WatsonAvatar.h">
+      <Filter>services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\WEX.h">
+      <Filter>services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\agent\WEXAgent.h">
+      <Filter>agent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\blackboard\WEXIntent.h">
+      <Filter>blackboard</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
