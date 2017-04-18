@@ -18,12 +18,9 @@
 #ifndef WDC_WEATHERCOMPANYDATA_H
 #define WDC_WEATHERCOMPANYDATA_H
 
-#include "utils/Delegate.h"
-#include "utils/DataCache.h"
-#include "utils/IService.h"
-#include "WDCLib.h"
+#include "services/IWeather.h"
 
-class WDC_API WeatherCompanyData : public IService
+class WeatherCompanyData : public IWeather
 {
 public:
     RTTI_DECL();
@@ -41,22 +38,21 @@ public:
     //! IService interface
     virtual bool Start();
 
+	//! IWeather interface
     void GetCurrentConditions( SendCallback a_Callback );
-    void GetCurrentConditions(const std::string & a_Lat, const std::string & a_Long, SendCallback a_Callback);
+    void GetCurrentConditions(const std::string & a_Lat, const std::string & a_Long, 
+		SendCallback a_Callback);
     void GetHourlyForecast( SendCallback a_Callback );
     void GetTenDayForecast( SendCallback a_Callback );
-    void GetTenDayForecast(const std::string & a_Lat, const std::string & a_Long, SendCallback a_Callback);
-    void GetLocation( const std::string & a_Location, Delegate<const Json::Value &> a_Callback);
-    void GetTimeZone(const double & a_Latitude, const double & a_Longitude, Delegate<const Json::Value &> a_Callback);
-    static void CelsiusToFahrenheit( const float & a_Celsius, float & a_Fahrenheit);
+    void GetTenDayForecast(const std::string & a_Lat, const std::string & a_Long,
+		SendCallback a_Callback);
 
 private:
-
+	//! Data
     float m_Latitude;
     float m_Longitude;
     std::string m_Units;
     std::string m_Language;
-
 };
 
 #endif

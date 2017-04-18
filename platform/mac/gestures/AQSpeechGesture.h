@@ -20,7 +20,8 @@
 
 #include "gestures/SpeechGesture.h"
 #include "utils/Sound.h"
-#include "services/TextToSpeech/TextToSpeech.h"
+
+struct Voices;
 
 //! This gesture wraps DirectSound so the local windows box can speak.
 class AQSpeechGesture : public SpeechGesture

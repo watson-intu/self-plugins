@@ -18,7 +18,7 @@
 
 #include "SotaSpeechGesture.h"
 #include "sensors/AudioData.h"
-#include "services/TextToSpeech/TextToSpeech.h"
+#include "services/ITextToSpeech.h"
 #include "skills/SkillManager.h"
 #include "utils/ThreadPool.h"
 #include "utils/Sound.h"
@@ -34,14 +34,14 @@ bool SotaSpeechGesture::Start()
 	if (!SpeechGesture::Start())
 		return false;
 
-	m_pTTS = SelfInstance::GetInstance()->FindService<TextToSpeech>();
-	if (m_pTTS == NULL)
+	ITextToSpeech  * pTTS = SelfInstance::GetInstance()->FindService<ITextToSpeech>();
+	if (pTTS == NULL)
 	{
-		Log::Error("DSSPeechGesture", "TextToSpeech service is missing.");
+		Log::Error("SotaSpeechGesture", "ITextToSpeech service is missing.");
 		return false;
 	}
 
-	m_pTTS->GetVoices(DELEGATE(SotaSpeechGesture, OnVoices, Voices *, this));
+	pTTS->GetVoices(DELEGATE(SotaSpeechGesture, OnVoices, Voices *, this));
 	return true;
 }
 
@@ -76,7 +76,7 @@ void SotaSpeechGesture::StartSpeech()
 			}
 		}
 
-		TextToSpeech * pTTS = SelfInstance::GetInstance()->FindService<TextToSpeech>();
+		ITextToSpeech * pTTS = SelfInstance::GetInstance()->FindService<ITextToSpeech>();
 		if (pTTS != NULL)
 		{
 			// call the service to get the audio data for playing ..
@@ -85,7 +85,7 @@ void SotaSpeechGesture::StartSpeech()
 			bSuccess = true;
 		}
 		else
-			Log::Error("DSSpeechGesture", "No TextToSpeech service available.");
+			Log::Error("SotaSpeechGesture", "No ITextToSpeech service available.");
 
 		if (!bSuccess)
 			OnSpeechDone();

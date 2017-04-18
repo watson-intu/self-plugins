@@ -21,7 +21,6 @@
 #include "gestures/SpeechGesture.h"
 
 class Sound;
-class TextToSpeech;
 struct Voices;
 
 //! This gesture wraps DirectSound so the local windows box can speak.
@@ -31,7 +30,7 @@ public:
 	RTTI_DECL();
 
 	//! Construction
-	RemoteSpeechGesture() : m_pTTS( NULL ), m_pVoices( NULL )
+	RemoteSpeechGesture() : m_pVoices( NULL )
 	{}
 
 	//! IGesture interface
@@ -48,7 +47,6 @@ private:
 
 
 	//! Data
-	TextToSpeech *				m_pTTS;
 	Voices *					m_pVoices;			
 };
 

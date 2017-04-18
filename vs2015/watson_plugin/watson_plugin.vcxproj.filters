@@ -28,9 +28,6 @@
     <Filter Include="services\PersonalityInsights">
       <UniqueIdentifier>{ebfc4b8d-d7f1-4480-9f20-57749db7c908}</UniqueIdentifier>
     </Filter>
-    <Filter Include="services\RelationshipExtraction">
-      <UniqueIdentifier>{218c1d47-6c2a-4b0d-8930-bf55e1fbc071}</UniqueIdentifier>
-    </Filter>
     <Filter Include="services\RetreiveAndRank">
       <UniqueIdentifier>{db334daa-507a-494a-9795-e512153825d7}</UniqueIdentifier>
     </Filter>
@@ -102,9 +99,6 @@
     <ClCompile Include="..\..\watson\services\RetrieveAndRank\RetrieveAndRank.cpp">
       <Filter>services\RetreiveAndRank</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\watson\services\RelationshipExtraction\RelationshipExtraction.cpp">
-      <Filter>services\RelationshipExtraction</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\watson\services\PersonalityInsights\PersonalityInsights.cpp">
       <Filter>services\PersonalityInsights</Filter>
     </ClCompile>
@@ -131,6 +125,9 @@
     </ClCompile>
     <ClCompile Include="..\..\watson\services\NaturalLanguageClassifier\NLCProxy.cpp">
       <Filter>services\NaturalLanguageClassifier</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\WeatherCompanyData\WeatherCompanyLocation.cpp">
+      <Filter>services\WeatherCompanyData</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -179,9 +176,6 @@
     <ClInclude Include="..\..\watson\services\ToneAnalyzer\ToneAnalyzer.h">
       <Filter>services\ToneAnalyzer</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\watson\services\TextToSpeech\DataModels.h">
-      <Filter>services\TextToSpeech</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\watson\services\TextToSpeech\TextToSpeech.h">
       <Filter>services\TextToSpeech</Filter>
     </ClInclude>
@@ -193,9 +187,6 @@
     </ClInclude>
     <ClInclude Include="..\..\watson\services\RetrieveAndRank\RetrieveAndRank.h">
       <Filter>services\RetreiveAndRank</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\watson\services\RelationshipExtraction\RelationshipExtraction.h">
-      <Filter>services\RelationshipExtraction</Filter>
     </ClInclude>
     <ClInclude Include="..\..\watson\services\PersonalityInsights\DataModels.h">
       <Filter>services\PersonalityInsights</Filter>
@@ -226,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="..\..\watson\services\NaturalLanguageClassifier\NLCProxy.h">
       <Filter>services\NaturalLanguageClassifier</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\WeatherCompanyData\WeatherCompanyLocation.h">
+      <Filter>services\WeatherCompanyData</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

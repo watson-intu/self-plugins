@@ -18,7 +18,7 @@
 
 #include "WinSpeechGesture.h"
 #include "sensors/AudioData.h"
-#include "services/TextToSpeech/TextToSpeech.h"
+#include "services/ITextToSpeech.h"
 #include "skills/SkillManager.h"
 #include "utils/ThreadPool.h"
 #include "utils/Sound.h"
@@ -46,17 +46,17 @@ bool WinSpeechGesture::Start()
 	if (! SpeechGesture::Start() )
 		return false;
 
-	m_pTTS = SelfInstance::GetInstance()->FindService<TextToSpeech>();
-	if ( m_pTTS == NULL )
+	ITextToSpeech * pTTS = Config::Instance()->FindService<ITextToSpeech>();
+	if ( pTTS == NULL )
 	{
-		Log::Error( "DSSPeechGesture", "TextToSpeech service is missing." );
+		Log::Error( "DSSPeechGesture", "ITextToSpeech service is missing." );
 		return false;
 	}
 
 	if (!InitDS())
 		return false;
 
-	m_pTTS->GetVoices( DELEGATE( WinSpeechGesture, OnVoices, Voices *, this ) );
+	pTTS->GetVoices( DELEGATE( WinSpeechGesture, OnVoices, Voices *, this ) );
 	return true;
 }
 
@@ -139,7 +139,7 @@ void WinSpeechGesture::StartSpeech()
 				text = "<express-as type=\"GoodNews\">" + text + "</express-as>";
 		}
 
-		TextToSpeech * pTTS = SelfInstance::GetInstance()->FindService<TextToSpeech>();
+		ITextToSpeech * pTTS = Config::Instance()->FindService<ITextToSpeech>();
 		if (pTTS != NULL)
 		{
 			m_StreamedSound.ResetLoadFromStream();
@@ -154,7 +154,7 @@ void WinSpeechGesture::StartSpeech()
 
 		}
 		else
-			Log::Error("WinSpeechGesture", "No TextToSpeech service available.");
+			Log::Error("WinSpeechGesture", "No ITextToSpeech service available.");
 	}
 	else
 		Log::Warning("DSSPeechGesture", "Empty text passed into SpeechGesture.");

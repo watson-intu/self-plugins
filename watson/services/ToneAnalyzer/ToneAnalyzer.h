@@ -16,16 +16,12 @@
 */
 
 
-#ifndef SELF_TONEANALYZER_H
-#define SELF_TONEANALYZER_H
+#ifndef WDC_TONEANALYZER_H
+#define WDC_TONEANALYZER_H
 
-#include "utils/Delegate.h"
-#include "utils/DataCache.h"
-#include "utils/IService.h"
-#include "DataModels.h"
-#include "WDCLib.h"
+#include "services/IToneAnalyzer.h"
 
-class WDC_API ToneAnalyzer : public IService
+class ToneAnalyzer : public IToneAnalyzer
 {
 public:
     RTTI_DECL();
@@ -39,17 +35,15 @@ public:
     //! ISerializable
     virtual void Serialize(Json::Value & json);
     virtual void Deserialize(const Json::Value & json);
-
     //! IService interface
     virtual bool Start();
-
-    void GetTone( const std::string & a_Text, OnMessage a_Callback );
+	//! IToneAnalyzer interface
+    virtual void GetTone( const std::string & a_Text, OnMessage a_Callback );
 
 private:
-
+	//! Data
     std::string m_Version;
-
 };
 
 
-#endif //SELF_TONEANALYZER_H
+#endif 
