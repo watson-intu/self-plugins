@@ -19,7 +19,7 @@
 
 class Interact;
 
-class SELF_API InteractProxy : public IQuestionAnswerProxy
+class InteractProxy : public IQuestionAnswerProxy
 {
 public:
 	RTTI_DECL();

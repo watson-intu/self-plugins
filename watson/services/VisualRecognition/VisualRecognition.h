@@ -21,22 +21,13 @@
 #include "utils/Delegate.h"
 #include "utils/DataCache.h"
 #include "services/IVisualRecognition.h"
-#include "WDCLib.h"		// include last always
 
-class WDC_API VisualRecognition : public IVisualRecognition
+class VisualRecognition : public IVisualRecognition
 {
 public:
 	RTTI_DECL();
 
 	//! Types
-	typedef Delegate<const Json::Value &>	OnGetClassifier;
-	typedef Delegate<const Json::Value &>	OnCreateClassifier;
-	typedef Delegate<const Json::Value &>	OnClassifyImage;
-	typedef Delegate<IService::Request *>	OnDeleteClassifier;
-	typedef Delegate<const Json::Value &>	OnDetectFaces;
-	typedef Delegate<const Json::Value &>   OnIdentifyText;
-	typedef Delegate<const Json::Value &>   OnClassifierTrained;
-
 	typedef std::map< std::string, std::string >	ZipMap;
 
 	//! Construction 

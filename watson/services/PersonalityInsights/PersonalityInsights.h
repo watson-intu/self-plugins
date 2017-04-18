@@ -16,16 +16,15 @@
 */
 
 
-#ifndef SELF_PROFILE_H
-#define SELF_PROFILE_H
+#ifndef WDC_PERSONALITY_INSIGHTS_H
+#define WDC_PERSONALITY_INSIGHTS_H
 
 #include "utils/Delegate.h"
 #include "utils/DataCache.h"
 #include "utils/IService.h"
 #include "DataModels.h"
-#include "WDCLib.h"
 
-class WDC_API PersonalityInsights : public IService
+class PersonalityInsights : public IService
 {
 public:
     RTTI_DECL();
@@ -50,9 +49,8 @@ public:
     void GetProfile( const std::string & a_Text, OnMessage a_Callback );
 
 private:
-
+	//! Data
     std::string m_Version;
-
 };
 
 
