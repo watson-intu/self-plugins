@@ -16,6 +16,8 @@
 */
 
 #include "Alchemy.h"
+#include "AlchemyNews.h"
+#include "utils/Config.h"
 
 REG_SERIALIZABLE( Alchemy );
 RTTI_IMPL( Alchemy, ILanguageParser );
@@ -49,6 +51,10 @@ bool Alchemy::Start()
 	}
 	if (m_pConfig->m_User.size() == 0)
 		Log::Warning("Alchemy", "API-Key expected in user field.");
+
+	// add the AlchemyNews service if no INews service is available.
+	if ( Config::Instance()->FindService<INews>() == NULL )
+		Config::Instance()->AddService( new AlchemyNews() );
 
 	return true;
 }

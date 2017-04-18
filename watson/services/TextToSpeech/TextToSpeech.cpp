@@ -19,30 +19,28 @@
 #include "utils/StringHash.h"
 
 REG_SERIALIZABLE( TextToSpeech );
-RTTI_IMPL( Voice, ISerializable );
-RTTI_IMPL( Voices, ISerializable );
-RTTI_IMPL( TextToSpeech, IService );
+RTTI_IMPL( TextToSpeech, ITextToSpeech );
 
-TextToSpeech::TextToSpeech() : IService( "TextToSpeechV1" ),
+TextToSpeech::TextToSpeech() : ITextToSpeech( "TextToSpeechV1" ),
 	m_Voice( "en-GB_KateVoice" )
 {}	
 
 void TextToSpeech::Serialize(Json::Value & json)
 {
-	IService::Serialize(json);
+	ITextToSpeech::Serialize(json);
 	json["m_Voice"] = m_Voice;
 }
 
 void TextToSpeech::Deserialize(const Json::Value & json)
 {
-	IService::Deserialize(json);
+	ITextToSpeech::Deserialize(json);
 	if (json.isMember("m_Voice"))
 		m_Voice = json["m_Voice"].asString();
 }
 
 bool TextToSpeech::Start()
 {
-	if (! IService::Start() )
+	if (! ITextToSpeech::Start() )
 		return false;
 
 	if (! StringUtil::EndsWith( m_pConfig->m_URL, "text-to-speech/api" ) )
@@ -83,6 +81,11 @@ void TextToSpeech::ServiceStatusChecker::OnCheckService(Voices* a_pVoices)
 void TextToSpeech::GetVoices( GetVoicesCallback callback )
 {
 	new RequestObj<Voices>( this, "/v1/voices", "GET", NULL_HEADERS, EMPTY_STRING, callback );
+}
+
+void TextToSpeech::SetVoice( const std::string & a_Voice )
+{
+	m_Voice = a_Voice;
 }
 
 class RequestSound : public IService::RequestData

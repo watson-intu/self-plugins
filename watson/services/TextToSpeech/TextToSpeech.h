@@ -18,22 +18,13 @@
 #ifndef WDC_TEXT_TO_SPEECH_H
 #define WDC_TEXT_TO_SPEECH_H
 
-#include "utils/IService.h"
+#include "services/ITextToSpeech.h"
 #include "utils/Sound.h"
-#include "utils/DataCache.h"
-#include "DataModels.h"
-#include "WDCLib.h"
 
-class WDC_API TextToSpeech : public IService
+class TextToSpeech : public ITextToSpeech
 {
 public:
 	RTTI_DECL();
-
-	//! Types
-	typedef Delegate<Sound *>				ToSoundCallback;
-	typedef Delegate<Voices *>				GetVoicesCallback;
-	typedef Delegate<Words *>				WordsCallback;
-	typedef Delegate<std::string *>			StreamCallback;
 
 	//! Construction
 	TextToSpeech();
@@ -46,41 +37,13 @@ public:
 	virtual bool Start();
 	virtual void GetServiceStatus( IService::ServiceStatusCallback a_Callback );
 
-	//! Accessors
-	bool IsCacheEnabled() const 
-	{
-		return m_bCacheEnabled;
-	}
-	const std::string & GetVoice() const
-	{
-		return m_Voice;
-	}
-
-	//! Mutators
-	void SetCacheEnabled( bool a_bEnabled )
-	{
-		m_bCacheEnabled = a_bEnabled;
-	}
-	void SetVoice( const std::string & a_Voice )
-	{
-		m_Voice = a_Voice;
-	}
-
-	//! Request all the available voices to use with TextToSpeech, the provided callback
-	//! will be invoked with the results.
-	void GetVoices( GetVoicesCallback a_Callback );
-	//! Request the audio data in the specified format for the provided text.
-	void Synthesis( const std::string & a_Text, AudioFormatType a_eFormat, 
+	//! ITextToSpeech interface
+	virtual void GetVoices( GetVoicesCallback a_Callback );
+	virtual void SetVoice( const std::string & a_Voice );
+	virtual void Synthesis( const std::string & a_Text, AudioFormatType a_eFormat, 
 		Delegate<const std::string &> a_Callback, bool a_IsStreaming = false );
-	//! Request a conversion of text to speech, note if the speech is in the local cache
-	//! then the callback will be invoked and NULL will be returned.
-	void ToSound( const std::string & a_Text, ToSoundCallback a_Callback );
-	//! Request a conversion of text to speech with a web-socket, invoking the callbacks 
-	//! as the data is received.
-	//! a_Callback will be invoked with the received waveform data in chunks. This callback
-	//! is invoked with NULL when the stream is closed or disconnected.
-	//! a_WordsCallback if provided will be invoked with word information as received.
-	void ToSound( const std::string & a_Text, StreamCallback a_Callback, 
+	virtual void ToSound( const std::string & a_Text, ToSoundCallback a_Callback );
+	virtual void ToSound( const std::string & a_Text, StreamCallback a_Callback, 
 		WordsCallback a_WordsCallback = WordsCallback() );
 
 	//! Static

@@ -18,22 +18,20 @@
 #include "ToneAnalyzer.h"
 
 REG_SERIALIZABLE( ToneAnalyzer );
-RTTI_IMPL( DocumentTones, ISerializable );
-RTTI_IMPL( ToneAnalyzer, IService );
+RTTI_IMPL( ToneAnalyzer, IToneAnalyzer );
 
-ToneAnalyzer::ToneAnalyzer() : IService("ToneAnalyzerV1"), m_Version("2016-05-19")
+ToneAnalyzer::ToneAnalyzer() : IToneAnalyzer("ToneAnalyzerV1"), m_Version("2016-05-19")
 {}
 
 void ToneAnalyzer::Serialize(Json::Value & json)
 {
-    IService::Serialize(json);
+	IToneAnalyzer::Serialize(json);
     json["m_Version"] = m_Version;
 }
 
 void ToneAnalyzer::Deserialize(const Json::Value & json)
 {
-    IService::Deserialize(json);
-
+	IToneAnalyzer::Deserialize(json);
     if(json.isMember("m_Version"))
         m_Version = json["m_Version"].asString();
 }
@@ -41,7 +39,7 @@ void ToneAnalyzer::Deserialize(const Json::Value & json)
 //! IService interface
 bool ToneAnalyzer::Start()
 {
-    if (! IService::Start() )
+    if (! IToneAnalyzer::Start() )
         return false;
 
     if (! StringUtil::EndsWith( m_pConfig->m_URL, "tone-analyzer/api" ) )
@@ -57,9 +55,12 @@ void ToneAnalyzer::GetTone( const std::string & a_Text, OnMessage a_Callback )
 {
     Headers headers;
     headers["Content-Type"] = "application/json";
+
     std::string params = "/v3/tone?version=" + m_Version;
+
     Json::Value req;
     req["text"] = a_Text;
+
     new RequestObj<DocumentTones>( this, params, "POST", headers, req.toStyledString(),  a_Callback );
 }
 
