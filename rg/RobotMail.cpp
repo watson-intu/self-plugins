@@ -54,5 +54,4 @@ public:
 
 RTTI_IMPL( RobotMail, IMail );
 REG_SERIALIZABLE( RobotMail );
-REG_OVERRIDE_SERIALIZABLE( IMail, RobotMail );
 

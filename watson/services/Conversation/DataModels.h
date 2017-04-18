@@ -19,9 +19,8 @@
 #define WDC_CONVERSATION_MODELS_H
 
 #include "utils/ISerializable.h"
-#include "WDCLib.h"
 
-struct WDC_API ConversationIntent : public ISerializable
+struct ConversationIntent : public ISerializable
 {
     std::string m_Intent;
     float m_fConfidence;
@@ -41,7 +40,7 @@ struct WDC_API ConversationIntent : public ISerializable
     }
 };
 
-struct WDC_API ConversationEntities : public ISerializable
+struct ConversationEntities : public ISerializable
 {
     std::string m_Entity; // Example: "joint" or "direction"
     std::string m_Value; // Example: "arm" or "left"
@@ -62,7 +61,7 @@ struct WDC_API ConversationEntities : public ISerializable
 };
 
 
-struct WDC_API ConversationResponse : public ISerializable
+struct ConversationResponse : public ISerializable
 {
     RTTI_DECL();
 

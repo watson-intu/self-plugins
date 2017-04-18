@@ -22,9 +22,8 @@
 #include "utils/DataCache.h"
 #include "utils/IService.h"
 #include "DataModels.h"
-#include "WDCLib.h"		// include last always
 
-class WDC_API NaturalLanguageClassifier : public IService
+class NaturalLanguageClassifier : public IService
 {
 public:
 	RTTI_DECL();

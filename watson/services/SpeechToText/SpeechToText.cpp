@@ -22,6 +22,7 @@
 #include "utils/TimerPool.h"
 #include "utils/StringUtil.h"
 #include "utils/WatsonException.h"
+#include "utils/Time.h"
 
 const float WS_KEEP_ALIVE_TIME = 10.0f;
 const float LISTEN_TIMEOUT = 60.0f;
@@ -30,17 +31,10 @@ const int MAX_RECOGNIZE_CLIP_SIZE = 4 * (1024 * 1024);
 const float RECONNECT_TIME = 1.0f;
 
 REG_SERIALIZABLE( SpeechToText );
-RTTI_IMPL( SpeechToText, IService );
-RTTI_IMPL( SpeechModel, ISerializable );
-RTTI_IMPL( SpeechModels, ISerializable );
-RTTI_IMPL( WordConfidence, ISerializable );
-RTTI_IMPL( TimeStamp, ISerializable );
-RTTI_IMPL( SpeechAlt, ISerializable );
-RTTI_IMPL( SpeechResult, ISerializable );
-RTTI_IMPL( RecognizeResults, ISerializable );
+RTTI_IMPL( SpeechToText, ISpeechToText );
 
 
-SpeechToText::SpeechToText() : IService( "SpeechToTextV1" ),
+SpeechToText::SpeechToText() : ISpeechToText( "SpeechToTextV1" ),
 	m_IsListening( false ),
 	m_MaxAlternatives( 1 ),
 	m_Timestamps( false ),
@@ -60,7 +54,7 @@ SpeechToText::~SpeechToText()
 
 void SpeechToText::Serialize(Json::Value & json)
 {
-	IService::Serialize( json );
+	ISpeechToText::Serialize( json );
 
 	SerializeVector( "m_Models", m_Models, json );
 	json["m_MaxAlternatives"] = m_MaxAlternatives;
@@ -78,7 +72,7 @@ void SpeechToText::Serialize(Json::Value & json)
 
 void SpeechToText::Deserialize(const Json::Value & json)
 {
-	IService::Deserialize(json);
+	ISpeechToText::Deserialize(json);
 
 	DeserializeVector( "m_Models", json, m_Models );
 	if (json.isMember("m_MaxAlternatives"))
@@ -110,7 +104,7 @@ void SpeechToText::Deserialize(const Json::Value & json)
 
 bool SpeechToText::Start()
 {
-	if (! IService::Start() )
+	if (! ISpeechToText::Start() )
 		return false;
 
 	if (! StringUtil::EndsWith( m_pConfig->m_URL, "speech-to-text/api" ) )
@@ -125,7 +119,7 @@ bool SpeechToText::Start()
 bool SpeechToText::Stop()
 {
 	StopListening();
-	return IService::Stop();
+	return ISpeechToText::Stop();
 }
 
 //! Check the status of the service and call the passed function with the result

@@ -18,36 +18,28 @@
 #include "Alchemy.h"
 
 REG_SERIALIZABLE( Alchemy );
-RTTI_IMPL( Alchemy, IService );
+RTTI_IMPL( Alchemy, ILanguageParser );
 
 
-Alchemy::Alchemy() : IService("AlchemyV1", AUTH_USER )
+Alchemy::Alchemy() : ILanguageParser("AlchemyV1", AUTH_USER )
 {}
 
 //! ISerializable
 void Alchemy::Serialize(Json::Value & json)
 {
-	IService::Serialize(json);
-	SerializeVector("m_ReturnParameters", m_ReturnParameters, json);
+	ILanguageParser::Serialize(json);
 }
 
 void Alchemy::Deserialize(const Json::Value & json)
 {
-	IService::Deserialize(json);
-	DeserializeVector("m_ReturnParameters", json, m_ReturnParameters);
+	ILanguageParser::Deserialize(json);
 
-	if (m_ReturnParameters.size() == 0)
-	{
-		m_ReturnParameters.push_back("enriched.url.title");
-		m_ReturnParameters.push_back("enriched.url.url");
-		m_ReturnParameters.push_back("enriched.url.text");
-	}
 }
 
-//! IService interface
+//! IAlchemy interface
 bool Alchemy::Start()
 {
-	if (!IService::Start())
+	if (!ILanguageParser::Start())
 		return false;
 
 	if (!StringUtil::EndsWith(m_pConfig->m_URL, "calls"))
@@ -73,8 +65,8 @@ void Alchemy::GetServiceStatus( ServiceStatusCallback a_Callback )
 Alchemy::ServiceStatusChecker::ServiceStatusChecker(Alchemy* a_pAlchemyService, ServiceStatusCallback a_Callback)
 		: m_pAlchemyService(a_pAlchemyService), m_Callback(a_Callback)
 {
-	m_pAlchemyService->GetChunkTags("This is a test",
-	                                DELEGATE(ServiceStatusChecker, OnCheckService, const Json::Value &, this));
+	m_pAlchemyService->GetPosTags("This is a test",
+	    DELEGATE(ServiceStatusChecker, OnCheckService, const Json::Value &, this));
 }
 
 //! Callback function invoked when service status is checked
@@ -86,18 +78,6 @@ void Alchemy::ServiceStatusChecker::OnCheckService(const Json::Value & parsedRes
 		m_Callback(ServiceStatus(m_pAlchemyService->m_ServiceId, success));
 	}
 	delete this;
-}
-
-void Alchemy::GetChunkTags(const std::string & a_Text,
-	Delegate<const Json::Value &> a_Callback )
-{
-	std::string parameters = "/text/TextGetChunkTags";
-	parameters += "?apikey=" + m_pConfig->m_User;
-	parameters += "&outputMode=json";
-	parameters += "&text=" + StringUtil::UrlEscape( a_Text );
-
-	new RequestJson(this, parameters, "GET", NULL_HEADERS, EMPTY_STRING, a_Callback,
-		new CacheRequest( "GetChunkTags", StringHash::DJB(a_Text.c_str()) ) );
 }
 
 void Alchemy::GetPosTags(const std::string & a_Text,
@@ -121,27 +101,5 @@ void Alchemy::GetEntities(const std::string & a_Text, Delegate<const Json::Value
 
 	new RequestJson(this, parameters, "GET", NULL_HEADERS, EMPTY_STRING, a_Callback,
 		new CacheRequest( "TextGetRankedNamedEntities", StringHash::DJB(a_Text.c_str()) ) );
-}
-
-void Alchemy::GetNews(const std::string & a_Subject, time_t a_StartDate, time_t a_EndDate, int a_NumberOfArticles,
-	Delegate<const Json::Value &> a_Callback)
-{
-	std::string searchCriteria;
-	for (size_t i = 0; i < m_ReturnParameters.size(); ++i)
-		searchCriteria += m_ReturnParameters[i] + ",";
-	
-	searchCriteria = searchCriteria.substr(0, searchCriteria.size() - 1);
-
-	std::string parameters = "/data/GetNews";
-	parameters += "?apikey=" + m_pConfig->m_User;
-	parameters += "&return=" + searchCriteria;
-	parameters += "&start=" + StringUtil::Format("%u", a_StartDate);
-	parameters += "&end=" + StringUtil::Format("%u", a_EndDate);
-	parameters += "&q.enriched.url.enrichedTitle.entities.entity=|";
-	parameters += "text=" + StringUtil::UrlEscape(a_Subject);
-	parameters += ",type=company|&count=" + StringUtil::Format("%d", a_NumberOfArticles);
-	parameters += "&outputMode=json";
-
-	new RequestJson(this, parameters, "GET", NULL_HEADERS, EMPTY_STRING, a_Callback);
 }
 

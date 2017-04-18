@@ -21,58 +21,49 @@
 #include "utils/Delegate.h"
 #include "utils/DataCache.h"
 #include "utils/IService.h"
-#include "DataModels.h"
-#include "WDCLib.h"		// include last always
+#include "services/ILanguageTranslation.h"
 
-class WDC_API LanguageTranslator : public IService
+class LanguageTranslator : public ILanguageTranslation
 {
 public:
+	RTTI_DECL();
 
-    RTTI_DECL();
+	//! Construction
+	LanguageTranslator() : ILanguageTranslation("LanguageTranslatorV1")
+	{}
 
-    //! Types
-    typedef Delegate<Translations *>		OnTranslation;
-    typedef Delegate<Languages *>			OnLanguage;
-    typedef Delegate<IdentifiedLanguages *>	OnIdentifiedLanguages;
+	//! ISerializable
+	virtual void Serialize(Json::Value & json);
+	virtual void Deserialize(const Json::Value & json);
 
-    //! Construction
-    LanguageTranslator();
+	//! IService interface
+	virtual bool Start();
+	virtual void GetServiceStatus(ServiceStatusCallback a_Callback);
 
-    //! ISerializable
-    virtual void Serialize(Json::Value & json);
-    virtual void Deserialize(const Json::Value & json);
-
-    //! IService interface
-    virtual bool Start();
-    virtual void GetServiceStatus( ServiceStatusCallback a_Callback );
-
-    //! Translates input text from the source language to the target language.
-    void Translation(const std::string & a_Source,
-                     const std::string & a_Target,
-                     const std::string & a_Text,
-                     OnTranslation a_Callback);
-
-    //! Return the list of languages it can detect.
-    void IdentifiableLanguages(OnLanguage a_Callback);
-
-    //! Identify the language in which a text is written.
-    void Identify(const std::string & a_Text,
-                  OnIdentifiedLanguages a_Callback);
+	//! ILanguageTranslation interface
+	void Translation(const std::string & a_Source,
+		const std::string & a_Target,
+		const std::string & a_Text,
+		OnTranslation a_Callback);
+	void IdentifiableLanguages(OnLanguage a_Callback);
+	void Identify(const std::string & a_Text,
+		OnIdentifiedLanguages a_Callback);
 
 
 private:
 
-    //! This class is responsible for checking whether the service is available or not
-    class ServiceStatusChecker {
-        public:
-            ServiceStatusChecker(LanguageTranslator *a_pLTService, ServiceStatusCallback a_Callback);
+	//! This class is responsible for checking whether the service is available or not
+	class ServiceStatusChecker
+	{
+	public:
+		ServiceStatusChecker(LanguageTranslator *a_pLTService, ServiceStatusCallback a_Callback);
 
-        private:
-            LanguageTranslator *m_pLTService;
-            IService::ServiceStatusCallback m_Callback;
+	private:
+		LanguageTranslator *m_pLTService;
+		IService::ServiceStatusCallback m_Callback;
 
-            void OnCheckService(Languages *a_pLanguages);
-    };
+		void OnCheckService(Languages *a_pLanguages);
+	};
 };
 
 
