@@ -15,10 +15,9 @@
 #define SELF_INTERACT_H
 
 #include "utils/IService.h"
-#include "SelfLib.h"
 
 //! Service implementation for the Interact service (Project Sagan)
-class SELF_API Interact : public IService
+class Interact : public IService
 {
 public:
 	RTTI_DECL();

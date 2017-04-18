@@ -15,13 +15,12 @@
 *
 */
 
-#ifndef WDC_PROFILE_DATAMODELS_H
-#define WDC_PROFILE_DATAMODELS_H
+#ifndef WDC_PERSONALITY_INSIGHTS_MODELS_H
+#define WDC_PERSONALITY_INSIGHTS_MODELS_H
 
 #include "utils/ISerializable.h"
-#include "WDCLib.h"
 
-struct WDC_API Trait : public ISerializable
+struct Trait : public ISerializable
 {
     std::string m_TraitId;
     std::string m_Name;
@@ -53,7 +52,7 @@ struct WDC_API Trait : public ISerializable
     }
 };
 
-struct WDC_API ConsumptionPreference : public ISerializable
+struct ConsumptionPreference : public ISerializable
 {
     std::string m_ConsumptionPreferenceId;
     std::string m_Name;
@@ -77,7 +76,7 @@ struct WDC_API ConsumptionPreference : public ISerializable
     }
 };
 
-struct WDC_API ConsumptionPreferenceCategory : public ISerializable
+struct ConsumptionPreferenceCategory : public ISerializable
 {
     std::string m_ConsumptionPreferenceCategoryId;
     std::string m_Name;
@@ -101,7 +100,7 @@ struct WDC_API ConsumptionPreferenceCategory : public ISerializable
     }
 };
 
-struct WDC_API Profile : public ISerializable
+struct Profile : public ISerializable
 {
     RTTI_DECL();
 
