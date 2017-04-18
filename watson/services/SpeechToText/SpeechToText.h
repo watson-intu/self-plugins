@@ -20,15 +20,10 @@
 
 #include <stdint.h>
 
-#include "DataModels.h"
-#include "utils/IService.h"
-#include "utils/Time.h"
-#include "utils/TimerPool.h"
-#include "utils/Sound.h"
 #include "utils/IWebClient.h"
-#include "WDCLib.h"
+#include "services/ISpeechToText.h"
 
-class WDC_API SpeechToText : public IService
+class SpeechToText : public ISpeechToText
 {
 public:
 	RTTI_DECL();
@@ -52,39 +47,27 @@ public:
 	virtual bool Stop();
 	virtual void GetServiceStatus( ServiceStatusCallback a_Callback );
 
-	//! Accessors
-	bool IsListening() const;
-	bool IsConnected() const;
+	//! ISpeechToText interface
+	virtual bool IsListening() const;
+	virtual bool IsConnected() const;
 
-	//! Mutators
-	void RefreshConnections();
-	void SetOnError( ErrorEvent a_OnError );
-	void SetRecognizeModels( const ModelList & a_Models );
-	void SetEnableTimestamps( bool a_bEnable );
-	void SetEnableWordConfidence( bool a_bEnable );
-	void SetEnableContinousRecognition( bool a_bEnable );
-	void SetEnableInteriumResults( bool a_bEnable );
-	void SetEnableDetectSilence( bool a_bEnable, float a_fThreshold = 0.03f );
-	bool SetLearningOptOut(bool a_Flag);
-
-	//! Start listening mode, the user must provide audio data by calling the OnListen() function
-	//! on a regular basis. The user is responsible for the object returned by all the callbacks.
-	bool StartListening(OnRecognize callback);
-	//! This should be invoked often with new audio data from the microphone or other audio input device.
-	void OnListen(const SpeechAudioData & clip);
-	//! This should be invoked to stop listening.
-	bool StopListening();
-	//! This can be invoked when the network is lost but before this class has detected
-	//! we have been disconnected.
-	void Disconnected();
-
-	//! Request all speech models from the service. The user is responsible for deleting the object
-	//! returned by the callback.
-	void GetModels(OnGetModels callback);
-	//! Recognize all speech in the given audio clip, invokes the callback.
-	void Recognize(const SpeechAudioData & clip, OnRecognize callback, 
+	virtual void RefreshConnections();
+	virtual void SetOnError( ErrorEvent a_OnError );
+	virtual void SetRecognizeModels( const ModelList & a_Models );
+	virtual void SetEnableTimestamps( bool a_bEnable );
+	virtual void SetEnableWordConfidence( bool a_bEnable );
+	virtual void SetEnableContinousRecognition( bool a_bEnable );
+	virtual void SetEnableInteriumResults( bool a_bEnable );
+	virtual void SetEnableDetectSilence( bool a_bEnable, float a_fThreshold = 0.03f );
+	virtual bool SetLearningOptOut(bool a_Flag);
+	virtual bool StartListening(OnRecognize callback);
+	virtual void OnListen(const SpeechAudioData & clip);
+	virtual bool StopListening();
+	virtual void Disconnected();
+	virtual void GetModels(OnGetModels callback);
+	virtual void Recognize(const SpeechAudioData & clip, OnRecognize callback, 
 		const std::string & a_RecognizeModel = "en-US_BroadbandModel");
-	void Recognize(const Sound & clip, OnRecognize callback, 
+	virtual void Recognize(const Sound & clip, OnRecognize callback, 
 		const std::string & a_RecognizeModel = "en-US_BroadbandModel");
 
 private:

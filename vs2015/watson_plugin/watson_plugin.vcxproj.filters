@@ -49,6 +49,12 @@
     <Filter Include="services\WeatherCompanyData">
       <UniqueIdentifier>{945d0b6c-00a2-4fbd-ae3d-8be387efcf7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="services\DeepQA">
+      <UniqueIdentifier>{463c2895-528a-487e-9d63-99ed5f57d82c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="services\Interact">
+      <UniqueIdentifier>{16f7289f-a11b-42d2-acd2-8d05c6903bef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\watson\services\WatsonAvatar.cpp">
@@ -102,6 +108,30 @@
     <ClCompile Include="..\..\watson\services\PersonalityInsights\PersonalityInsights.cpp">
       <Filter>services\PersonalityInsights</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\watson\services\Alchemy\AlchemyNews.cpp">
+      <Filter>services\Alchemy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\DeepQA\DeepQA.cpp">
+      <Filter>services\DeepQA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\DeepQA\DeepQAProxy.cpp">
+      <Filter>services\DeepQA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\Interact\Interact.cpp">
+      <Filter>services\Interact</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\Interact\InteractProxy.cpp">
+      <Filter>services\Interact</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\RetrieveAndRank\RetrieveAndRankProxy.cpp">
+      <Filter>services\RetreiveAndRank</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\Conversation\ConversationProxy.cpp">
+      <Filter>services\Conversation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\watson\services\NaturalLanguageClassifier\NLCProxy.cpp">
+      <Filter>services\NaturalLanguageClassifier</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\watson\services\WatsonAvatar.h">
@@ -124,9 +154,6 @@
     </ClInclude>
     <ClInclude Include="..\..\watson\services\Conversation\DataModels.h">
       <Filter>services\Conversation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\watson\services\LanguageTranslator\DataModels.h">
-      <Filter>services\LanguageTranslator</Filter>
     </ClInclude>
     <ClInclude Include="..\..\watson\services\LanguageTranslator\LanguageTranslator.h">
       <Filter>services\LanguageTranslator</Filter>
@@ -158,9 +185,6 @@
     <ClInclude Include="..\..\watson\services\TextToSpeech\TextToSpeech.h">
       <Filter>services\TextToSpeech</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\watson\services\SpeechToText\DataModels.h">
-      <Filter>services\SpeechToText</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\watson\services\SpeechToText\SpeechToText.h">
       <Filter>services\SpeechToText</Filter>
     </ClInclude>
@@ -178,6 +202,30 @@
     </ClInclude>
     <ClInclude Include="..\..\watson\services\PersonalityInsights\PersonalityInsights.h">
       <Filter>services\PersonalityInsights</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\Alchemy\AlchemyNews.h">
+      <Filter>services\Alchemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\DeepQA\DeepQA.h">
+      <Filter>services\DeepQA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\DeepQA\DeepQAProxy.h">
+      <Filter>services\DeepQA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\Interact\Interact.h">
+      <Filter>services\Interact</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\Interact\InteractProxy.h">
+      <Filter>services\Interact</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\RetrieveAndRank\RetrieveAndRankProxy.h">
+      <Filter>services\RetreiveAndRank</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\Conversation\ConversationProxy.h">
+      <Filter>services\Conversation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\watson\services\NaturalLanguageClassifier\NLCProxy.h">
+      <Filter>services\NaturalLanguageClassifier</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

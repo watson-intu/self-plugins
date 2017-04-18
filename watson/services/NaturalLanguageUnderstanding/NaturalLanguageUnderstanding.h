@@ -15,47 +15,41 @@
 *
 */
 
-#ifndef SELF_NATURALLANGUAGEUNDERSTANDING_H
-#define SELF_NATURALLANGUAGEUNDERSTANDING_H
+#ifndef WDC_NATURALLANGUAGEUNDERSTANDING_H
+#define WDC_NATURALLANGUAGEUNDERSTANDING_H
 
-#include "utils/Delegate.h"
-#include "utils/DataCache.h"
-#include "utils/IService.h"
-#include "WDCLib.h"		// include last always
+#include "services/ILanguageParser.h"
 
-class WDC_API NaturalLanguageUnderstanding : public IService
+class NaturalLanguageUnderstanding : public ILanguageParser
 {
 public:
-RTTI_DECL();
+	RTTI_DECL();
 
-//! Types
-typedef Delegate<const Json::Value &>	OnClassifyImage;
-typedef Delegate<const Json::Value &>	OnDetectFaces;
+	//! Types
+	typedef Delegate<const Json::Value &>	OnClassifyImage;
+	typedef Delegate<const Json::Value &>	OnDetectFaces;
 
-//! Construction
-NaturalLanguageUnderstanding();
+	//! Construction
+	NaturalLanguageUnderstanding();
 
-//! ISerializable
-virtual void Serialize(Json::Value & json);
-virtual void Deserialize(const Json::Value & json);
+	//! ISerializable
+	virtual void Serialize(Json::Value & json);
+	virtual void Deserialize(const Json::Value & json);
 
-//! IService interface
-virtual bool Start();
+	//! IService interface
+	virtual bool Start();
 
-//! Parse the provided text and returns the tags for the parts of the sentence.
-void GetEntities(const std::string & a_Text,
-                 Delegate<const Json::Value &> a_Callback);
-bool FindCity(const Json::Value & json, std::string & a_City);
+	//! ILanguageParser
+	virtual void GetPosTags(const std::string & a_Text, 
+		Delegate<const Json::Value &> a_Callback );
+	virtual void GetEntities(const std::string & a_Text,
+		Delegate<const Json::Value &> a_Callback);
 
 
 private:
-
-//!Data
-std::vector<std::string>	m_ReturnParameters;
-std::string		m_APIVersion;
-std::string		m_Language;
-
-
+	//!Data
+	std::string		m_APIVersion;
+	std::string		m_Language;
 };
 
-#endif //SELF_NATURALLANGUAGEUNDERSTANDING_H
+#endif //WDC_NATURALLANGUAGEUNDERSTANDING_H

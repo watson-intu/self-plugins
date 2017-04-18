@@ -15,13 +15,12 @@
 *
 */
 
-#ifndef SELF_DATAMODELS_H
-#define SELF_DATAMODELS_H
+#ifndef WDC_RETRIEVEANDRANK_DATAMODELS_H
+#define WDC_RETRIEVEANDRANK_DATAMODELS_H
 
 #include "utils/ISerializable.h"
-#include "WDCLib.h"
 
-struct WDC_API Documents : public ISerializable
+struct Documents : public ISerializable
 {
 	Documents() : m_TextSize(0), m_Sequence(0)
 	{}
@@ -77,7 +76,7 @@ struct WDC_API Documents : public ISerializable
     }
 };
 
-struct WDC_API RetrieveAndRankResponse : public ISerializable
+struct RetrieveAndRankResponse : public ISerializable
 {
     RTTI_DECL();
 
@@ -118,4 +117,4 @@ struct WDC_API RetrieveAndRankResponse : public ISerializable
 
 };
 
-#endif //SELF_DATAMODELS_H
+#endif //WDC_RETRIEVEANDRANK_DATAMODELS_H

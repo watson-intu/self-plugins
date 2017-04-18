@@ -18,19 +18,12 @@
 #ifndef WDC_ALCHEMY_H
 #define WDC_ALCHEMY_H
 
-#include "utils/Delegate.h"
-#include "utils/DataCache.h"
-#include "utils/IService.h"
-#include "WDCLib.h"		// include last always
+#include "services/ILanguageParser.h"
 
-class WDC_API Alchemy : public IService
+class Alchemy : public ILanguageParser
 {
 public:
 	RTTI_DECL();
-
-	//! Types
-	typedef Delegate<const Json::Value &>	OnClassifyImage;
-	typedef Delegate<const Json::Value &>	OnDetectFaces;
 
 	//! Construction 
 	Alchemy();
@@ -43,20 +36,13 @@ public:
 	virtual bool Start();
 	virtual void GetServiceStatus(ServiceStatusCallback a_Callback);
 
-	//! Parse the provided text and returns the tags for the parts of the sentence.
-	void GetChunkTags(const std::string & a_Text,
+	//! IAlchemy interface
+	virtual void GetPosTags(const std::string & a_Text,
 		Delegate<const Json::Value &> a_Callback );
-	void GetPosTags(const std::string & a_Text,
-		Delegate<const Json::Value &> a_Callback );
-	void GetEntities(const std::string & a_Text,
-		Delegate<const Json::Value &> a_Callback);
-	void GetNews(const std::string & a_Subject, time_t a_StartDate, time_t a_EndDate, int a_NumberOfArticles,
+	virtual void GetEntities(const std::string & a_Text,
 		Delegate<const Json::Value &> a_Callback);
 
 private:
-
-	//!Data
-	std::vector<std::string>	m_ReturnParameters;
 
 	//! This class is responsible for checking whether the service is available or not
 	class ServiceStatusChecker

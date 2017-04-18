@@ -23,9 +23,8 @@
 #include "utils/DataCache.h"
 #include "utils/IService.h"
 #include "DataModels.h"
-#include "WDCLib.h"
 
-class WDC_API Conversation : public IService
+class Conversation : public IService
 {
 public:
     RTTI_DECL();

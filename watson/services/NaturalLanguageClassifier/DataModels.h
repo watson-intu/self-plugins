@@ -19,9 +19,8 @@
 #define WDC_NLC_MODELS_H
 
 #include "utils/ISerializable.h"
-#include "WDCLib.h"
 
-struct WDC_API Classifier : public ISerializable
+struct Classifier : public ISerializable
 {
 	RTTI_DECL();
 
@@ -63,7 +62,7 @@ struct WDC_API Classifier : public ISerializable
 	}
 };
 
-struct WDC_API Classifiers : public ISerializable
+struct Classifiers : public ISerializable
 {
 	RTTI_DECL();
 
@@ -80,7 +79,7 @@ struct WDC_API Classifiers : public ISerializable
 	}
 };
 
-struct WDC_API Class : public ISerializable
+struct Class : public ISerializable
 {
 	RTTI_DECL();
 
@@ -102,7 +101,7 @@ struct WDC_API Class : public ISerializable
 	}
 };
 
-struct WDC_API ClassifyResult : public ISerializable
+struct ClassifyResult : public ISerializable
 {
 	RTTI_DECL();
 

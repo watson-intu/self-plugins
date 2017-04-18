@@ -16,16 +16,15 @@
 */
 
 
-#ifndef SELF_RETRIEVEANDRANK_H
-#define SELF_RETRIEVEANDRANK_H
+#ifndef WDC_RETRIEVEANDRANK_H
+#define WDC_RETRIEVEANDRANK_H
 
 #include "utils/Delegate.h"
 #include "utils/DataCache.h"
 #include "utils/IService.h"
 #include "DataModels.h"
-#include "WDCLib.h"
 
-class WDC_API RetrieveAndRank : public IService
+class RetrieveAndRank : public IService
 {
 public:
     RTTI_DECL();
@@ -57,10 +56,9 @@ public:
 		const std::string & a_Source, OnMessage a_Callback);
 
 private:
-
+	//! Data
     std::string m_SolrId;
     std::string m_WorkspaceId;
-
 };
 
 

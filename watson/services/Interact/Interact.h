@@ -11,39 +11,31 @@
 /*                                                                   */
 /* ***************************************************************** */
 
-#include "services/IAuthenticate.h"
-#include "RobotGateway.h"
-#include "SelfInstance.h"
+#ifndef SELF_INTERACT_H
+#define SELF_INTERACT_H
 
-class RobotAuthenticate : public IAuthenticate
+#include "utils/IService.h"
+#include "SelfLib.h"
+
+//! Service implementation for the Interact service (Project Sagan)
+class SELF_API Interact : public IService
 {
 public:
 	RTTI_DECL();
 
-	RobotAuthenticate() : IAuthenticate( "RobotGatewayV1", AUTH_NONE )
-	{}
+	//! Construction
+	Interact();
 
-	//! IAuthenticate interface
-	void Authenticate( const std::string & a_EmodimentToken, 
-		Delegate<const Json::Value &> a_Callback )
-	{
-		RobotGateway * pGateway = SelfInstance::GetInstance()->FindService<RobotGateway>();
-		if ( pGateway != NULL )
-		{
-			Headers headers;
-			headers["EmbodimentAuthorization"] = a_EmodimentToken;
+	//! ISerializable
+	virtual void Serialize(Json::Value & json);
+	virtual void Deserialize(const Json::Value & json);
 
-			new RequestJson( pGateway, "/v1/membership/authenticateEmbodimentsAgainstOrg", "GET",
-				headers, EMPTY_STRING, a_Callback );
-		}
-		else
-		{
-			Log::Error( "RobotAuthenticate", "RobotGateway service is required." );
-			a_Callback( Json::Value() );
-		}
-	}
+	//! IService interface
+	virtual bool Start();
+
+	//! Send conversation to the interact service, it will invoke the provided
+	//! callback with the response.
+	void Converse(const std::string & a_Input, Delegate<const Json::Value &> a_Callback);
 };
 
-RTTI_IMPL( RobotAuthenticate, IAuthenticate );
-REG_SERIALIZABLE( RobotAuthenticate );
-
+#endif	// SELF_INTERACT_H
