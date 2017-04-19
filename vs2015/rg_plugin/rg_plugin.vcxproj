@@ -85,12 +85,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\rg\PackageStore.cpp" />
     <ClCompile Include="..\..\rg\RobotAuthenticate.cpp" />
     <ClCompile Include="..\..\rg\RobotGateway.cpp" />
     <ClCompile Include="..\..\rg\RobotMail.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\rg\PackageStore.h" />
+    <ClInclude Include="..\..\rg\RobotAuthenticate.h" />
     <ClInclude Include="..\..\rg\RobotGateway.h" />
+    <ClInclude Include="..\..\rg\RobotMail.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\lib\cpp-sdk\vs2015\jsoncpp\jsoncpp.vcxproj">

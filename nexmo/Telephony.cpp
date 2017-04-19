@@ -19,11 +19,12 @@ const float RECONNECT_TIME = 5.0f;
 const unsigned int FRAME_SIZE = 320;			// how many frames to send per web socket frame
 
 REG_SERIALIZABLE( Telephony );
-RTTI_IMPL( Telephony, IService );
+REG_OVERRIDE_SERIALIZABLE( ITelephony, Telephony );
+RTTI_IMPL( Telephony, ITelephony );
 
 //-----------------------------
 
-Telephony::Telephony() : IService( "TelephonyV1" ),
+Telephony::Telephony() : ITelephony( "TelephonyV1" ),
 	m_bConnected( false ),
 	m_AudioInFormat( "audio/L16;rate=16000" ), 
 	m_AudioOutFormat( "audio/L16;rate=16000" ),
@@ -33,12 +34,12 @@ Telephony::Telephony() : IService( "TelephonyV1" ),
 
 void Telephony::Serialize(Json::Value & json)
 {
-	IService::Serialize(json);
+	ITelephony::Serialize(json);
 }
 
 void Telephony::Deserialize(const Json::Value & json)
 {
-	IService::Deserialize(json);
+	ITelephony::Deserialize(json);
 }
 
 Telephony::~Telephony()
@@ -48,7 +49,7 @@ Telephony::~Telephony()
 
 bool Telephony::Start()
 {
-	if (! IService::Start() )
+	if (! ITelephony::Start() )
 		return false;
 
 	return true;

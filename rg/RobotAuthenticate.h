@@ -11,31 +11,23 @@
 /*                                                                   */
 /* ***************************************************************** */
 
-#include "RobotAuthenticate.h"
-#include "RobotGateway.h"
-#include "SelfInstance.h"
+#ifndef RG_ROBOT_AUTHENTICATE_H
+#define RG_ROBOT_AUTHENTICATE_H
 
-RTTI_IMPL( RobotAuthenticate, IAuthenticate );
-REG_SERIALIZABLE( RobotAuthenticate );
-REG_OVERRIDE_SERIALIZABLE( IAuthenticate, RobotAuthenticate );
+#include "services/IAuthenticate.h"
 
-void RobotAuthenticate::Authenticate( const std::string & a_EmodimentToken, 
-	Delegate<const Json::Value &> a_Callback )
+class RobotAuthenticate : public IAuthenticate
 {
-	RobotGateway * pGateway = SelfInstance::GetInstance()->FindService<RobotGateway>();
-	if ( pGateway != NULL )
-	{
-		Headers headers;
-		headers["EmbodimentAuthorization"] = a_EmodimentToken;
+public:
+	RTTI_DECL();
 
-		new RequestJson( pGateway, "/v1/membership/authenticateEmbodimentsAgainstOrg", "GET",
-			headers, EMPTY_STRING, a_Callback );
-	}
-	else
-	{
-		Log::Error( "RobotAuthenticate", "RobotGateway service is required." );
-		a_Callback( Json::Value() );
-	}
-}
+	RobotAuthenticate() : IAuthenticate( "RobotGatewayV1", AUTH_NONE )
+	{}
 
+	//! IAuthenticate interface
+	void Authenticate( const std::string & a_EmodimentToken, 
+		Delegate<const Json::Value &> a_Callback );
+};
+
+#endif
 

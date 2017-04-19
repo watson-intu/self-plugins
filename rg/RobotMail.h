@@ -11,31 +11,24 @@
 /*                                                                   */
 /* ***************************************************************** */
 
-#include "RobotAuthenticate.h"
-#include "RobotGateway.h"
-#include "SelfInstance.h"
+#ifndef RG_ROBOT_MAIL_H
+#define RG_ROBOT_MAIL_H
 
-RTTI_IMPL( RobotAuthenticate, IAuthenticate );
-REG_SERIALIZABLE( RobotAuthenticate );
-REG_OVERRIDE_SERIALIZABLE( IAuthenticate, RobotAuthenticate );
+#include "services/IMail.h"
 
-void RobotAuthenticate::Authenticate( const std::string & a_EmodimentToken, 
-	Delegate<const Json::Value &> a_Callback )
+class RobotMail : public IMail
 {
-	RobotGateway * pGateway = SelfInstance::GetInstance()->FindService<RobotGateway>();
-	if ( pGateway != NULL )
-	{
-		Headers headers;
-		headers["EmbodimentAuthorization"] = a_EmodimentToken;
+public:
+	RTTI_DECL();
 
-		new RequestJson( pGateway, "/v1/membership/authenticateEmbodimentsAgainstOrg", "GET",
-			headers, EMPTY_STRING, a_Callback );
-	}
-	else
-	{
-		Log::Error( "RobotAuthenticate", "RobotGateway service is required." );
-		a_Callback( Json::Value() );
-	}
-}
+	RobotMail() : IMail( "RobotGatewayV1", AUTH_NONE )
+	{}
 
+	//! IMail interface
+	void SendEmail( const std::string & a_To, 
+		const std::string & a_Subject, 
+		const std::string & a_Message, 
+		Delegate<Request *> a_Callback );
+};
 
+#endif

@@ -15,11 +15,11 @@
 #define SELF_TELEPHONY_H
 
 #include "utils/IWebClient.h"
-#include "utils/IService.h"
+#include "services/ITelephony.h"
 #include "SelfLib.h"			// include last always
 
 //! This service interfaces with the telephony gateway to allow for sending & accepting phone calls and SMS messages.
-class SELF_API Telephony : public IService
+class Telephony : public ITelephony
 {
 public:
 	RTTI_DECL();
@@ -39,35 +39,24 @@ public:
 	//! IService interface
 	virtual bool Start();
 
-	//! Accessors
-	IWebClient *		GetConnection() const;
-	const std::string &	GetAudioInFormat() const;
-	const std::string &	GetAudioOutFormat() const;
-	const std::string & GetMyNumber() const;
+	//! ITelephony interface
+	virtual const std::string &	GetAudioInFormat() const;
+	virtual const std::string &	GetAudioOutFormat() const;
+	virtual const std::string & GetMyNumber() const;
 
-	//! Connect to the back-end, this will register and we will become available to receive phone calls. The provided
-	//! Callback will be invoke when a call is incoming, the user must call Answer() to answer the incoming call.
-	bool	Connect(
+	virtual bool Connect(
 				const std::string & a_SelfId,
 				OnCommand a_OnCommand, 
 				OnAudioOut a_OnAudioOut );
-	//! Make outgoing call.
-	bool	Dial( const std::string & a_Number );
-	//! Answer an incoming call, returns true on success.
-	bool	Answer(
+	virtual bool Dial( const std::string & a_Number );
+	virtual bool Answer(
 				const std::string & fromNumber,
 				const std::string & toNumber );
-	//! Hang up current call.
-	bool	HangUp();
-	//! Send a SMS message
-	bool	Text( const std::string & a_Number, 
+	virtual bool HangUp();
+	virtual bool Text( const std::string & a_Number, 
 				const std::string & a_Message );
-	//! Disconnect from the back-end..
-	bool	Disconnect();
-
-	//! Send binary audio data up to the gateway, the format of the audio must match the format 
-	//! specified by GetAudioFormat(), usually audio/L16;rate=16000
-	void	SendAudioIn( const std::string & a_Audio );
+	virtual bool Disconnect();
+	virtual void SendAudioIn( const std::string & a_Audio );
 
 private:
 	//! Data
@@ -101,11 +90,6 @@ private:
 };
 
 //----------------------------
-
-inline IWebClient * Telephony::GetConnection() const
-{
-	return m_spConnection.get();
-}
 
 inline const std::string & Telephony::GetAudioInFormat() const
 {
