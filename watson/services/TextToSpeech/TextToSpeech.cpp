@@ -19,6 +19,7 @@
 #include "utils/StringHash.h"
 
 REG_SERIALIZABLE( TextToSpeech );
+REG_OVERRIDE_SERIALIZABLE( ITextToSpeech, TextToSpeech );
 RTTI_IMPL( TextToSpeech, ITextToSpeech );
 
 TextToSpeech::TextToSpeech() : ITextToSpeech( "TextToSpeechV1" ),

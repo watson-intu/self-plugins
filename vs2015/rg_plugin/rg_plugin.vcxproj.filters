@@ -6,30 +6,30 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\rg\RobotGateway.cpp">
+    <ClCompile Include="..\..\rg\services\PackageStore.cpp">
       <Filter>services</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\rg\RobotAuthenticate.cpp">
+    <ClCompile Include="..\..\rg\services\RobotAuthenticate.cpp">
       <Filter>services</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\rg\RobotMail.cpp">
+    <ClCompile Include="..\..\rg\services\RobotGateway.cpp">
       <Filter>services</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\rg\PackageStore.cpp">
+    <ClCompile Include="..\..\rg\services\RobotMail.cpp">
       <Filter>services</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\rg\RobotGateway.h">
+    <ClInclude Include="..\..\rg\services\PackageStore.h">
       <Filter>services</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\rg\PackageStore.h">
+    <ClInclude Include="..\..\rg\services\RobotAuthenticate.h">
       <Filter>services</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\rg\RobotMail.h">
+    <ClInclude Include="..\..\rg\services\RobotGateway.h">
       <Filter>services</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\rg\RobotAuthenticate.h">
+    <ClInclude Include="..\..\rg\services\RobotMail.h">
       <Filter>services</Filter>
     </ClInclude>
   </ItemGroup>

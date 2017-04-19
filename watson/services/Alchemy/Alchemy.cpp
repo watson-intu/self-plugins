@@ -20,6 +20,7 @@
 #include "utils/Config.h"
 
 REG_SERIALIZABLE( Alchemy );
+REG_OVERRIDE_SERIALIZABLE( ILanguageParser, Alchemy );
 RTTI_IMPL( Alchemy, ILanguageParser );
 
 

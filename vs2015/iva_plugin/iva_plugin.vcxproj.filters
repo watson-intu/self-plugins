@@ -6,13 +6,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\iva\IVA.h">
-      <Filter>services</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\iva\IVA.cpp">
+    <ClCompile Include="..\..\iva\services\IVA.cpp">
       <Filter>services</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\iva\services\IVA.h">
+      <Filter>services</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

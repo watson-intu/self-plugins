@@ -19,7 +19,6 @@
 
 REG_SERIALIZABLE( Wayblazer );
 REG_OVERRIDE_SERIALIZABLE( IBrowser, Wayblazer );
-
 RTTI_IMPL( Wayblazer, IBrowser );
 
 class RequestURL : public IService::RequestJson

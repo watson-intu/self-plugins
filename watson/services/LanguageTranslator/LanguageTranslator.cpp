@@ -19,6 +19,7 @@
 #include "utils/Form.h"
 
 REG_SERIALIZABLE(LanguageTranslator);
+REG_OVERRIDE_SERIALIZABLE( ILanguageTranslation, LanguageTranslator);
 RTTI_IMPL(LanguageTranslator, ILanguageTranslation);
 
 void LanguageTranslator::Serialize(Json::Value & json)
