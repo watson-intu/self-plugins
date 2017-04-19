@@ -3,6 +3,6 @@ include_directories(. ../../lib)
 
 file(GLOB_RECURSE SELF_CPP RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*.cpp")
 qi_create_lib(remote_plugin SHARED ${SELF_CPP})
-qi_use_lib(remote_plugin self wdc tinythread++)
+qi_use_lib(remote_plugin self utils tinythread++)
 qi_stage_lib(remote_plugin)
 

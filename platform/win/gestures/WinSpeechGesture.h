@@ -28,7 +28,6 @@
 #include <dsound.h>
 
 class Sound;
-class TextToSpeech;
 struct Voices;
 
 //! This gesture wraps DirectSound so the local windows box can speak.
@@ -39,7 +38,6 @@ public:
 
 	//! Construction
 	WinSpeechGesture() : 
-		m_pTTS( NULL ),
 		m_bVoiceReady( false ), 
 		m_pVoices( NULL ), 
 		m_bStreamPlaying( false ),
@@ -64,7 +62,6 @@ private:
 	void PlayStreamedSound();
 	void OnSpeechDone();
 
-	TextToSpeech *				m_pTTS;
 	bool						m_bVoiceReady;
 	Voices *					m_pVoices;			
 

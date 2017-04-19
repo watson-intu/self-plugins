@@ -20,7 +20,7 @@
 #include "skills/SkillManager.h"
 #include "utils/ThreadPool.h"
 #include "utils/StringUtil.h"
-
+#include "services/ITextToSpeech.h"
 #include "SelfInstance.h"
 
 #include <stdlib.h>
@@ -35,10 +35,10 @@ bool AQSpeechGesture::Start()
 	if (! SpeechGesture::Start() )
 		return false;
 
-	TextToSpeech * pTTS = SelfInstance::GetInstance()->FindService<TextToSpeech>();
+	ITextToSpeech * pTTS = SelfInstance::GetInstance()->FindService<ITextToSpeech>();
 	if ( pTTS == NULL )
 	{
-		Log::Error( "AQSPeechGesture", "TextToSpeech service is missing." );
+		Log::Error( "AQSPeechGesture", "ITextToSpeech service is missing." );
 		return false;
 	}
 
@@ -93,7 +93,7 @@ void AQSpeechGesture::StartSpeech()
             }
         }
         
-        TextToSpeech * pTextToSpeech = SelfInstance::GetInstance()->FindService<TextToSpeech>();
+		ITextToSpeech * pTextToSpeech = SelfInstance::GetInstance()->FindService<ITextToSpeech>();
         if ( pTextToSpeech != NULL )
         {
             // call the service to get the audio data for playing ..
@@ -103,7 +103,7 @@ void AQSpeechGesture::StartSpeech()
         }
         else
         {
-            Log::Error( "AQSpeechGesture", "No TTS service available." );            
+            Log::Error( "AQSpeechGesture", "No ITextToSpeech service available." );            
         }
     }
     else

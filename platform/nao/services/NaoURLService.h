@@ -18,15 +18,10 @@
 #ifndef SELF_NAOURLSERVICE_H
 #define SELF_NAOURLSERVICE_H
 
-#include "utils/IService.h"
-#include "blackboard/URL.h"
-#include "SelfLib.h"
-#include "services/URLService.h"
-#include "SelfInstance.h"
+#include "services/IBrowser.h"
 #include "qi/session.hpp"
-#include "NaoPlatform.h"
 
-class NaoURLService : public URLService
+class NaoURLService : public IBrowser
 {
 public:
     RTTI_DECL();
@@ -42,12 +37,12 @@ public:
     virtual void Serialize(Json::Value & json);
     virtual void Deserialize(const Json::Value & json);
 
-    //! Upload the specified dialog
-    virtual void SendURL( const Url::SP & a_spUrl, UrlCallback a_Callback );
+    //! IBrowser interface
+    virtual void ShowURL( const Url::SP & a_spUrl, UrlCallback a_Callback );
    
 private:
 	void TabletThread();
-	void ShowURL( const Url::SP & a_spUrl, UrlCallback a_Callback );
+	void TabletShowURL( const Url::SP & a_spUrl, UrlCallback a_Callback );
 	void ConfigureTablet();
     void CheckConnection();
     void DisplayLogo();
