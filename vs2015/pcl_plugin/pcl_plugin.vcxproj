@@ -85,9 +85,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\pcl\classifiers\ObjectClassifier.h" />
     <ClInclude Include="..\..\pcl\services\PCLService.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\pcl\classifiers\ObjectClassifier.cpp" />
     <ClCompile Include="..\..\pcl\services\PCLService.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
