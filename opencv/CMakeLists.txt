@@ -3,6 +3,6 @@ include_directories(. ../../lib)
 
 file(GLOB_RECURSE SELF_CPP RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*.cpp")
 qi_create_lib(opencv_plugin SHARED ${SELF_CPP})
-qi_use_lib(opencv_plugin self wdc tinythread++ OPENCV2_CORE OPENCV2_HIGHGUI OPENCV2_IMGPROC)
+qi_use_lib(opencv_plugin self utils tinythread++ OPENCV2_CORE OPENCV2_HIGHGUI OPENCV2_IMGPROC)
 qi_stage_lib(opencv_plugin)
 

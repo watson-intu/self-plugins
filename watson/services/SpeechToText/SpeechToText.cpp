@@ -31,6 +31,7 @@ const int MAX_RECOGNIZE_CLIP_SIZE = 4 * (1024 * 1024);
 const float RECONNECT_TIME = 1.0f;
 
 REG_SERIALIZABLE( SpeechToText );
+REG_OVERRIDE_SERIALIZABLE( ISpeechToText, SpeechToText );
 RTTI_IMPL( SpeechToText, ISpeechToText );
 
 

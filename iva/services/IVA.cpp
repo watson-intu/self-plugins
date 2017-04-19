@@ -22,7 +22,6 @@ const float RETRY_LOGIN_INTERVAL = 30.0f;
 
 REG_SERIALIZABLE(IVA);
 REG_OVERRIDE_SERIALIZABLE(IFaceRecognition,IVA);
-
 RTTI_IMPL( IVA, IFaceRecognition );
 
 IVA::IVA() : IFaceRecognition("IVAV1")

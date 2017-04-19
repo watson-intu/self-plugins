@@ -18,6 +18,7 @@
 #include "ToneAnalyzer.h"
 
 REG_SERIALIZABLE( ToneAnalyzer );
+REG_OVERRIDE_SERIALIZABLE( IToneAnalyzer, ToneAnalyzer );
 RTTI_IMPL( ToneAnalyzer, IToneAnalyzer );
 
 ToneAnalyzer::ToneAnalyzer() : IToneAnalyzer("ToneAnalyzerV1"), m_Version("2016-05-19")

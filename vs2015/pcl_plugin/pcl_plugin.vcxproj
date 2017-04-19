@@ -85,10 +85,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\pcl\PCLService.h" />
+    <ClInclude Include="..\..\pcl\services\PCLService.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\pcl\PCLService.cpp" />
+    <ClCompile Include="..\..\pcl\services\PCLService.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

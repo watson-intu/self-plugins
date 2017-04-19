@@ -2,7 +2,7 @@ add_definitions(" -DAUDIOIMPL_IS_REMOTE -DNAO_ENABLED -DBOOST_ASIO_DISABLE_STD_C
 include_directories(. ../../lib)
 
 file(GLOB_RECURSE SELF_CPP RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*.cpp")
-qi_create_lib(remote_plugin SHARED ${SELF_CPP})
-qi_use_lib(remote_plugin self utils tinythread++)
-qi_stage_lib(remote_plugin)
+qi_create_lib(iva_plugin SHARED ${SELF_CPP})
+qi_use_lib(iva_plugin self utils tinythread++)
+qi_stage_lib(iva_plugin)
 

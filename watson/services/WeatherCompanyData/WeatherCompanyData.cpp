@@ -20,7 +20,8 @@
 #include "utils/JsonHelpers.h"
 #include "utils/Config.h"
 
-REG_SERIALIZABLE(WeatherCompanyData);
+REG_SERIALIZABLE( WeatherCompanyData );
+REG_OVERRIDE_SERIALIZABLE( IWeather, WeatherCompanyData );
 RTTI_IMPL(WeatherCompanyData, IWeather);
 
 WeatherCompanyData::WeatherCompanyData() : IWeather("WeatherCompanyDataV1"), m_Latitude(30.16f), m_Longitude(97.44f), m_Language("en-US")

@@ -7,6 +7,6 @@ qi_create_lib(platform_mac SHARED
         sensors/AQMicrophone.cpp
         tests/TestMacSoundGesture.cpp)
 
-qi_use_lib(platform_mac self wdc portaudio)
+qi_use_lib(platform_mac self utils portaudio)
 
 qi_stage_lib(platform_mac)

@@ -17,6 +17,7 @@
 #include "utils/StringUtil.h"
 #include "utils/WebClientService.h"
 
+REG_SERIALIZABLE( WatsonAvatar );
 REG_OVERRIDE_SERIALIZABLE(IAvatar, WatsonAvatar);
 RTTI_IMPL( WatsonAvatar, IAvatar );
 

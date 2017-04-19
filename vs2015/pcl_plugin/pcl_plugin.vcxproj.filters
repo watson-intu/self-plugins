@@ -6,13 +6,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\pcl\PCLService.h">
-      <Filter>services</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\pcl\PCLService.cpp">
+    <ClCompile Include="..\..\pcl\services\PCLService.cpp">
       <Filter>services</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\pcl\services\PCLService.h">
+      <Filter>services</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

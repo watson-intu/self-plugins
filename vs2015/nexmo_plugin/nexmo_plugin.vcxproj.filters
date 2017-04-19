@@ -6,12 +6,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\nexmo\Telephony.cpp">
+    <ClCompile Include="..\..\nexmo\services\Telephony.cpp">
       <Filter>services</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\nexmo\Telephony.h">
+    <ClInclude Include="..\..\nexmo\services\Telephony.h">
       <Filter>services</Filter>
     </ClInclude>
   </ItemGroup>
