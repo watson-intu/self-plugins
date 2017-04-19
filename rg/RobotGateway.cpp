@@ -19,10 +19,14 @@
 #include "utils/URL.h"
 #include "topics/TopicManager.h"
 
+#include "RobotAuthenticate.h"
+#include "RobotMail.h"
+
 const double UPDATE_CONFIG_INTERVAL	= 300.0;
 
 REG_SERIALIZABLE(RobotGateway);
-RTTI_IMPL(RobotGateway, IService);
+REG_OVERRIDE_SERIALIZABLE(IGateway,RobotGateway);
+RTTI_IMPL(RobotGateway, IGateway);
 
 RobotGateway::RobotGateway() : IGateway( "RobotGatewayV1" ), 
 	m_bApplyRemoteConfigs( true ),
@@ -89,6 +93,12 @@ bool RobotGateway::Start()
 		Log::Warning( "RobotGateway", "No bearer token provided, service will not start." );
 		return false;
 	}
+
+	// add sub-services if no existing service is found.
+	if ( pInstance->FindService<IAuthenticate>() == NULL )
+		pInstance->AddService( new RobotAuthenticate() );
+	if ( pInstance->FindService<IMail>() == NULL )
+		pInstance->AddService( new RobotMail() );
 
 	m_Headers["Content-Type"] = "application/json";
 	m_Headers["macId"] = m_MacId;

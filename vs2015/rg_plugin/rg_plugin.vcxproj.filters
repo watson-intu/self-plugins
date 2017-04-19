@@ -15,9 +15,21 @@
     <ClCompile Include="..\..\rg\RobotMail.cpp">
       <Filter>services</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\rg\PackageStore.cpp">
+      <Filter>services</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\rg\RobotGateway.h">
+      <Filter>services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\rg\PackageStore.h">
+      <Filter>services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\rg\RobotMail.h">
+      <Filter>services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\rg\RobotAuthenticate.h">
       <Filter>services</Filter>
     </ClInclude>
   </ItemGroup>
