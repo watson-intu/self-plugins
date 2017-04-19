@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="services">
+      <UniqueIdentifier>{e4eb722c-c42f-499d-bbce-ae249f267604}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\rg\services\PackageStore.cpp">
+      <Filter>services</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\rg\services\RobotAuthenticate.cpp">
+      <Filter>services</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\rg\services\RobotGateway.cpp">
+      <Filter>services</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\rg\services\RobotMail.cpp">
+      <Filter>services</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\rg\services\PackageStore.h">
+      <Filter>services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\rg\services\RobotAuthenticate.h">
+      <Filter>services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\rg\services\RobotGateway.h">
+      <Filter>services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\rg\services\RobotMail.h">
+      <Filter>services</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -20,15 +20,17 @@
 #include <qi/type/proxysignal.hpp>
 #include "qi/anyobject.hpp"
 
+#include "SelfInstance.h"
+#include "NaoPlatform.h"
 
 REG_SERIALIZABLE(NaoURLService);
-RTTI_IMPL( NaoURLService, URLService);
+RTTI_IMPL( NaoURLService, IBrowser);
 
 #ifndef _WIN32
-REG_OVERRIDE_SERIALIZABLE( URLService, NaoURLService);
+REG_OVERRIDE_SERIALIZABLE( IBrowser, NaoURLService);
 #endif
 
-NaoURLService::NaoURLService() : 
+NaoURLService::NaoURLService() : IBrowser("URLServiceV1"),
 	m_bServiceActive( false ),
 	m_bThreadStopped( true ),
 	m_bTabletConnected(false), 
@@ -42,7 +44,7 @@ NaoURLService::NaoURLService() :
 
 void NaoURLService::Serialize(Json::Value & json)
 {
-	URLService::Serialize(json);
+	IBrowser::Serialize(json);
 
 	json["m_TabletCheckInterval"] = m_TabletCheckInterval;
 	json["m_TabletDisplayTime"] = m_TabletDisplayTime;
@@ -51,7 +53,7 @@ void NaoURLService::Serialize(Json::Value & json)
 
 void NaoURLService::Deserialize(const Json::Value & json)
 {
-	URLService::Deserialize(json);
+	IBrowser::Deserialize(json);
 
 	if ( json.isMember("m_TabletCheckInterval") )
 		m_TabletCheckInterval = json["m_TabletCheckInterval"].asFloat();
@@ -66,7 +68,7 @@ bool NaoURLService::Start()
 {
 	Log::Status( "NaoURLService", "Starting.." );
 
-	if (! IService::Start() )
+	if (! IBrowser::Start() )
 		return false;
 
 	m_bServiceActive = true;
@@ -85,10 +87,10 @@ bool NaoURLService::Stop()
 	while(! m_bThreadStopped )
 		boost::this_thread::yield();
 
-	return IService::Stop();
+	return IBrowser::Stop();
 }
 
-void NaoURLService::SendURL( const Url::SP & a_spUrl, UrlCallback a_Callback )
+void NaoURLService::ShowURL( const Url::SP & a_spUrl, UrlCallback a_Callback )
 {
 	if ( m_bTabletConnected )
 	{
@@ -100,7 +102,7 @@ void NaoURLService::SendURL( const Url::SP & a_spUrl, UrlCallback a_Callback )
 	}
 	else
 	{
-		URLService::SendURL( a_spUrl, a_Callback );
+		IBrowser::ShowURL( a_spUrl, a_Callback );
 	}
 }
 
@@ -126,7 +128,7 @@ void NaoURLService::TabletThread()
 			if ( m_RequestList.begin() != m_RequestList.end() )
 			{
 				UrlRequest & req = m_RequestList.front();
-				ShowURL( req.m_spUrl, req.m_Callback );
+				TabletShowURL( req.m_spUrl, req.m_Callback );
 				m_RequestList.pop_front();
 			}
 			m_RequestListLock.unlock();
@@ -141,9 +143,9 @@ void NaoURLService::TabletThread()
 	m_bThreadStopped = true;
 }
 
-void NaoURLService::ShowURL( const Url::SP & a_spUrl, UrlCallback a_Callback )
+void NaoURLService::TabletShowURL( const Url::SP & a_spUrl, UrlCallback a_Callback )
 {
-	std::string url( URLService::EscapeUrl( a_spUrl->GetURL()) );
+	std::string url( IBrowser::EscapeUrl( a_spUrl->GetURL()) );
 	try {
 		Log::Status( "NaoURLService", "Showing URL: %s", url.c_str() );
 		m_LastUpdate = Time().GetEpochTime();
@@ -152,13 +154,13 @@ void NaoURLService::ShowURL( const Url::SP & a_spUrl, UrlCallback a_Callback )
 		// Check wifi status on tablet
 		m_Tablet.call<void>("cleanWebview");
 
-		URLService::URLServiceData * urlServiceData = new URLService::URLServiceData();
+		IBrowser::URLServiceData * urlServiceData = new IBrowser::URLServiceData();
 		urlServiceData->m_spUrl = a_spUrl;
 		if (m_Tablet.call<bool>("showWebview", url))
 			urlServiceData->m_JsonValue = Json::Value("COMPLETED");
 
 		if (a_Callback.IsValid())
-			ThreadPool::Instance()->InvokeOnMain<URLService::URLServiceData *>( a_Callback, urlServiceData );
+			ThreadPool::Instance()->InvokeOnMain<IBrowser::URLServiceData *>( a_Callback, urlServiceData );
 	}
 	catch (  const std::exception & ex )
 	{

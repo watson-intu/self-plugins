@@ -22,7 +22,6 @@
 
 class Sound;
 struct Voices;
-class TextToSpeech;
 
 //! This gesture wraps DirectSound so the local windows box can speak.
 class SotaSpeechGesture : public SpeechGesture
@@ -31,7 +30,7 @@ public:
 	RTTI_DECL();
 
 	//! Construction
-	SotaSpeechGesture() : m_pTTS( NULL ), m_pVoices( NULL )
+	SotaSpeechGesture() : m_pVoices( NULL )
 	{}
 
 	//! IGesture interface
@@ -46,7 +45,6 @@ private:
 	void OnPlaySpeech(Sound * a_pSound);
 	void OnSpeechDone();
 
-	TextToSpeech *				m_pTTS;
 	Voices *					m_pVoices;
 };
 

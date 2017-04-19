@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8BD9DB20-C48D-4BE3-95E2-468803C63407}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>watson_plugin</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;WATSON_PLUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../../watson;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../../../lib/cpp-sdk/lib/boost_1_60_0/stage/lib/</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;WATSON_PLUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../../watson;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../../../lib/cpp-sdk/lib/boost_1_60_0/stage/lib/</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\watson\agent\WEXAgent.cpp" />
+    <ClCompile Include="..\..\watson\blackboard\WEXIntent.cpp" />
+    <ClCompile Include="..\..\watson\services\Alchemy\Alchemy.cpp" />
+    <ClCompile Include="..\..\watson\services\Alchemy\AlchemyNews.cpp" />
+    <ClCompile Include="..\..\watson\services\Conversation\Conversation.cpp" />
+    <ClCompile Include="..\..\watson\services\Conversation\ConversationProxy.cpp" />
+    <ClCompile Include="..\..\watson\services\DeepQA\DeepQA.cpp" />
+    <ClCompile Include="..\..\watson\services\DeepQA\DeepQAProxy.cpp" />
+    <ClCompile Include="..\..\watson\services\Interact\Interact.cpp" />
+    <ClCompile Include="..\..\watson\services\Interact\InteractProxy.cpp" />
+    <ClCompile Include="..\..\watson\services\LanguageTranslator\LanguageTranslator.cpp" />
+    <ClCompile Include="..\..\watson\services\NaturalLanguageClassifier\NaturalLanguageClassifier.cpp" />
+    <ClCompile Include="..\..\watson\services\NaturalLanguageClassifier\NLCProxy.cpp" />
+    <ClCompile Include="..\..\watson\services\NaturalLanguageUnderstanding\NaturalLanguageUnderstanding.cpp" />
+    <ClCompile Include="..\..\watson\services\PersonalityInsights\PersonalityInsights.cpp" />
+    <ClCompile Include="..\..\watson\services\RetrieveAndRank\RetrieveAndRank.cpp" />
+    <ClCompile Include="..\..\watson\services\RetrieveAndRank\RetrieveAndRankProxy.cpp" />
+    <ClCompile Include="..\..\watson\services\SpeechToText\SpeechToText.cpp" />
+    <ClCompile Include="..\..\watson\services\TextToSpeech\TextToSpeech.cpp" />
+    <ClCompile Include="..\..\watson\services\ToneAnalyzer\ToneAnalyzer.cpp" />
+    <ClCompile Include="..\..\watson\services\VisualRecognition\VisualRecognition.cpp" />
+    <ClCompile Include="..\..\watson\services\WatsonAvatar.cpp" />
+    <ClCompile Include="..\..\watson\services\WeatherCompanyData\WeatherCompanyData.cpp" />
+    <ClCompile Include="..\..\watson\services\WeatherCompanyData\WeatherCompanyLocation.cpp" />
+    <ClCompile Include="..\..\watson\services\WEX.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\watson\agent\WEXAgent.h" />
+    <ClInclude Include="..\..\watson\blackboard\WEXIntent.h" />
+    <ClInclude Include="..\..\watson\services\Alchemy\Alchemy.h" />
+    <ClInclude Include="..\..\watson\services\Alchemy\AlchemyNews.h" />
+    <ClInclude Include="..\..\watson\services\Conversation\Conversation.h" />
+    <ClInclude Include="..\..\watson\services\Conversation\ConversationProxy.h" />
+    <ClInclude Include="..\..\watson\services\Conversation\DataModels.h" />
+    <ClInclude Include="..\..\watson\services\DeepQA\DeepQA.h" />
+    <ClInclude Include="..\..\watson\services\DeepQA\DeepQAProxy.h" />
+    <ClInclude Include="..\..\watson\services\Interact\Interact.h" />
+    <ClInclude Include="..\..\watson\services\Interact\InteractProxy.h" />
+    <ClInclude Include="..\..\watson\services\LanguageTranslator\LanguageTranslator.h" />
+    <ClInclude Include="..\..\watson\services\NaturalLanguageClassifier\DataModels.h" />
+    <ClInclude Include="..\..\watson\services\NaturalLanguageClassifier\NaturalLanguageClassifier.h" />
+    <ClInclude Include="..\..\watson\services\NaturalLanguageClassifier\NLCProxy.h" />
+    <ClInclude Include="..\..\watson\services\NaturalLanguageUnderstanding\NaturalLanguageUnderstanding.h" />
+    <ClInclude Include="..\..\watson\services\PersonalityInsights\DataModels.h" />
+    <ClInclude Include="..\..\watson\services\PersonalityInsights\PersonalityInsights.h" />
+    <ClInclude Include="..\..\watson\services\RetrieveAndRank\DataModels.h" />
+    <ClInclude Include="..\..\watson\services\RetrieveAndRank\RetrieveAndRank.h" />
+    <ClInclude Include="..\..\watson\services\RetrieveAndRank\RetrieveAndRankProxy.h" />
+    <ClInclude Include="..\..\watson\services\SpeechToText\SpeechToText.h" />
+    <ClInclude Include="..\..\watson\services\TextToSpeech\TextToSpeech.h" />
+    <ClInclude Include="..\..\watson\services\ToneAnalyzer\DataModels.h" />
+    <ClInclude Include="..\..\watson\services\ToneAnalyzer\ToneAnalyzer.h" />
+    <ClInclude Include="..\..\watson\services\VisualRecognition\VisualRecognition.h" />
+    <ClInclude Include="..\..\watson\services\WatsonAvatar.h" />
+    <ClInclude Include="..\..\watson\services\WeatherCompanyData\WeatherCompanyData.h" />
+    <ClInclude Include="..\..\watson\services\WeatherCompanyData\WeatherCompanyLocation.h" />
+    <ClInclude Include="..\..\watson\services\WEX.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\lib\cpp-sdk\vs2015\jsoncpp\jsoncpp.vcxproj">
+      <Project>{28ba4301-4c55-41d2-b122-01dbde375452}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\lib\cpp-sdk\vs2015\tinyxml\tinyxml.vcxproj">
+      <Project>{7e45de27-419e-469c-affa-f669750d6338}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\lib\cpp-sdk\vs2015\utils\utils.vcxproj">
+      <Project>{9b6c58b8-9a51-4634-ab23-f23f6a458bad}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\vs2015\self\self.vcxproj">
+      <Project>{22fd607f-5015-49ea-9010-1ad4ba706e7f}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

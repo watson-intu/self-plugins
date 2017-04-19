@@ -17,7 +17,7 @@
 
 
 #include "RemoteSpeechGesture.h"
-#include "services/TextToSpeech/TextToSpeech.h"
+#include "services/ITextToSpeech.h"
 #include "skills/SkillManager.h"
 #include "utils/ThreadPool.h"
 #include "utils/Sound.h"
@@ -35,17 +35,17 @@ bool RemoteSpeechGesture::Start()
 	if (! SpeechGesture::Start() )
 		return false;
 
-	m_pTTS = SelfInstance::GetInstance()->FindService<TextToSpeech>();
-	if ( m_pTTS == NULL )
+	ITextToSpeech * pTTS = SelfInstance::GetInstance()->FindService<ITextToSpeech>();
+	if ( pTTS == NULL )
 	{
-		Log::Error( "DSSPeechGesture", "TextToSpeech service is missing." );
+		Log::Error( "RemoteSpeechGesture", "ITextToSpeech service is missing." );
 		return false;
 	}
 
 	ITopics * pTopics = SelfInstance::GetInstance()->GetTopics();
 	pTopics->RegisterTopic( "audio-out", "audio/L16;rate=22050" );
 	
-	m_pTTS->GetVoices( DELEGATE( RemoteSpeechGesture, OnVoices, Voices *, this ) );
+	pTTS->GetVoices( DELEGATE( RemoteSpeechGesture, OnVoices, Voices *, this ) );
 	return true;
 }
 
@@ -94,7 +94,7 @@ void RemoteSpeechGesture::StartSpeech()
 				}
 			}
 
-			TextToSpeech * pTTS = SelfInstance::GetInstance()->FindService<TextToSpeech>();
+			ITextToSpeech * pTTS = SelfInstance::GetInstance()->FindService<ITextToSpeech>();
 			if ( pTTS != NULL )
 			{
 				// call the service to get the audio data for playing ..
@@ -103,7 +103,7 @@ void RemoteSpeechGesture::StartSpeech()
 				bSuccess = true;
 			}
 			else
-				Log::Error( "RemoteSpeechGesture", "No TextToSpeech service available." );
+				Log::Error( "RemoteSpeechGesture", "No ITextToSpeech service available." );
 		}
 
 		if (! bSuccess )
