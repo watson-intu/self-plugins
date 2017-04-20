@@ -16,24 +16,6 @@
     <Filter Include="lib\pcl\common">
       <UniqueIdentifier>{1af22850-9401-43de-a10b-92a9904f175e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="lib\pcl\common\src">
-      <UniqueIdentifier>{809cf561-0d08-4f12-9ae8-2b6608a69079}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="lib\pcl\common\include">
-      <UniqueIdentifier>{86802cbf-6984-428a-a543-f739525899b3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="lib\pcl\common\src\fft">
-      <UniqueIdentifier>{55d5a432-abb1-49c5-ad03-c8d3f5797598}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="lib\pcl\common\include\common">
-      <UniqueIdentifier>{bbb9cef7-4b43-4aa0-a8cc-a492a0767be1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="lib\pcl\common\include\common\fft">
-      <UniqueIdentifier>{f1c51786-be25-49a7-95d5-fbe67f940675}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="lib\pcl\common\include\common\impl">
-      <UniqueIdentifier>{d6ada637-17f8-43c4-861e-95f10f2a47c1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="lib\eigen">
       <UniqueIdentifier>{c2542f9a-3239-4192-95b3-cc0998f6568d}</UniqueIdentifier>
     </Filter>
@@ -67,6 +49,54 @@
     <Filter Include="lib\flann\util\cuda">
       <UniqueIdentifier>{a4dd0f29-e1d7-40c1-a0fb-95663a0bc1d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lib\pcl\features">
+      <UniqueIdentifier>{13469c4f-6973-4298-aab0-e3e1afbd8523}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\pcl\2d">
+      <UniqueIdentifier>{1b731485-b0a9-4dee-8567-c21d77c3ea9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\pcl\search">
+      <UniqueIdentifier>{8aa11fbf-ac92-4b4e-b0d6-38be8f42b701}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\pcl\kdtree">
+      <UniqueIdentifier>{8b7c710f-e4f6-4cef-a12b-ac4c548abce0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\pcl\filters">
+      <UniqueIdentifier>{dfbddc11-2034-4b4a-8eaa-f861760eb50a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\pcl\octree">
+      <UniqueIdentifier>{5c174a70-b6a3-49a1-8a4c-4ec54cc5e308}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\pcl\sample_consensus">
+      <UniqueIdentifier>{6a31343c-e0b3-40da-bfcd-413caf484fc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\pcl\segmentation">
+      <UniqueIdentifier>{1c4e1468-d310-4173-a818-4dfd28a6bbeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\pcl\recognition">
+      <UniqueIdentifier>{62a3b7a1-f897-4017-9f8a-655f37036a85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\pcl\recognition\cg">
+      <UniqueIdentifier>{bf9dec69-6d12-4f52-9b89-cc264e648112}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\pcl\recognition\face_detection">
+      <UniqueIdentifier>{29002547-3165-43e3-8fbe-c0af9756aee2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\pcl\recognition\hv">
+      <UniqueIdentifier>{b021cb5e-6429-4003-9e52-d642c6bbf8dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\pcl\recognition\ransac_based">
+      <UniqueIdentifier>{3d26b9c1-0fee-4a0b-af74-be0240d91aad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\pcl\common\fft">
+      <UniqueIdentifier>{55d5a432-abb1-49c5-ad03-c8d3f5797598}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\pcl\registration">
+      <UniqueIdentifier>{8fd9b38e-4726-4f05-820c-6cdf2173de2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\pcl\ml">
+      <UniqueIdentifier>{7083ca6e-1473-43e6-8c68-6a1796330749}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\pcl\services\PCLService.cpp">
@@ -75,62 +105,11 @@
     <ClCompile Include="..\..\pcl\classifiers\ObjectClassifier.cpp">
       <Filter>classifiers</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pcl\lib\pcl\common\src\bearing_angle_image.cpp">
-      <Filter>lib\pcl\common\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pcl\lib\pcl\common\src\colors.cpp">
-      <Filter>lib\pcl\common\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pcl\lib\pcl\common\src\common.cpp">
-      <Filter>lib\pcl\common\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pcl\lib\pcl\common\src\correspondence.cpp">
-      <Filter>lib\pcl\common\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pcl\lib\pcl\common\src\distances.cpp">
-      <Filter>lib\pcl\common\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pcl\lib\pcl\common\src\feature_histogram.cpp">
-      <Filter>lib\pcl\common\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pcl\lib\pcl\common\src\gaussian.cpp">
-      <Filter>lib\pcl\common\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pcl\lib\pcl\common\src\io.cpp">
-      <Filter>lib\pcl\common\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pcl\lib\pcl\common\src\parse.cpp">
-      <Filter>lib\pcl\common\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pcl\lib\pcl\common\src\pcl_base.cpp">
-      <Filter>lib\pcl\common\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pcl\lib\pcl\common\src\point_types.cpp">
-      <Filter>lib\pcl\common\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pcl\lib\pcl\common\src\poses_from_matches.cpp">
-      <Filter>lib\pcl\common\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pcl\lib\pcl\common\src\print.cpp">
-      <Filter>lib\pcl\common\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pcl\lib\pcl\common\src\projection_matrix.cpp">
-      <Filter>lib\pcl\common\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pcl\lib\pcl\common\src\range_image.cpp">
-      <Filter>lib\pcl\common\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pcl\lib\pcl\common\src\range_image_planar.cpp">
-      <Filter>lib\pcl\common\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pcl\lib\pcl\common\src\time_trigger.cpp">
-      <Filter>lib\pcl\common\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pcl\lib\pcl\common\src\fft\kiss_fft.c">
-      <Filter>lib\pcl\common\src\fft</Filter>
+      <Filter>lib\pcl\common\fft</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pcl\lib\pcl\common\src\fft\kiss_fftr.c">
-      <Filter>lib\pcl\common\src\fft</Filter>
+      <Filter>lib\pcl\common\fft</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\flann.cpp">
       <Filter>lib\flann</Filter>
@@ -150,6 +129,588 @@
     <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\flann_mpi_server.cpp">
       <Filter>lib\flann\mpi</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\dotmod.cpp">
+      <Filter>lib\pcl\recognition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\implicit_shape_model.cpp">
+      <Filter>lib\pcl\recognition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\linemod.cpp">
+      <Filter>lib\pcl\recognition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\mask_map.cpp">
+      <Filter>lib\pcl\recognition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\quantizable_modality.cpp">
+      <Filter>lib\pcl\recognition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\cg\geometric_consistency.cpp">
+      <Filter>lib\pcl\recognition\cg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\cg\hough_3d.cpp">
+      <Filter>lib\pcl\recognition\cg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\face_detection\face_detector_data_provider.cpp">
+      <Filter>lib\pcl\recognition\face_detection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\face_detection\rf_face_detector_trainer.cpp">
+      <Filter>lib\pcl\recognition\face_detection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\hv\greedy_verification.cpp">
+      <Filter>lib\pcl\recognition\hv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\hv\hv_go.cpp">
+      <Filter>lib\pcl\recognition\hv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\hv\hv_papazov.cpp">
+      <Filter>lib\pcl\recognition\hv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\hv\occlusion_reasoning.cpp">
+      <Filter>lib\pcl\recognition\hv</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\ransac_based\model_library.cpp">
+      <Filter>lib\pcl\recognition\ransac_based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\ransac_based\obj_rec_ransac.cpp">
+      <Filter>lib\pcl\recognition\ransac_based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\ransac_based\orr_octree.cpp">
+      <Filter>lib\pcl\recognition\ransac_based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\ransac_based\orr_octree_zprojection.cpp">
+      <Filter>lib\pcl\recognition\ransac_based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\approximate_progressive_morphological_filter.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\conditional_euclidean_clustering.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\cpc_segmentation.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\crf_normal_segmentation.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\crf_segmentation.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\extract_clusters.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\extract_polygonal_prism_data.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\grabcut_segmentation.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\lccp_segmentation.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\min_cut_segmentation.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\organized_connected_component_segmentation.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\organized_multi_plane_segmentation.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\planar_polygon_fusion.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\progressive_morphological_filter.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\region_growing.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\region_growing_rgb.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\sac_segmentation.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\seeded_hue_segmentation.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\segment_differences.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\supervoxel_clustering.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\unary_classifier.cpp">
+      <Filter>lib\pcl\segmentation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac.cpp">
+      <Filter>lib\pcl\sample_consensus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_circle.cpp">
+      <Filter>lib\pcl\sample_consensus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_circle3d.cpp">
+      <Filter>lib\pcl\sample_consensus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_cone.cpp">
+      <Filter>lib\pcl\sample_consensus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_cylinder.cpp">
+      <Filter>lib\pcl\sample_consensus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_line.cpp">
+      <Filter>lib\pcl\sample_consensus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_normal_parallel_plane.cpp">
+      <Filter>lib\pcl\sample_consensus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_normal_plane.cpp">
+      <Filter>lib\pcl\sample_consensus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_normal_sphere.cpp">
+      <Filter>lib\pcl\sample_consensus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_parallel_line.cpp">
+      <Filter>lib\pcl\sample_consensus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_plane.cpp">
+      <Filter>lib\pcl\sample_consensus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_registration.cpp">
+      <Filter>lib\pcl\sample_consensus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_sphere.cpp">
+      <Filter>lib\pcl\sample_consensus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_stick.cpp">
+      <Filter>lib\pcl\sample_consensus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\octree\src\octree_inst.cpp">
+      <Filter>lib\pcl\octree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\search\src\brute_force.cpp">
+      <Filter>lib\pcl\search</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\search\src\kdtree.cpp">
+      <Filter>lib\pcl\search</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\search\src\octree.cpp">
+      <Filter>lib\pcl\search</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\search\src\organized.cpp">
+      <Filter>lib\pcl\search</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\search\src\search.cpp">
+      <Filter>lib\pcl\search</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\bearing_angle_image.cpp">
+      <Filter>lib\pcl\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\colors.cpp">
+      <Filter>lib\pcl\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\common.cpp">
+      <Filter>lib\pcl\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\correspondence.cpp">
+      <Filter>lib\pcl\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\distances.cpp">
+      <Filter>lib\pcl\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\feature_histogram.cpp">
+      <Filter>lib\pcl\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\gaussian.cpp">
+      <Filter>lib\pcl\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\io.cpp">
+      <Filter>lib\pcl\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\parse.cpp">
+      <Filter>lib\pcl\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\pcl_base.cpp">
+      <Filter>lib\pcl\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\point_types.cpp">
+      <Filter>lib\pcl\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\poses_from_matches.cpp">
+      <Filter>lib\pcl\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\print.cpp">
+      <Filter>lib\pcl\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\projection_matrix.cpp">
+      <Filter>lib\pcl\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\range_image.cpp">
+      <Filter>lib\pcl\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\range_image_planar.cpp">
+      <Filter>lib\pcl\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\time_trigger.cpp">
+      <Filter>lib\pcl\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\3dsc.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\board.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\boundary.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\brisk_2d.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\cppf.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\crh.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\cvfh.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\don.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\esf.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\fpfh.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\gfpfh.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\grsd.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\integral_image_normal.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\intensity_gradient.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\intensity_spin.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\linear_least_squares_normal.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\moment_invariants.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\moment_of_inertia_estimation.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\multiscale_feature_persistence.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\narf.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\normal_3d.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\normal_based_signature.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\organized_edge_detection.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\our_cvfh.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\pfh.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\ppf.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\principal_curvatures.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\range_image_border_extractor.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\rift.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\rops_estimation.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\rsd.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\shot.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\shot_lrf.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\spin_image.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\statistical_multiscale_interest_region_extraction.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\usc.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\vfh.cpp">
+      <Filter>lib\pcl\features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\2d\src\convolution_2d.cpp">
+      <Filter>lib\pcl\2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\kdtree\src\kdtree_flann.cpp">
+      <Filter>lib\pcl\kdtree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\approximate_voxel_grid.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\bilateral.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\conditional_removal.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\covariance_sampling.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\crop_box.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\crop_hull.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\extract_indices.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\fast_bilateral.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\fast_bilateral_omp.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\filter.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\filter_indices.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\frustum_culling.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\grid_minimum.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\local_maximum.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\median_filter.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\model_outlier_removal.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\morphological_filter.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\normal_refinement.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\normal_space.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\passthrough.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\project_inliers.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\radius_outlier_removal.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\random_sample.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\sampling_surface_normal.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\shadowpoints.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\statistical_outlier_removal.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\uniform_sampling.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\voxel_grid.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\voxel_grid_covariance.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\voxel_grid_label.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\voxel_grid_occlusion_estimation.cpp">
+      <Filter>lib\pcl\filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_estimation.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_estimation_backprojection.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_estimation_normal_shooting.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_estimation_organized_projection.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_distance.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_features.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_median_distance.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_one_to_one.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_organized_boundary.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_poly.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_sample_consensus.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_sample_consensus_2d.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_surface_normal.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_trimmed.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_var_trimmed.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_types.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\elch.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\gicp.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\gicp6d.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\ia_ransac.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\icp.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\icp_nl.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\joint_icp.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\lum.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\ndt.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\ndt_2d.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\pairwise_graph_registration.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\ppf_registration.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\pyramid_feature_matching.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\registration.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\sample_consensus_prerejective.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_estimation_2D.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_estimation_dq.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_estimation_dual_quaternion.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_estimation_lm.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_estimation_point_to_plane_lls.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_estimation_point_to_plane_lls_weighted.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_estimation_point_to_plane_weighted.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_estimation_svd.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_estimation_svd_scale.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_validation_euclidean.cpp">
+      <Filter>lib\pcl\registration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\ml\src\densecrf.cpp">
+      <Filter>lib\pcl\ml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\ml\src\kmeans.cpp">
+      <Filter>lib\pcl\ml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\ml\src\pairwise_potential.cpp">
+      <Filter>lib\pcl\ml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\ml\src\permutohedral.cpp">
+      <Filter>lib\pcl\ml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\ml\src\point_xy_32f.cpp">
+      <Filter>lib\pcl\ml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\ml\src\point_xy_32i.cpp">
+      <Filter>lib\pcl\ml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\ml\src\svm.cpp">
+      <Filter>lib\pcl\ml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\ml\src\svm_wrapper.cpp">
+      <Filter>lib\pcl\ml</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\pcl\services\PCLService.h">
@@ -157,267 +718,6 @@
     </ClInclude>
     <ClInclude Include="..\..\pcl\classifiers\ObjectClassifier.h">
       <Filter>classifiers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\cloud_iterator.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\conversions.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\correspondence.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\exceptions.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\for_each_type.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\ModelCoefficients.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\pcl_base.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\pcl_exports.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\pcl_macros.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\pcl_tests.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\PCLHeader.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\PCLImage.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\PCLPointCloud2.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\PCLPointField.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\point_cloud.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\point_representation.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\point_traits.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\point_types.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\point_types_conversion.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\PointIndices.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\PolygonMesh.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\register_point_struct.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\sse.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\TextureMesh.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\Vertices.h">
-      <Filter>lib\pcl\common\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\angles.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\bivariate_polynomial.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\boost.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\centroid.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\colors.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\common.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\common_headers.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\concatenate.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\copy_point.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\distances.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\eigen.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\feature_histogram.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\file_io.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\gaussian.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\generate.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\geometry.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\intensity.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\intersections.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\io.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\norms.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\pca.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\piecewise_linear_function.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\point_operators.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\point_tests.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\polynomial_calculations.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\poses_from_matches.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\projection_matrix.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\random.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\spring.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\synchronizer.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\time.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\time_trigger.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\transformation_from_correspondences.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\transforms.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\utils.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\vector_average.h">
-      <Filter>lib\pcl\common\include\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\fft\_kiss_fft_guts.h">
-      <Filter>lib\pcl\common\include\common\fft</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\fft\kiss_fft.h">
-      <Filter>lib\pcl\common\include\common\fft</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\fft\kiss_fftr.h">
-      <Filter>lib\pcl\common\include\common\fft</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\accumulators.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\angles.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\bivariate_polynomial.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\centroid.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\common.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\copy_point.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\eigen.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\file_io.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\gaussian.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\generate.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\intensity.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\intersections.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\io.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\norms.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\pca.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\piecewise_linear_function.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\polynomial_calculations.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\projection_matrix.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\random.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\spring.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\transformation_from_correspondences.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\transforms.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\vector_average.hpp">
-      <Filter>lib\pcl\common\include\common\impl</Filter>
     </ClInclude>
     <ClInclude Include="..\..\pcl\lib\configs\pcl\pcl_config.h">
       <Filter>lib\configs\pcl</Filter>
