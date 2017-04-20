@@ -56,7 +56,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;DISABLE_OPENNI;WIN32;_DEBUG;_WINDOWS;_USRDLL;PCL_PLUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>../../pcl;../../pcl/lib/pcl/common/include/;../../pcl/lib/eigen/;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../pcl;../../pcl/lib/configs/;../../pcl/lib/pcl/common/include/;../../pcl/lib/eigen/;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -74,7 +74,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;DISABLE_OPENNI;WIN32;NDEBUG;_WINDOWS;_USRDLL;PCL_PLUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>../../pcl;../../pcl/lib/pcl/common/include/;../../pcl/lib/eigen/;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../pcl;../../pcl/lib/configs/;../../pcl/lib/pcl/common/include/;../../pcl/lib/eigen/;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -86,6 +86,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\pcl\classifiers\ObjectClassifier.h" />
+    <ClInclude Include="..\..\pcl\lib\configs\pcl\pcl_config.h" />
     <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\cloud_iterator.h" />
     <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\angles.h" />
     <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\bivariate_polynomial.h" />
@@ -159,7 +160,6 @@
     <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\PCLPointCloud2.h" />
     <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\PCLPointField.h" />
     <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\pcl_base.h" />
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\pcl_config.h" />
     <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\pcl_exports.h" />
     <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\pcl_macros.h" />
     <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\pcl_tests.h" />
