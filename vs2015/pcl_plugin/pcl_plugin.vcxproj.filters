@@ -4,9 +4,6 @@
     <Filter Include="services">
       <UniqueIdentifier>{0b1743e0-5e46-4c96-8391-a49d8c0ec14a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="classifiers">
-      <UniqueIdentifier>{5170e952-27c1-43ca-abc0-e97a09e24658}</UniqueIdentifier>
-    </Filter>
     <Filter Include="lib">
       <UniqueIdentifier>{306a3417-faf5-4a8f-8b40-7e6280880cab}</UniqueIdentifier>
     </Filter>
@@ -101,9 +98,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\pcl\services\PCLService.cpp">
       <Filter>services</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\pcl\classifiers\ObjectClassifier.cpp">
-      <Filter>classifiers</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pcl\lib\pcl\common\src\fft\kiss_fft.c">
       <Filter>lib\pcl\common\fft</Filter>
@@ -715,9 +709,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\pcl\services\PCLService.h">
       <Filter>services</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pcl\classifiers\ObjectClassifier.h">
-      <Filter>classifiers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\pcl\lib\configs\pcl\pcl_config.h">
       <Filter>lib\configs\pcl</Filter>

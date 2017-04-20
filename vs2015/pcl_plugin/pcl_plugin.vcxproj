@@ -92,7 +92,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\pcl\classifiers\ObjectClassifier.h" />
     <ClInclude Include="..\..\pcl\lib\configs\pcl\pcl_config.h" />
     <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\all_indices.h" />
     <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\autotuned_index.h" />
@@ -145,7 +144,6 @@
     <ClInclude Include="..\..\pcl\services\PCLService.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\pcl\classifiers\ObjectClassifier.cpp" />
     <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\ext\lz4.c" />
     <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\ext\lz4hc.c" />
     <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\flann.cpp" />
