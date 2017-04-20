@@ -37,6 +37,12 @@
     <Filter Include="lib\eigen">
       <UniqueIdentifier>{c2542f9a-3239-4192-95b3-cc0998f6568d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lib\configs">
+      <UniqueIdentifier>{cefcefa6-2cc6-42ce-8273-2c92f0ed48c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\configs\pcl">
+      <UniqueIdentifier>{daec021c-aa89-4500-af07-9e85377cc634}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\pcl\services\PCLService.cpp">
@@ -371,8 +377,8 @@
     <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\impl\vector_average.hpp">
       <Filter>lib\pcl\common\include\common\impl</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\pcl_config.h">
-      <Filter>lib\pcl\common\include</Filter>
+    <ClInclude Include="..\..\pcl\lib\configs\pcl\pcl_config.h">
+      <Filter>lib\configs\pcl</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
