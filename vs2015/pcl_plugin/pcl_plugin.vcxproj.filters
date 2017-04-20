@@ -43,6 +43,30 @@
     <Filter Include="lib\configs\pcl">
       <UniqueIdentifier>{daec021c-aa89-4500-af07-9e85377cc634}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lib\flann">
+      <UniqueIdentifier>{bd458bbd-6d20-4b0e-a98b-2403df30c6f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\flann\algorithms">
+      <UniqueIdentifier>{7d93670e-2ddc-401d-af28-a2304f6543c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\flann\ext">
+      <UniqueIdentifier>{788b427e-7a89-486e-bc71-53e998045cad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\flann\io">
+      <UniqueIdentifier>{7e3d2666-7a5c-409e-8eab-307a12598177}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\flann\mpi">
+      <UniqueIdentifier>{671e7841-ecb9-4516-b8a9-e12a2a3a8945}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\flann\nn">
+      <UniqueIdentifier>{e2b12efe-e246-412b-a792-79e8012ae680}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\flann\util">
+      <UniqueIdentifier>{6b8554b4-72b8-4473-9f15-9c897f7e3211}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\flann\util\cuda">
+      <UniqueIdentifier>{a4dd0f29-e1d7-40c1-a0fb-95663a0bc1d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\pcl\services\PCLService.cpp">
@@ -107,6 +131,24 @@
     </ClCompile>
     <ClCompile Include="..\..\pcl\lib\pcl\common\src\fft\kiss_fftr.c">
       <Filter>lib\pcl\common\src\fft</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\flann.cpp">
+      <Filter>lib\flann</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\flann_cpp.cpp">
+      <Filter>lib\flann</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\ext\lz4.c">
+      <Filter>lib\flann\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\ext\lz4hc.c">
+      <Filter>lib\flann\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\flann_mpi_client.cpp">
+      <Filter>lib\flann\mpi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\flann_mpi_server.cpp">
+      <Filter>lib\flann\mpi</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -380,6 +422,150 @@
     <ClInclude Include="..\..\pcl\lib\configs\pcl\pcl_config.h">
       <Filter>lib\configs\pcl</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\config.h">
+      <Filter>lib\flann</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\defines.h">
+      <Filter>lib\flann</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\flann.h">
+      <Filter>lib\flann</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\flann.hpp">
+      <Filter>lib\flann</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\general.h">
+      <Filter>lib\flann</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\all_indices.h">
+      <Filter>lib\flann\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\autotuned_index.h">
+      <Filter>lib\flann\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\center_chooser.h">
+      <Filter>lib\flann\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\composite_index.h">
+      <Filter>lib\flann\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\dist.h">
+      <Filter>lib\flann\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\hierarchical_clustering_index.h">
+      <Filter>lib\flann\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kdtree_cuda_3d_index.h">
+      <Filter>lib\flann\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kdtree_cuda_builder.h">
+      <Filter>lib\flann\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kdtree_index.h">
+      <Filter>lib\flann\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kdtree_single_index.h">
+      <Filter>lib\flann\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kmeans_index.h">
+      <Filter>lib\flann\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\linear_index.h">
+      <Filter>lib\flann\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\lsh_index.h">
+      <Filter>lib\flann\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\nn_index.h">
+      <Filter>lib\flann\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\ext\lz4.h">
+      <Filter>lib\flann\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\ext\lz4hc.h">
+      <Filter>lib\flann\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\io\hdf5.h">
+      <Filter>lib\flann\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\client.h">
+      <Filter>lib\flann\mpi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\index.h">
+      <Filter>lib\flann\mpi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\matrix.h">
+      <Filter>lib\flann\mpi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\queries.h">
+      <Filter>lib\flann\mpi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\server.h">
+      <Filter>lib\flann\mpi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\allocator.h">
+      <Filter>lib\flann\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\any.h">
+      <Filter>lib\flann\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\cutil_math.h">
+      <Filter>lib\flann\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\dynamic_bitset.h">
+      <Filter>lib\flann\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\heap.h">
+      <Filter>lib\flann\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\logger.h">
+      <Filter>lib\flann\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\lsh_table.h">
+      <Filter>lib\flann\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\matrix.h">
+      <Filter>lib\flann\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\object_factory.h">
+      <Filter>lib\flann\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\params.h">
+      <Filter>lib\flann\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\random.h">
+      <Filter>lib\flann\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\result_set.h">
+      <Filter>lib\flann\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\sampling.h">
+      <Filter>lib\flann\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\saving.h">
+      <Filter>lib\flann\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\serialization.h">
+      <Filter>lib\flann\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\timer.h">
+      <Filter>lib\flann\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\cuda\heap.h">
+      <Filter>lib\flann\util\cuda</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\cuda\result_set.h">
+      <Filter>lib\flann\util\cuda</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\nn\ground_truth.h">
+      <Filter>lib\flann\nn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\nn\index_testing.h">
+      <Filter>lib\flann\nn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\nn\simplex_downhill.h">
+      <Filter>lib\flann\nn</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\pcl\lib\eigen\Eigen\Cholesky">
@@ -468,6 +654,12 @@
     </None>
     <None Include="..\..\pcl\lib\eigen\Eigen\UmfPackSupport">
       <Filter>lib\eigen</Filter>
+    </None>
+    <None Include="..\..\pcl\lib\flann\src\cpp\flann\config.h.in">
+      <Filter>lib\flann</Filter>
+    </None>
+    <None Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kdtree_cuda_3d_index.cu">
+      <Filter>lib\flann\algorithms</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -54,9 +54,12 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;DISABLE_OPENNI;WIN32;_DEBUG;_WINDOWS;_USRDLL;PCL_PLUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>FLANN_STATIC;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;DISABLE_OPENNI;WIN32;_DEBUG;_WINDOWS;_USRDLL;PCL_PLUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>../../pcl;../../pcl/lib/configs/;../../pcl/lib/pcl/common/include/;../../pcl/lib/eigen/;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../pcl;../../pcl/lib/configs/;../../pcl/lib/pcl/common/include/;../../pcl/lib/eigen/;../../pcl/lib/flann/src/cpp/;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -72,9 +75,11 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;DISABLE_OPENNI;WIN32;NDEBUG;_WINDOWS;_USRDLL;PCL_PLUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>FLANN_STATIC;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;DISABLE_OPENNI;WIN32;NDEBUG;_WINDOWS;_USRDLL;PCL_PLUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>../../pcl;../../pcl/lib/configs/;../../pcl/lib/pcl/common/include/;../../pcl/lib/eigen/;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../pcl;../../pcl/lib/configs/;../../pcl/lib/pcl/common/include/;../../pcl/lib/eigen/;../../pcl/lib/flann/src/cpp/;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -87,6 +92,54 @@
   <ItemGroup>
     <ClInclude Include="..\..\pcl\classifiers\ObjectClassifier.h" />
     <ClInclude Include="..\..\pcl\lib\configs\pcl\pcl_config.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\all_indices.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\autotuned_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\center_chooser.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\composite_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\dist.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\hierarchical_clustering_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kdtree_cuda_3d_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kdtree_cuda_builder.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kdtree_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kdtree_single_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kmeans_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\linear_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\lsh_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\nn_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\config.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\defines.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\ext\lz4.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\ext\lz4hc.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\flann.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\flann.hpp" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\general.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\io\hdf5.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\client.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\matrix.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\queries.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\server.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\nn\ground_truth.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\nn\index_testing.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\nn\simplex_downhill.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\allocator.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\any.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\cuda\heap.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\cuda\result_set.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\cutil_math.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\dynamic_bitset.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\heap.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\logger.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\lsh_table.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\matrix.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\object_factory.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\params.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\random.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\result_set.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\sampling.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\saving.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\serialization.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\timer.h" />
     <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\cloud_iterator.h" />
     <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\angles.h" />
     <ClInclude Include="..\..\pcl\lib\pcl\common\include\pcl\common\bivariate_polynomial.h" />
@@ -178,6 +231,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\pcl\classifiers\ObjectClassifier.cpp" />
+    <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\ext\lz4.c" />
+    <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\ext\lz4hc.c" />
+    <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\flann.cpp" />
+    <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\flann_cpp.cpp" />
+    <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\flann_mpi_client.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\flann_mpi_server.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\pcl\lib\pcl\common\src\bearing_angle_image.cpp" />
     <ClCompile Include="..\..\pcl\lib\pcl\common\src\colors.cpp" />
     <ClCompile Include="..\..\pcl\lib\pcl\common\src\common.cpp" />
@@ -229,6 +294,8 @@
     <None Include="..\..\pcl\lib\eigen\Eigen\SuperLUSupport" />
     <None Include="..\..\pcl\lib\eigen\Eigen\SVD" />
     <None Include="..\..\pcl\lib\eigen\Eigen\UmfPackSupport" />
+    <None Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kdtree_cuda_3d_index.cu" />
+    <None Include="..\..\pcl\lib\flann\src\cpp\flann\config.h.in" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
