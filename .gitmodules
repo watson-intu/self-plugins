@@ -7,3 +7,6 @@
 [submodule "pcl/lib/pcl"]
 	path = pcl/lib/pcl
 	url = git@github.com:PointCloudLibrary/pcl.git
+[submodule "pcl/lib/flann"]
+	path = pcl/lib/flann
+	url = https://github.com/mariusmuja/flann
