@@ -4,3 +4,6 @@
 [submodule "pcl/lib/eigen"]
 	path = pcl/lib/eigen
 	url = git@github.com:RLovelett/eigen.git
+[submodule "pcl/lib/pcl"]
+	path = pcl/lib/pcl
+	url = git@github.com:PointCloudLibrary/pcl.git
