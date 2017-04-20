@@ -29,8 +29,14 @@ class Nao3DCamera : public DepthCamera
 public:
     RTTI_DECL();
 
-    Nao3DCamera() : m_StopThread( false )
+    Nao3DCamera() : m_StopThread( false ),
+		m_Width(320),
+		m_Height(240)
     {}
+
+	//! ISerializable interface
+	virtual void Serialize(Json::Value & json);
+	virtual void Deserialize(const Json::Value & json);
 
     //! ISensor interface
     virtual bool OnStart();
@@ -46,6 +52,8 @@ private:
     volatile bool 			m_StopThread;
     volatile bool 			m_ThreadStopped;
     std::string             m_ClientName;
+	int						m_Width;
+	int						m_Height;
 
     void				    StreamingThread( void * arg );
     void 				    DoStreamingThread( void * arg );

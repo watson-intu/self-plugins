@@ -29,10 +29,30 @@
 
 #include "tinythread++/tinythread.h"
 
+REG_OVERRIDE_SERIALIZABLE(DepthCamera, Nao3DCamera);
+
 #ifndef _WIN32
 REG_SERIALIZABLE(Nao3DCamera);
 #endif
 RTTI_IMPL(Nao3DCamera, DepthCamera);
+
+void Nao3DCamera::Serialize(Json::Value & json)
+{
+	DepthCamera::Serialize(json);
+
+	json["m_Width"] = m_Width;
+	json["m_Height"] = m_Height;
+}
+
+void Nao3DCamera::Deserialize(const Json::Value & json)
+{
+	DepthCamera::Deserialize(json);
+
+	if (json["m_Width"].isInt())
+		m_Width = json["m_Width"].asInt();
+	if (json["m_Height"].isInt())
+		m_Height = json["m_Height"].asInt();
+}
 
 bool Nao3DCamera::OnStart()
 {
@@ -81,7 +101,7 @@ void Nao3DCamera::DoStreamingThread(void *arg)
 
     while(!m_StopThread)
     {
-        cv::Mat imgHeader = cv::Mat(cv::Size(320, 240), CV_16UC1);
+        cv::Mat imgHeader = cv::Mat(cv::Size(m_Width, m_Height), CV_16UC1);
 
         AL::ALValue img = camProxy.getImageRemote(m_ClientName);
         if(img.getSize() != 12) {
