@@ -16,15 +16,15 @@
 */
 
 #define _CRT_SECURE_NO_WARNINGS
-#define WRITE_DEPTH_IMAGE			1
+#define WRITE_DEPTH_IMAGE			0
 
 #include <windows.h>
 #include <NuiApi.h>
 #pragma comment( lib, "Kinect10.lib" )
 
 #include "KinectDepthCamera.h"
+#include "KinectCamera.h"
 #include "SelfInstance.h"
-#include "utils/JpegHelpers.h"
 
 #include "opencv2/opencv.hpp"
 
@@ -35,7 +35,7 @@ RTTI_IMPL(KinectDepthCamera, DepthCamera);
 KinectDepthCamera::KinectDepthCamera() :
 	m_Width(640),
 	m_Height(480),
-	m_bNearMode(false),
+	m_bNearMode(true),
 	m_pSensor(NULL),
 	m_bProcessing(false),
 	m_hDepthStream(NULL),
@@ -67,55 +67,32 @@ bool KinectDepthCamera::OnStart()
 {
 	if (m_Paused == 0)
 	{
-		int iSensorCount = 0;
-
-		HRESULT hr = NuiGetSensorCount(&iSensorCount);
-		if (!FAILED(hr))
+		m_pSensor = KinectCamera::GrabKinect();
+		if ( m_pSensor != NULL )
 		{
-			// Look at each Kinect sensor
-			for (int i = 0; i < iSensorCount; ++i)
+			m_hDepthStreamEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+			HRESULT hr = m_pSensor->NuiImageStreamOpen(
+				NUI_IMAGE_TYPE_DEPTH,
+				NUI_IMAGE_RESOLUTION_640x480,
+				0,
+				2,
+				m_hDepthStreamEvent,
+				&m_hDepthStream);
+
+			if (!FAILED(hr))
 			{
-				// Create the sensor so we can check status, if we can't create it, move on to the next
-				INuiSensor * pNuiSensor = NULL;
-				hr = NuiCreateSensorByIndex(i, &pNuiSensor);
-				if (FAILED(hr))
-					continue;
-
-				// Get the status of the sensor, and if connected, then we can initialize it
-				if (S_OK == pNuiSensor->NuiStatus())
-				{
-					hr = pNuiSensor->NuiInitialize(NUI_INITIALIZE_FLAG_USES_DEPTH);
-					if (!FAILED(hr))
-					{
-						m_hDepthStreamEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
-						hr = pNuiSensor->NuiImageStreamOpen(
-							NUI_IMAGE_TYPE_DEPTH,
-							NUI_IMAGE_RESOLUTION_640x480,
-							0,
-							2,
-							m_hDepthStreamEvent,
-							&m_hDepthStream);
-
-						if (!FAILED(hr))
-						{
-							pNuiSensor->NuiImageStreamSetImageFrameFlags(m_hDepthStream, m_bNearMode ? NUI_IMAGE_STREAM_FLAG_ENABLE_NEAR_MODE : 0);
-							m_pSensor = pNuiSensor;
-							break;
-						}
-					}
-				}
-
-				// This sensor wasn't OK, so release it since we're not using it
-				pNuiSensor->Release();
+				m_pSensor->NuiImageStreamSetImageFrameFlags(m_hDepthStream, m_bNearMode ? NUI_IMAGE_STREAM_FLAG_ENABLE_NEAR_MODE : 0);
+				m_spWaitTimer = TimerPool::Instance()->StartTimer(VOID_DELEGATE(KinectDepthCamera, OnCaptureData, this), (1.0f / m_fFramesPerSec), false, true);
+				Log::Status("KinectCamera", "Camera has started");
+			}
+			else
+			{
+				KinectCamera::FreeKinect( m_pSensor );
+				m_pSensor = NULL;
 			}
 		}
 
-		if (m_pSensor != NULL)
-		{
-			m_spWaitTimer = TimerPool::Instance()->StartTimer(VOID_DELEGATE(KinectDepthCamera, OnCaptureData, this), (1.0f / m_fFramesPerSec), false, true);
-			Log::Status("KinectCamera", "Camera has started");
-		}
-		else
+		if (m_pSensor == NULL)
 			Log::Warning("kinectCamera", "Failed to open camera");
 	}
 
@@ -126,17 +103,16 @@ bool KinectDepthCamera::OnStop()
 {
 	m_spWaitTimer.reset();
 
-	if (m_pSensor != NULL)
-	{
-		m_pSensor->NuiShutdown();
-		m_pSensor->Release();
-		m_pSensor = NULL;
-	}
-
 	if (m_hDepthStreamEvent != NULL)
 	{
 		CloseHandle(m_hDepthStreamEvent);
 		m_hDepthStreamEvent = NULL;
+	}
+
+	if (m_pSensor != NULL)
+	{
+		KinectCamera::FreeKinect(m_pSensor);
+		m_pSensor = NULL;
 	}
 
 	Log::Debug("KinectCamera", "Camera has stopped...");

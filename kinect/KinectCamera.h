@@ -15,22 +15,22 @@
 *
 */
 
-#ifndef KINECT_DEPTH_CAMERA_H
-#define KINECT_DEPTH_CAMERA_H
+#ifndef KINECT_CAMERA_H
+#define KINECT_CAMERA_H
 
 #include "utils/TimerPool.h"
-#include "sensors/DepthCamera.h"
+#include "sensors/Camera.h"
 
 struct INuiSensor;
 
 //! OpenCV implementation of the Camera class
-class KinectDepthCamera : public DepthCamera
+class KinectCamera : public Camera
 {
 public:
 	RTTI_DECL();
 
 	//! Construction
-	KinectDepthCamera();
+	KinectCamera();
 
 	//! ISerializable interface
 	virtual void Serialize(Json::Value & json);
@@ -42,20 +42,25 @@ public:
 	virtual void OnPause();
 	virtual void OnResume();
 
+	static INuiSensor *		GrabKinect();
+	static void				FreeKinect(INuiSensor * a_pSensor);
+
 private:
 	//! Data
 	INuiSensor *			m_pSensor;
 	volatile bool			m_bProcessing;
 	TimerPool::ITimer::SP	m_spWaitTimer;
-	HANDLE					m_hDepthStream;
-	HANDLE					m_hDepthStreamEvent;
+	HANDLE					m_hImageStream;
+	HANDLE					m_hImageStreamEvent;
 
 	int						m_Width;
 	int						m_Height;
-	bool					m_bNearMode;
 
 	void 					OnCaptureData();
 	void					OnSendData( IData * a_pData );
+
+	static INuiSensor *		sm_pSharedSensor;
+	static unsigned int		sm_nSharedSensorCount;
 };
 
 #endif // KINECT_CAMERA_H
