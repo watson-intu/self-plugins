@@ -173,6 +173,7 @@ void KinectDepthCamera::OnCaptureData()
 					const NUI_DEPTH_IMAGE_PIXEL * pBufferRun = reinterpret_cast<const NUI_DEPTH_IMAGE_PIXEL *>(LockedRect.pBits);
 					const NUI_DEPTH_IMAGE_PIXEL * pBufferEnd = reinterpret_cast<const NUI_DEPTH_IMAGE_PIXEL *>(LockedRect.pBits + LockedRect.size);
 
+					// encode using RGB, see https://sites.google.com/site/brainrobotdata/home/depth-image-encoding
 					byte * pRGB = new byte[m_Width * m_Height * 3];
 					for (int x = 0; x < m_Width; ++x)
 					{
