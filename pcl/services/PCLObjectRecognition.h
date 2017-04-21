@@ -34,10 +34,18 @@ public:
 	typedef pcl::PointXYZ		PointType;
 	typedef pcl::Normal			NormalType;
 	typedef pcl::SHOT352		DescriptorType;
+	typedef pcl::ReferenceFrame RFType;
 
 	//! This structure is used to hold loaded point cloud data for a particular angle of a model
 	struct ModelPCD
 	{
+		ModelPCD() : 
+			m_Model( new pcl::PointCloud<PointType>() ),
+			m_Keypoints( new pcl::PointCloud<PointType>() ),
+			m_Normals( new pcl::PointCloud<NormalType>() ),
+			m_Descriptors( new pcl::PointCloud<DescriptorType>() )
+		{}
+
 		pcl::PointCloud<PointType>::Ptr	m_Model;
 		pcl::PointCloud<PointType>::Ptr m_Keypoints;
 		pcl::PointCloud<NormalType>::Ptr m_Normals;
@@ -106,6 +114,12 @@ private:
 	std::vector<ObjectModel>		m_Objects;
 	float							m_ModelSS;
 	float							m_DescRad;
+	float							m_SceneSS;
+	float							m_ShotDist;
+	float							m_RFRad;
+	float							m_CGSize;
+	float							m_CGThresh;
+	float							m_LowHeight;
 };
 
 #endif
