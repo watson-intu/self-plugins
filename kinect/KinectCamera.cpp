@@ -94,6 +94,8 @@ bool KinectCamera::OnStart()
 bool KinectCamera::OnStop()
 {
 	m_spWaitTimer.reset();
+	while( m_bProcessing )
+		boost::this_thread::yield();
 
 	if (m_hImageStreamEvent != NULL)
 	{
@@ -114,6 +116,7 @@ bool KinectCamera::OnStop()
 
 void KinectCamera::OnCaptureData()
 {
+	m_bProcessing = true;
 	if (WAIT_OBJECT_0 == WaitForSingleObject(m_hImageStreamEvent, 0))
 	{
 		// Attempt to get the depth frame
@@ -157,6 +160,7 @@ void KinectCamera::OnCaptureData()
 			m_pSensor->NuiImageStreamReleaseFrame(m_hImageStream, &imageFrame);
 		}
 	}
+	m_bProcessing = false;
 }
 
 void KinectCamera::OnSendData(IData * a_pData)
