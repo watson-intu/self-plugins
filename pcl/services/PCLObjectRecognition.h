@@ -20,7 +20,7 @@
 
 #include "services/IObjectRecognition.h"
 
-class SELF_API PCLObjectRecognition : public IObjectRecognition
+class PCLObjectRecognition : public IObjectRecognition
 {
 public:
 	RTTI_DECL();
@@ -29,13 +29,28 @@ public:
 	typedef Delegate<const Json::Value &>	OnClassifyObjects;
 
 	//! Construction 
-	PCLObjectRecognition( const std::string & a_ServiceId, AuthType a_AuthType = AUTH_BASIC ) 
-		: IObjectRecognition( a_ServiceId, a_AuthType )
+	PCLObjectRecognition() : IObjectRecognition( "PCL", AUTH_NONE )
 	{}
 
 	//! IObjectRecognition interface
 	virtual void ClassifyObjects(const std::string & a_DepthImageData,
 		OnClassifyObjects a_Callback );
+
+private:
+	//! Types
+	struct ProcessDepthData
+	{
+		ProcessDepthData( const std::string & a_DepthData, OnClassifyObjects a_Callback ) :
+			m_DepthData( a_DepthData ), m_Callback( a_Callback )
+		{}
+
+		std::string			m_DepthData;
+		Json::Value			m_Results;
+		OnClassifyObjects	m_Callback;
+	};
+
+	void ProcessThread( ProcessDepthData * a_pData );
+	void SendResults( ProcessDepthData * a_pData );
 };
 
 #endif

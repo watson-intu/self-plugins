@@ -96,9 +96,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\pcl\services\PCLService.cpp">
-      <Filter>services</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pcl\lib\pcl\common\src\fft\kiss_fft.c">
       <Filter>lib\pcl\common\fft</Filter>
     </ClCompile>
@@ -705,11 +702,11 @@
     <ClCompile Include="..\..\pcl\lib\pcl\ml\src\svm_wrapper.cpp">
       <Filter>lib\pcl\ml</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\pcl\services\PCLObjectRecognition.cpp">
+      <Filter>services</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\pcl\services\PCLService.h">
-      <Filter>services</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\pcl\lib\configs\pcl\pcl_config.h">
       <Filter>lib\configs\pcl</Filter>
     </ClInclude>
@@ -856,6 +853,9 @@
     </ClInclude>
     <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\nn\simplex_downhill.h">
       <Filter>lib\flann\nn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\pcl\services\PCLObjectRecognition.h">
+      <Filter>services</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

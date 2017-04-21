@@ -141,7 +141,7 @@
     <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\saving.h" />
     <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\serialization.h" />
     <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\timer.h" />
-    <ClInclude Include="..\..\pcl\services\PCLService.h" />
+    <ClInclude Include="..\..\pcl\services\PCLObjectRecognition.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\ext\lz4.c" />
@@ -358,7 +358,7 @@
     <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\segment_differences.cpp" />
     <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\supervoxel_clustering.cpp" />
     <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\unary_classifier.cpp" />
-    <ClCompile Include="..\..\pcl\services\PCLService.cpp" />
+    <ClCompile Include="..\..\pcl\services\PCLObjectRecognition.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\pcl\lib\eigen\Eigen\Cholesky" />
@@ -392,6 +392,17 @@
     <None Include="..\..\pcl\lib\eigen\Eigen\UmfPackSupport" />
     <None Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kdtree_cuda_3d_index.cu" />
     <None Include="..\..\pcl\lib\flann\src\cpp\flann\config.h.in" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\lib\cpp-sdk\vs2015\jsoncpp\jsoncpp.vcxproj">
+      <Project>{28ba4301-4c55-41d2-b122-01dbde375452}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\lib\cpp-sdk\vs2015\utils\utils.vcxproj">
+      <Project>{9b6c58b8-9a51-4634-ab23-f23f6a458bad}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\vs2015\self\self.vcxproj">
+      <Project>{22fd607f-5015-49ea-9010-1ad4ba706e7f}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
