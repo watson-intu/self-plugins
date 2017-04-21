@@ -149,12 +149,12 @@
     <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\flann.cpp" />
     <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\flann_cpp.cpp" />
     <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\flann_mpi_client.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\flann_mpi_server.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\pcl\lib\pcl\2d\src\convolution_2d.cpp" />
     <ClCompile Include="..\..\pcl\lib\pcl\common\src\bearing_angle_image.cpp" />
