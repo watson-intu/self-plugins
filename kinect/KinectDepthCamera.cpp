@@ -15,6 +15,7 @@
 *
 */
 
+#define _CRT_SECURE_NO_WARNINGS
 #define WRITE_DEPTH_IMAGE			1
 
 #include <windows.h>
@@ -173,8 +174,8 @@ void KinectDepthCamera::OnCaptureData()
 					const NUI_DEPTH_IMAGE_PIXEL * pBufferRun = reinterpret_cast<const NUI_DEPTH_IMAGE_PIXEL *>(LockedRect.pBits);
 					const NUI_DEPTH_IMAGE_PIXEL * pBufferEnd = reinterpret_cast<const NUI_DEPTH_IMAGE_PIXEL *>(LockedRect.pBits + LockedRect.size);
 
-					// encode using RGB, see https://sites.google.com/site/brainrobotdata/home/depth-image-encoding
-					byte * pRGB = new byte[m_Width * m_Height * 3];
+					// extract the depth from the data, build a buffer of 16-bit depth values in MM, which we will encode into png below..
+					cv::Mat encode( cv::Size(m_Width, m_Height), CV_16UC1);
 					for (int x = 0; x < m_Width; ++x)
 					{
 						for (int y = 0; y < m_Height; ++y)
@@ -182,31 +183,25 @@ void KinectDepthCamera::OnCaptureData()
 							// sample the depth from the locked rect..
 							unsigned int src = ((x * 640) / m_Width) + (((y * 480) / m_Height) * 640);
 							unsigned short depth = pBufferRun[src].depth;
-
-							unsigned int dst = (x + (y * m_Width)) * 3;
-							pRGB[dst + 0] = (depth / 256) / 256;	// red represents 256 millimeters
-							pRGB[dst + 1] = (depth / 256) % 256;	// green
-							pRGB[dst + 2] = depth % 256;			// blue
+							encode.at<unsigned short>(cv::Point(x,y)) = pBufferRun[src].depth;
 						}
 					}
 
-					std::string jpeg;
-					if (JpegHelpers::EncodeImage(pRGB, m_Width, m_Height, 3, jpeg))
+					std::vector<unsigned char> encoded;
+					if ( cv::imencode(".png", encode, encoded) )
 					{
 						ThreadPool::Instance()->InvokeOnMain<IData *>(
-							DELEGATE(KinectDepthCamera, OnSendData, IData *, this), new DepthVideoData(jpeg));
+							DELEGATE(KinectDepthCamera, OnSendData, IData *, this), new DepthVideoData(encoded));
 
 #if WRITE_DEPTH_IMAGE
-						FILE * fp = fopen("depth.jpg", "wb");
+						FILE * fp = fopen("depth.png", "wb");
 						if (fp != NULL)
 						{
-							fwrite(jpeg.data(), 1, jpeg.size(), fp);
+							fwrite(encoded.data(), 1, encoded.size(), fp);
 							fclose(fp);
 						}
 #endif
 					}
-
-					delete[] pRGB;
 				}
 
 				// We're done with the texture so unlock it
@@ -217,28 +212,6 @@ void KinectDepthCamera::OnCaptureData()
 			m_pSensor->NuiImageStreamReleaseFrame(m_hDepthStream, &imageFrame);
 		}
 	}
-
-	//cv::Mat frame;
-	//if (m_VideoCapture != NULL && !m_bProcessing)
-	//{
-	//	m_bProcessing = true;
-	//	if (m_VideoCapture->read(frame))
-	//	{
-	//		cv::Mat resized;
-	//		if (m_Width > 0 && m_Height > 0)
-	//			cv::resize(frame, resized, cv::Size(m_Width, m_Height));
-
-	//		std::vector<unsigned char> jpeg;
-	//		if (cv::imencode(".jpg", resized.empty() ? frame : resized, jpeg))
-	//		{
-	//			ThreadPool::Instance()->InvokeOnMain<IData *>( 
-	//				DELEGATE( KinectCamera, OnSendData, IData *, this), new VideoData(jpeg) );
-	//		}
-	//		resized.release();
-	//		frame.release();
-	//	}
-	//	m_bProcessing = false;
-	//}
 }
 
 void KinectDepthCamera::OnSendData(IData * a_pData)
