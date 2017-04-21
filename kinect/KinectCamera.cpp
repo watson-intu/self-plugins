@@ -101,6 +101,7 @@ bool KinectCamera::OnStop()
 	{
 		CloseHandle(m_hImageStreamEvent);
 		m_hImageStreamEvent = NULL;
+		m_hImageStream = NULL;
 	}
 
 	if (m_pSensor != NULL)
@@ -116,51 +117,54 @@ bool KinectCamera::OnStop()
 
 void KinectCamera::OnCaptureData()
 {
-	m_bProcessing = true;
-	if (WAIT_OBJECT_0 == WaitForSingleObject(m_hImageStreamEvent, 0))
+	if (! m_bProcessing )
 	{
-		// Attempt to get the depth frame
-		NUI_IMAGE_FRAME imageFrame;
-
-		HRESULT hr = m_pSensor->NuiImageStreamGetNextFrame(m_hImageStream, 0, &imageFrame);
-		if (!FAILED(hr))
+		m_bProcessing = true;
+		if (WAIT_OBJECT_0 == WaitForSingleObject(m_hImageStreamEvent, 0))
 		{
-			// Lock the frame data so the Kinect knows not to modify it while we're reading it
-			NUI_LOCKED_RECT LockedRect;
-			imageFrame.pFrameTexture->LockRect(0, &LockedRect, NULL, 0);
+			// Attempt to get the depth frame
+			NUI_IMAGE_FRAME imageFrame;
 
-			// Make sure we've received valid data
-			if (LockedRect.Pitch != 0)
+			HRESULT hr = m_pSensor->NuiImageStreamGetNextFrame(m_hImageStream, 0, &imageFrame);
+			if (!FAILED(hr))
 			{
-				unsigned int * pRGB = new unsigned int[ m_Width * m_Height ];
-				for (int x = 0; x < m_Width; ++x)
+				// Lock the frame data so the Kinect knows not to modify it while we're reading it
+				NUI_LOCKED_RECT LockedRect;
+				imageFrame.pFrameTexture->LockRect(0, &LockedRect, NULL, 0);
+
+				// Make sure we've received valid data
+				if (LockedRect.Pitch != 0)
 				{
-					for (int y = 0; y < m_Height; ++y)
+					unsigned int * pRGB = new unsigned int[ m_Width * m_Height ];
+					for (int x = 0; x < m_Width; ++x)
 					{
-						// sample the depth from the locked rect..
-						unsigned int src = ((x * 640) / m_Width) + (((y * 480) / m_Height) * 640);
-						unsigned int dst = x + (y * m_Width);
-						pRGB[dst] = ((unsigned int *)LockedRect.pBits)[ src ];
+						for (int y = 0; y < m_Height; ++y)
+						{
+							// sample the depth from the locked rect..
+							unsigned int src = ((x * 640) / m_Width) + (((y * 480) / m_Height) * 640);
+							unsigned int dst = x + (y * m_Width);
+							pRGB[dst] = ((unsigned int *)LockedRect.pBits)[ src ];
+						}
 					}
+
+					std::string jpeg;
+					if ( JpegHelpers::EncodeImage( pRGB, m_Width, m_Height, 4, jpeg ) )
+					{
+						ThreadPool::Instance()->InvokeOnMain<IData *>(
+							DELEGATE(KinectCamera, OnSendData, IData *, this), new VideoData(jpeg));
+					}
+
+					delete [] pRGB;
 				}
 
-				std::string jpeg;
-				if ( JpegHelpers::EncodeImage( pRGB, m_Width, m_Height, 4, jpeg ) )
-				{
-					ThreadPool::Instance()->InvokeOnMain<IData *>(
-						DELEGATE(KinectCamera, OnSendData, IData *, this), new VideoData(jpeg));
-				}
+				// We're done with the texture so unlock it
+				imageFrame.pFrameTexture->UnlockRect(0);
 
-				delete [] pRGB;
+				m_pSensor->NuiImageStreamReleaseFrame(m_hImageStream, &imageFrame);
 			}
-
-			// We're done with the texture so unlock it
-			imageFrame.pFrameTexture->UnlockRect(0);
-
-			m_pSensor->NuiImageStreamReleaseFrame(m_hImageStream, &imageFrame);
 		}
+		m_bProcessing = false;
 	}
-	m_bProcessing = false;
 }
 
 void KinectCamera::OnSendData(IData * a_pData)

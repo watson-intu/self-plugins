@@ -109,6 +109,7 @@ bool KinectDepthCamera::OnStop()
 	{
 		CloseHandle(m_hDepthStreamEvent);
 		m_hDepthStreamEvent = NULL;
+		m_hDepthStream = NULL;
 	}
 
 	if (m_pSensor != NULL)
@@ -124,74 +125,77 @@ bool KinectDepthCamera::OnStop()
 
 void KinectDepthCamera::OnCaptureData()
 {
-	m_bProcessing = true;
-	if (WAIT_OBJECT_0 == WaitForSingleObject(m_hDepthStreamEvent, 0))
+	if (! m_bProcessing )
 	{
-		// Attempt to get the depth frame
-		NUI_IMAGE_FRAME imageFrame;
-
-		HRESULT hr = m_pSensor->NuiImageStreamGetNextFrame(m_hDepthStream, 0, &imageFrame);
-		if (!FAILED(hr))
+		m_bProcessing = true;
+		if (WAIT_OBJECT_0 == WaitForSingleObject(m_hDepthStreamEvent, 0))
 		{
-			BOOL nearMode;
-			INuiFrameTexture * pTexture = NULL;
+			// Attempt to get the depth frame
+			NUI_IMAGE_FRAME imageFrame;
 
-			hr = m_pSensor->NuiImageFrameGetDepthImagePixelFrameTexture(m_hDepthStream, &imageFrame, &nearMode, &pTexture);
+			HRESULT hr = m_pSensor->NuiImageStreamGetNextFrame(m_hDepthStream, 0, &imageFrame);
 			if (!FAILED(hr))
 			{
-				// Lock the frame data so the Kinect knows not to modify it while we're reading it
-				NUI_LOCKED_RECT LockedRect;
-				pTexture->LockRect(0, &LockedRect, NULL, 0);
+				BOOL nearMode;
+				INuiFrameTexture * pTexture = NULL;
 
-				// Make sure we've received valid data
-				if (LockedRect.Pitch != 0)
+				hr = m_pSensor->NuiImageFrameGetDepthImagePixelFrameTexture(m_hDepthStream, &imageFrame, &nearMode, &pTexture);
+				if (!FAILED(hr))
 				{
-					// Get the min and max reliable depth for the current frame
-					int minDepth = (nearMode ? NUI_IMAGE_DEPTH_MINIMUM_NEAR_MODE : NUI_IMAGE_DEPTH_MINIMUM) >> NUI_IMAGE_PLAYER_INDEX_SHIFT;
-					int maxDepth = (nearMode ? NUI_IMAGE_DEPTH_MAXIMUM_NEAR_MODE : NUI_IMAGE_DEPTH_MAXIMUM) >> NUI_IMAGE_PLAYER_INDEX_SHIFT;
+					// Lock the frame data so the Kinect knows not to modify it while we're reading it
+					NUI_LOCKED_RECT LockedRect;
+					pTexture->LockRect(0, &LockedRect, NULL, 0);
 
-					const NUI_DEPTH_IMAGE_PIXEL * pBufferRun = reinterpret_cast<const NUI_DEPTH_IMAGE_PIXEL *>(LockedRect.pBits);
-					const NUI_DEPTH_IMAGE_PIXEL * pBufferEnd = reinterpret_cast<const NUI_DEPTH_IMAGE_PIXEL *>(LockedRect.pBits + LockedRect.size);
-
-					// extract the depth from the data, build a buffer of 16-bit depth values in MM, which we will encode into png below..
-					cv::Mat encode( cv::Size(m_Width, m_Height), CV_16UC1);
-					for (int x = 0; x < m_Width; ++x)
+					// Make sure we've received valid data
+					if (LockedRect.Pitch != 0)
 					{
-						for (int y = 0; y < m_Height; ++y)
+						// Get the min and max reliable depth for the current frame
+						int minDepth = (nearMode ? NUI_IMAGE_DEPTH_MINIMUM_NEAR_MODE : NUI_IMAGE_DEPTH_MINIMUM) >> NUI_IMAGE_PLAYER_INDEX_SHIFT;
+						int maxDepth = (nearMode ? NUI_IMAGE_DEPTH_MAXIMUM_NEAR_MODE : NUI_IMAGE_DEPTH_MAXIMUM) >> NUI_IMAGE_PLAYER_INDEX_SHIFT;
+
+						const NUI_DEPTH_IMAGE_PIXEL * pBufferRun = reinterpret_cast<const NUI_DEPTH_IMAGE_PIXEL *>(LockedRect.pBits);
+						const NUI_DEPTH_IMAGE_PIXEL * pBufferEnd = reinterpret_cast<const NUI_DEPTH_IMAGE_PIXEL *>(LockedRect.pBits + LockedRect.size);
+
+						// extract the depth from the data, build a buffer of 16-bit depth values in MM, which we will encode into png below..
+						cv::Mat encode( cv::Size(m_Width, m_Height), CV_16UC1);
+						for (int x = 0; x < m_Width; ++x)
 						{
-							// sample the depth from the locked rect..
-							unsigned int src = ((x * 640) / m_Width) + (((y * 480) / m_Height) * 640);
-							unsigned short depth = pBufferRun[src].depth;
-							encode.at<unsigned short>(cv::Point(x,y)) = pBufferRun[src].depth;
+							for (int y = 0; y < m_Height; ++y)
+							{
+								// sample the depth from the locked rect..
+								unsigned int src = ((x * 640) / m_Width) + (((y * 480) / m_Height) * 640);
+								unsigned short depth = pBufferRun[src].depth;
+								encode.at<unsigned short>(cv::Point(x,y)) = pBufferRun[src].depth;
+							}
+						}
+
+						std::vector<unsigned char> encoded;
+						if ( cv::imencode(".png", encode, encoded) )
+						{
+							ThreadPool::Instance()->InvokeOnMain<IData *>(
+								DELEGATE(KinectDepthCamera, OnSendData, IData *, this), new DepthVideoData(encoded));
+
+	#if WRITE_DEPTH_IMAGE
+							FILE * fp = fopen("depth.png", "wb");
+							if (fp != NULL)
+							{
+								fwrite(encoded.data(), 1, encoded.size(), fp);
+								fclose(fp);
+							}
+	#endif
 						}
 					}
 
-					std::vector<unsigned char> encoded;
-					if ( cv::imencode(".png", encode, encoded) )
-					{
-						ThreadPool::Instance()->InvokeOnMain<IData *>(
-							DELEGATE(KinectDepthCamera, OnSendData, IData *, this), new DepthVideoData(encoded));
-
-#if WRITE_DEPTH_IMAGE
-						FILE * fp = fopen("depth.png", "wb");
-						if (fp != NULL)
-						{
-							fwrite(encoded.data(), 1, encoded.size(), fp);
-							fclose(fp);
-						}
-#endif
-					}
+					// We're done with the texture so unlock it
+					pTexture->UnlockRect(0);
+					pTexture->Release();
 				}
 
-				// We're done with the texture so unlock it
-				pTexture->UnlockRect(0);
-				pTexture->Release();
+				m_pSensor->NuiImageStreamReleaseFrame(m_hDepthStream, &imageFrame);
 			}
-
-			m_pSensor->NuiImageStreamReleaseFrame(m_hDepthStream, &imageFrame);
 		}
+		m_bProcessing = false;
 	}
-	m_bProcessing = false;
 }
 
 void KinectDepthCamera::OnSendData(IData * a_pData)
