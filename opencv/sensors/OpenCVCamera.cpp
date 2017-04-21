@@ -57,8 +57,13 @@ bool OpenCVCamera::OnStart()
 		else
 			m_VideoCapture = new cv::VideoCapture(m_CameraDevice);
 
-		m_spWaitTimer = TimerPool::Instance()->StartTimer(VOID_DELEGATE(OpenCVCamera, OnCaptureImage, this), (1.0f / m_fFramesPerSec), false, true);
-		Log::Debug("OpenCVCamera", "Open CV Camera has started");
+		if ( m_VideoCapture->isOpened() )
+		{
+			m_spWaitTimer = TimerPool::Instance()->StartTimer(VOID_DELEGATE(OpenCVCamera, OnCaptureImage, this), (1.0f / m_fFramesPerSec), false, true);
+			Log::Status("OpenCVCamera", "Camera has started");
+		}
+		else
+			Log::Warning("OpenCVCamera", "Failed to open camera");
 	}
 
 	return true;
@@ -67,9 +72,12 @@ bool OpenCVCamera::OnStart()
 bool OpenCVCamera::OnStop()
 {
 	m_spWaitTimer.reset();
-	delete m_VideoCapture;
-	m_VideoCapture = NULL;
-	Log::Debug("OpenCVCamera", "Open CV Camera has stopped...");
+	if ( m_VideoCapture != NULL )
+	{
+		delete m_VideoCapture;
+		m_VideoCapture = NULL;
+		Log::Status("OpenCVCamera", "Camera has stopped...");
+	}
 	return true;
 }
 
