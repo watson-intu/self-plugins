@@ -20,6 +20,9 @@
 
 #include "services/IObjectRecognition.h"
 
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+
 class PCLObjectRecognition : public IObjectRecognition
 {
 public:
@@ -28,9 +31,56 @@ public:
 	//! Types
 	typedef Delegate<const Json::Value &>	OnClassifyObjects;
 
+	typedef pcl::PointXYZ		PointType;
+	typedef pcl::Normal			NormalType;
+	typedef pcl::SHOT352		DescriptorType;
+
+	//! This structure is used to hold loaded point cloud data for a particular angle of a model
+	struct ModelPCD
+	{
+		pcl::PointCloud<PointType>::Ptr	m_Model;
+		pcl::PointCloud<PointType>::Ptr m_Keypoints;
+		pcl::PointCloud<NormalType>::Ptr m_Normals;
+		pcl::PointCloud<DescriptorType>::Ptr m_Descriptors;
+	};
+
+	struct ObjectModel : public ISerializable
+	{
+		ObjectModel()
+		{}
+		ObjectModel( const std::string & a_ObjectId, const std::vector<std::string> & a_Models ) :
+			m_ObjectId( a_ObjectId ), m_Models( a_Models )
+		{}
+
+		std::string						m_ObjectId;		// the ID of this object
+		std::vector<std::string>		m_Models;		// list of files containing the PCD
+		std::vector<ModelPCD>			m_PCD;			// loaded point-cloud data
+
+		//! ISerializable interface
+		virtual void Serialize(Json::Value & json)
+		{
+			json["m_ObjectId"] = m_ObjectId;
+			SerializeVector( "m_Models", m_Models, json );
+		}
+		virtual void Deserialize(const Json::Value & json)
+		{
+			if ( json["m_ObjectId"].isString() )
+				m_ObjectId = json["m_ObjectId"].asString();
+			DeserializeVector( "m_Models", json, m_Models );
+		}
+
+		bool LoadPCD( float a_ModelSS, float a_DescRad );
+	};
+
 	//! Construction 
-	PCLObjectRecognition() : IObjectRecognition( "PCL", AUTH_NONE )
-	{}
+	PCLObjectRecognition();
+
+	//! ISerializable interface
+	virtual void Serialize(Json::Value & json);
+	virtual void Deserialize(const Json::Value & json);
+
+	//! IService interface
+	virtual bool Start();
 
 	//! IObjectRecognition interface
 	virtual void ClassifyObjects(const std::string & a_DepthImageData,
@@ -51,6 +101,11 @@ private:
 
 	void ProcessThread( ProcessDepthData * a_pData );
 	void SendResults( ProcessDepthData * a_pData );
+
+	//! Data
+	std::vector<ObjectModel>		m_Objects;
+	float							m_ModelSS;
+	float							m_DescRad;
 };
 
 #endif
