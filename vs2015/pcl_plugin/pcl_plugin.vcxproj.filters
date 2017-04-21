@@ -94,6 +94,18 @@
     <Filter Include="lib\pcl\ml">
       <UniqueIdentifier>{7083ca6e-1473-43e6-8c68-6a1796330749}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lib\pcl\io">
+      <UniqueIdentifier>{9acc9f12-d6ed-4034-acc0-4bc427a19526}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\pcl\io\real_sense">
+      <UniqueIdentifier>{48e77f6a-3e35-40e2-ab25-1f2f21fb74ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\pcl\io\ply">
+      <UniqueIdentifier>{f90f68aa-4d94-43a9-ad6d-81afff37b6f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\pcl\io\depth_sense">
+      <UniqueIdentifier>{d412de75-a1f5-458d-aefe-fe704b007244}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\pcl\lib\pcl\common\src\fft\kiss_fft.c">
@@ -705,6 +717,120 @@
     <ClCompile Include="..\..\pcl\services\PCLObjectRecognition.cpp">
       <Filter>services</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\ascii_io.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\auto_io.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\compression.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\davidsdk_grabber.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\debayer.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\depth_sense_grabber.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\dinast_grabber.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\ensenso_grabber.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\file_io.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\fotonic_grabber.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\hdl_grabber.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\ifs_io.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\image_depth.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\image_grabber.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\image_ir.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\image_rgb24.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\image_yuv422.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\io_exception.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\libpng_wrapper.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\lzf.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\lzf_image_io.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\obj_io.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\oni_grabber.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\openni_grabber.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\openni2_grabber.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\pcd_grabber.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\pcd_io.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\ply_io.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\png_io.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\real_sense_grabber.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\robot_eye_grabber.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\vlp_grabber.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\vtk_io.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\vtk_lib_io.cpp">
+      <Filter>lib\pcl\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\depth_sense\depth_sense_device_manager.cpp">
+      <Filter>lib\pcl\io\depth_sense</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\depth_sense\depth_sense_grabber_impl.cpp">
+      <Filter>lib\pcl\io\depth_sense</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\ply\ply_parser.cpp">
+      <Filter>lib\pcl\io\ply</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\real_sense\real_sense_device_manager.cpp">
+      <Filter>lib\pcl\io\real_sense</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\pcl\lib\configs\pcl\pcl_config.h">
@@ -952,5 +1078,6 @@
     <None Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kdtree_cuda_3d_index.cu">
       <Filter>lib\flann\algorithms</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

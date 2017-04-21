@@ -56,7 +56,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>FLANN_STATIC;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;DISABLE_OPENNI;WIN32;_DEBUG;_WINDOWS;_USRDLL;PCL_PLUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>../../pcl;../../pcl/lib/configs/;../../pcl/lib/pcl/common/include/;../../pcl/lib/pcl/features/include/;../../pcl/lib/pcl/search/include/;../../pcl/lib/pcl/kdtree/include/;../../pcl/lib/pcl/2d/include/;../../pcl/lib/pcl/octree/include/;../../pcl/lib/pcl/sample_consensus/include/;../../pcl/lib/pcl/segmentation/include/;../../pcl/lib/pcl/recognition/include/;../../pcl/lib/pcl/filters/include/;../../pcl/lib/pcl/ml/include/;../../pcl/lib/pcl/registration/include/;../../pcl/lib/pcl/geometry/include/;../../pcl/lib/eigen/;../../pcl/lib/flann/src/cpp/;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../pcl;../../pcl/lib/configs/;../../pcl/lib/pcl/common/include/;../../pcl/lib/pcl/features/include/;../../pcl/lib/pcl/search/include/;../../pcl/lib/pcl/kdtree/include/;../../pcl/lib/pcl/2d/include/;../../pcl/lib/pcl/octree/include/;../../pcl/lib/pcl/sample_consensus/include/;../../pcl/lib/pcl/segmentation/include/;../../pcl/lib/pcl/recognition/include/;../../pcl/lib/pcl/filters/include/;../../pcl/lib/pcl/ml/include/;../../pcl/lib/pcl/registration/include/;../../pcl/lib/pcl/geometry/include/;../../pcl/lib/pcl/io/include/;../../pcl/lib/eigen/;../../pcl/lib/flann/src/cpp/;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <MinimalRebuild>false</MinimalRebuild>
@@ -78,7 +78,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>FLANN_STATIC;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;DISABLE_OPENNI;WIN32;NDEBUG;_WINDOWS;_USRDLL;PCL_PLUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>../../pcl;../../pcl/lib/configs/;../../pcl/lib/pcl/common/include/;../../pcl/lib/pcl/features/include/;../../pcl/lib/pcl/search/include/;../../pcl/lib/pcl/kdtree/include/;../../pcl/lib/pcl/2d/include/;../../pcl/lib/pcl/octree/include/;../../pcl/lib/pcl/sample_consensus/include/;../../pcl/lib/pcl/segmentation/include/;../../pcl/lib/pcl/recognition/include/;../../pcl/lib/pcl/filters/include/;../../pcl/lib/pcl/ml/include/;../../pcl/lib/pcl/registration/include/;../../pcl/lib/pcl/geometry/include/;../../pcl/lib/eigen/;../../pcl/lib/flann/src/cpp/;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../pcl;../../pcl/lib/configs/;../../pcl/lib/pcl/common/include/;../../pcl/lib/pcl/features/include/;../../pcl/lib/pcl/search/include/;../../pcl/lib/pcl/kdtree/include/;../../pcl/lib/pcl/2d/include/;../../pcl/lib/pcl/octree/include/;../../pcl/lib/pcl/sample_consensus/include/;../../pcl/lib/pcl/segmentation/include/;../../pcl/lib/pcl/recognition/include/;../../pcl/lib/pcl/filters/include/;../../pcl/lib/pcl/ml/include/;../../pcl/lib/pcl/registration/include/;../../pcl/lib/pcl/geometry/include/;../../pcl/lib/pcl/io/include/;../../pcl/lib/eigen/;../../pcl/lib/flann/src/cpp/;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4244;4800;4267</DisableSpecificWarnings>
@@ -244,6 +244,83 @@
     <ClCompile Include="..\..\pcl\lib\pcl\filters\src\voxel_grid_covariance.cpp" />
     <ClCompile Include="..\..\pcl\lib\pcl\filters\src\voxel_grid_label.cpp" />
     <ClCompile Include="..\..\pcl\lib\pcl\filters\src\voxel_grid_occlusion_estimation.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\ascii_io.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\auto_io.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\compression.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\davidsdk_grabber.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\debayer.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\depth_sense\depth_sense_device_manager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\depth_sense\depth_sense_grabber_impl.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\depth_sense_grabber.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\dinast_grabber.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\ensenso_grabber.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\file_io.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\fotonic_grabber.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\hdl_grabber.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\ifs_io.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\image_depth.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\image_grabber.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\image_ir.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\image_rgb24.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\image_yuv422.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\io_exception.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\libpng_wrapper.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\lzf.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\lzf_image_io.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\obj_io.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\oni_grabber.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\openni2_grabber.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\openni_grabber.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\pcd_grabber.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\pcd_io.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\ply\ply_parser.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\ply_io.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\png_io.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\real_sense\real_sense_device_manager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\real_sense_grabber.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\robot_eye_grabber.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\vlp_grabber.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\vtk_io.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\vtk_lib_io.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\pcl\lib\pcl\kdtree\src\kdtree_flann.cpp" />
     <ClCompile Include="..\..\pcl\lib\pcl\ml\src\densecrf.cpp" />
     <ClCompile Include="..\..\pcl\lib\pcl\ml\src\kmeans.cpp" />
@@ -392,6 +469,7 @@
     <None Include="..\..\pcl\lib\eigen\Eigen\UmfPackSupport" />
     <None Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kdtree_cuda_3d_index.cu" />
     <None Include="..\..\pcl\lib\flann\src\cpp\flann\config.h.in" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\lib\cpp-sdk\vs2015\jsoncpp\jsoncpp.vcxproj">
@@ -406,5 +484,14 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\..\..\vs2015\packages\opencv.win.native.redist.310.3.0\build\native\opencv.win.native.redist.targets" Condition="Exists('..\..\..\vs2015\packages\opencv.win.native.redist.310.3.0\build\native\opencv.win.native.redist.targets')" />
+    <Import Project="..\..\..\vs2015\packages\opencv.win.native.310.3.0\build\native\opencv.win.native.targets" Condition="Exists('..\..\..\vs2015\packages\opencv.win.native.310.3.0\build\native\opencv.win.native.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\vs2015\packages\opencv.win.native.redist.310.3.0\build\native\opencv.win.native.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\vs2015\packages\opencv.win.native.redist.310.3.0\build\native\opencv.win.native.redist.targets'))" />
+    <Error Condition="!Exists('..\..\..\vs2015\packages\opencv.win.native.310.3.0\build\native\opencv.win.native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\vs2015\packages\opencv.win.native.310.3.0\build\native\opencv.win.native.targets'))" />
+  </Target>
 </Project>
