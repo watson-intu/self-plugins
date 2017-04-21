@@ -143,7 +143,8 @@ void KinectCamera::OnCaptureData()
 							// sample the depth from the locked rect..
 							unsigned int src = ((x * 640) / m_Width) + (((y * 480) / m_Height) * 640);
 							unsigned int dst = x + (y * m_Width);
-							pRGB[dst] = ((unsigned int *)LockedRect.pBits)[ src ];
+							unsigned int c = ((unsigned int *)LockedRect.pBits)[ src ];
+							pRGB[dst] = ((c & 0xff) << 16) | (c & 0xff00) | ((c & 0xff0000) >> 16);
 						}
 					}
 

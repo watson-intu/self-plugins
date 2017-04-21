@@ -15,7 +15,7 @@
 *
 */
 
-#define WRITE_SCENE_PCD			0
+#define WRITE_SCENE_PCD			1
 
 #include "PCLObjectRecognition.h"
 #include "SelfInstance.h"
@@ -156,7 +156,7 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 			pcl::PointXYZ & pt = spScene->points[depth_idx];
 			pt.z = decoded.at<unsigned short>( depth_idx ) * 0.001f;
 			pt.x = static_cast<float>(u) * pt.z * constant;
-			pt.y = static_cast<float>(v) * pt.z * constant;
+			pt.y = static_cast<float>(v) * pt.z * -constant;
 		}
 	}
 	spScene->sensor_origin_.setZero();
