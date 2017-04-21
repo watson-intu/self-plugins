@@ -54,9 +54,13 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;PCL_PLUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../../pcl;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>FLANN_STATIC;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;DISABLE_OPENNI;WIN32;_DEBUG;_WINDOWS;_USRDLL;PCL_PLUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>../../pcl;../../pcl/lib/configs/;../../pcl/lib/pcl/common/include/;../../pcl/lib/pcl/features/include/;../../pcl/lib/pcl/search/include/;../../pcl/lib/pcl/kdtree/include/;../../pcl/lib/pcl/2d/include/;../../pcl/lib/pcl/octree/include/;../../pcl/lib/pcl/sample_consensus/include/;../../pcl/lib/pcl/segmentation/include/;../../pcl/lib/pcl/recognition/include/;../../pcl/lib/pcl/filters/include/;../../pcl/lib/pcl/ml/include/;../../pcl/lib/pcl/registration/include/;../../pcl/lib/pcl/geometry/include/;../../pcl/lib/pcl/io/include/;../../pcl/lib/eigen/;../../pcl/lib/flann/src/cpp/;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <DisableSpecificWarnings>4244;4800;4267</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -72,9 +76,12 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;PCL_PLUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../../pcl;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>FLANN_STATIC;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;DISABLE_OPENNI;WIN32;NDEBUG;_WINDOWS;_USRDLL;PCL_PLUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>../../pcl;../../pcl/lib/configs/;../../pcl/lib/pcl/common/include/;../../pcl/lib/pcl/features/include/;../../pcl/lib/pcl/search/include/;../../pcl/lib/pcl/kdtree/include/;../../pcl/lib/pcl/2d/include/;../../pcl/lib/pcl/octree/include/;../../pcl/lib/pcl/sample_consensus/include/;../../pcl/lib/pcl/segmentation/include/;../../pcl/lib/pcl/recognition/include/;../../pcl/lib/pcl/filters/include/;../../pcl/lib/pcl/ml/include/;../../pcl/lib/pcl/registration/include/;../../pcl/lib/pcl/geometry/include/;../../pcl/lib/pcl/io/include/;../../pcl/lib/eigen/;../../pcl/lib/flann/src/cpp/;../../../src/;../../../lib/cpp-sdk/src/;../../../lib/cpp-sdk/lib/;../../../lib/cpp-sdk/lib/boost_1_60_0/;../../../lib/wdc-cpp-sdk/src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4244;4800;4267</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -85,12 +92,406 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\pcl\services\PCLService.h" />
+    <ClInclude Include="..\..\pcl\lib\configs\pcl\pcl_config.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\all_indices.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\autotuned_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\center_chooser.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\composite_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\dist.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\hierarchical_clustering_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kdtree_cuda_3d_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kdtree_cuda_builder.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kdtree_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kdtree_single_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kmeans_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\linear_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\lsh_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\nn_index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\config.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\defines.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\ext\lz4.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\ext\lz4hc.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\flann.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\flann.hpp" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\general.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\io\hdf5.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\client.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\index.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\matrix.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\queries.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\server.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\nn\ground_truth.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\nn\index_testing.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\nn\simplex_downhill.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\allocator.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\any.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\cuda\heap.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\cuda\result_set.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\cutil_math.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\dynamic_bitset.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\heap.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\logger.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\lsh_table.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\matrix.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\object_factory.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\params.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\random.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\result_set.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\sampling.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\saving.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\serialization.h" />
+    <ClInclude Include="..\..\pcl\lib\flann\src\cpp\flann\util\timer.h" />
+    <ClInclude Include="..\..\pcl\services\PCLObjectRecognition.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\pcl\services\PCLService.cpp" />
+    <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\ext\lz4.c" />
+    <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\ext\lz4hc.c" />
+    <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\flann.cpp" />
+    <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\flann_cpp.cpp" />
+    <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\flann_mpi_client.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\flann\src\cpp\flann\mpi\flann_mpi_server.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\2d\src\convolution_2d.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\bearing_angle_image.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\colors.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\common.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\correspondence.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\distances.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\feature_histogram.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\fft\kiss_fft.c" />
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\fft\kiss_fftr.c" />
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\gaussian.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\io.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\parse.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\pcl_base.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\point_types.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\poses_from_matches.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\print.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\projection_matrix.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\range_image.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\range_image_planar.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\common\src\time_trigger.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\3dsc.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\board.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\boundary.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\brisk_2d.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\cppf.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\crh.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\cvfh.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\don.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\esf.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\fpfh.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\gfpfh.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\grsd.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\integral_image_normal.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\intensity_gradient.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\intensity_spin.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\linear_least_squares_normal.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\moment_invariants.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\moment_of_inertia_estimation.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\multiscale_feature_persistence.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\narf.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\normal_3d.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\normal_based_signature.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\organized_edge_detection.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\our_cvfh.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\pfh.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\ppf.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\principal_curvatures.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\range_image_border_extractor.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\rift.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\rops_estimation.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\rsd.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\shot.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\shot_lrf.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\spin_image.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\statistical_multiscale_interest_region_extraction.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\usc.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\features\src\vfh.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\approximate_voxel_grid.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\bilateral.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\conditional_removal.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\covariance_sampling.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\crop_box.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\crop_hull.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\extract_indices.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\fast_bilateral.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\fast_bilateral_omp.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\filter.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\filter_indices.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\frustum_culling.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\grid_minimum.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\local_maximum.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\median_filter.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\model_outlier_removal.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\morphological_filter.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\normal_refinement.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\normal_space.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\passthrough.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\project_inliers.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\radius_outlier_removal.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\random_sample.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\sampling_surface_normal.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\shadowpoints.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\statistical_outlier_removal.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\uniform_sampling.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\voxel_grid.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\voxel_grid_covariance.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\voxel_grid_label.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\filters\src\voxel_grid_occlusion_estimation.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\ascii_io.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\auto_io.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\compression.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\davidsdk_grabber.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\debayer.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\depth_sense\depth_sense_device_manager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\depth_sense\depth_sense_grabber_impl.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\depth_sense_grabber.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\dinast_grabber.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\ensenso_grabber.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\file_io.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\fotonic_grabber.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\hdl_grabber.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\ifs_io.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\image_depth.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\image_grabber.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\image_ir.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\image_rgb24.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\image_yuv422.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\io_exception.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\libpng_wrapper.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\lzf.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\lzf_image_io.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\obj_io.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\oni_grabber.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\openni2_grabber.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\openni_grabber.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\pcd_grabber.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\pcd_io.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\ply\ply_parser.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\ply_io.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\png_io.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\real_sense\real_sense_device_manager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\real_sense_grabber.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\robot_eye_grabber.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\vlp_grabber.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\vtk_io.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\io\src\vtk_lib_io.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\kdtree\src\kdtree_flann.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\ml\src\densecrf.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\ml\src\kmeans.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\ml\src\pairwise_potential.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\ml\src\permutohedral.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\ml\src\point_xy_32f.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\ml\src\point_xy_32i.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\ml\src\svm.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\ml\src\svm_wrapper.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\octree\src\octree_inst.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\cg\geometric_consistency.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\cg\hough_3d.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\dotmod.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\face_detection\face_detector_data_provider.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\face_detection\rf_face_detector_trainer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\hv\greedy_verification.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\hv\hv_go.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\hv\hv_papazov.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\hv\occlusion_reasoning.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\implicit_shape_model.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\linemod.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\mask_map.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\quantizable_modality.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\ransac_based\model_library.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\ransac_based\obj_rec_ransac.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\ransac_based\orr_octree.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\recognition\src\ransac_based\orr_octree_zprojection.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_estimation.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_estimation_backprojection.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_estimation_normal_shooting.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_estimation_organized_projection.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_distance.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_features.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_median_distance.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_one_to_one.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_organized_boundary.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_poly.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_sample_consensus.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_sample_consensus_2d.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_surface_normal.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_trimmed.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_rejection_var_trimmed.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\correspondence_types.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\elch.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\gicp.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\gicp6d.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\ia_ransac.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\icp.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\icp_nl.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\joint_icp.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\lum.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\ndt.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\ndt_2d.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\pairwise_graph_registration.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\ppf_registration.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\pyramid_feature_matching.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\registration.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\sample_consensus_prerejective.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_estimation_2D.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_estimation_dq.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_estimation_dual_quaternion.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_estimation_lm.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_estimation_point_to_plane_lls.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_estimation_point_to_plane_lls_weighted.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_estimation_point_to_plane_weighted.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_estimation_svd.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_estimation_svd_scale.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\registration\src\transformation_validation_euclidean.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_circle.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_circle3d.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_cone.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_cylinder.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_line.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_normal_parallel_plane.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_normal_plane.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_normal_sphere.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_parallel_line.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_plane.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_registration.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_sphere.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\sample_consensus\src\sac_model_stick.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\search\src\brute_force.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\search\src\kdtree.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\search\src\octree.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\search\src\organized.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\search\src\search.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\approximate_progressive_morphological_filter.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\conditional_euclidean_clustering.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\cpc_segmentation.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\crf_normal_segmentation.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\crf_segmentation.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\extract_clusters.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\extract_polygonal_prism_data.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\grabcut_segmentation.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\lccp_segmentation.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\min_cut_segmentation.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\organized_connected_component_segmentation.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\organized_multi_plane_segmentation.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\planar_polygon_fusion.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\progressive_morphological_filter.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\region_growing.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\region_growing_rgb.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\sac_segmentation.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\seeded_hue_segmentation.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\segment_differences.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\supervoxel_clustering.cpp" />
+    <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\unary_classifier.cpp" />
+    <ClCompile Include="..\..\pcl\services\PCLObjectRecognition.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\pcl\lib\eigen\Eigen\Cholesky" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\CholmodSupport" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\Core" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\Dense" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\Eigen" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\Eigenvalues" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\Geometry" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\Householder" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\IterativeLinearSolvers" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\Jacobi" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\LU" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\MetisSupport" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\OrderingMethods" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\PardisoSupport" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\PaStiXSupport" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\QR" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\QtAlignedMalloc" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\Sparse" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\SparseCholesky" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\SparseCore" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\SparseLU" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\SparseQR" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\SPQRSupport" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\StdDeque" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\StdList" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\StdVector" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\SuperLUSupport" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\SVD" />
+    <None Include="..\..\pcl\lib\eigen\Eigen\UmfPackSupport" />
+    <None Include="..\..\pcl\lib\flann\src\cpp\flann\algorithms\kdtree_cuda_3d_index.cu" />
+    <None Include="..\..\pcl\lib\flann\src\cpp\flann\config.h.in" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\lib\cpp-sdk\vs2015\jsoncpp\jsoncpp.vcxproj">
+      <Project>{28ba4301-4c55-41d2-b122-01dbde375452}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\lib\cpp-sdk\vs2015\utils\utils.vcxproj">
+      <Project>{9b6c58b8-9a51-4634-ab23-f23f6a458bad}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\vs2015\self\self.vcxproj">
+      <Project>{22fd607f-5015-49ea-9010-1ad4ba706e7f}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\..\..\vs2015\packages\opencv.win.native.redist.310.3.0\build\native\opencv.win.native.redist.targets" Condition="Exists('..\..\..\vs2015\packages\opencv.win.native.redist.310.3.0\build\native\opencv.win.native.redist.targets')" />
+    <Import Project="..\..\..\vs2015\packages\opencv.win.native.310.3.0\build\native\opencv.win.native.targets" Condition="Exists('..\..\..\vs2015\packages\opencv.win.native.310.3.0\build\native\opencv.win.native.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\vs2015\packages\opencv.win.native.redist.310.3.0\build\native\opencv.win.native.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\vs2015\packages\opencv.win.native.redist.310.3.0\build\native\opencv.win.native.redist.targets'))" />
+    <Error Condition="!Exists('..\..\..\vs2015\packages\opencv.win.native.310.3.0\build\native\opencv.win.native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\vs2015\packages\opencv.win.native.310.3.0\build\native\opencv.win.native.targets'))" />
+  </Target>
 </Project>
