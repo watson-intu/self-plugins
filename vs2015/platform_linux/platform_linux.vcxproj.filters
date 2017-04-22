@@ -4,15 +4,24 @@
     <Filter Include="sensors">
       <UniqueIdentifier>{fa934447-3c2d-42be-be30-5c87e20ea304}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gestures">
+      <UniqueIdentifier>{bd66c913-b5b8-42fb-83e5-4f5e8c5ea215}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\platform\linux\sensors\LinuxMicrophone.cpp">
       <Filter>sensors</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\platform\linux\gestures\LinuxSpeechGesture.cpp">
+      <Filter>gestures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\platform\linux\sensors\LinuxMicrophone.h">
       <Filter>sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\platform\linux\gestures\LinuxSpeechGesture.h">
+      <Filter>gestures</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

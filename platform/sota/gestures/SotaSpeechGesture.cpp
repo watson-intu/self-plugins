@@ -45,6 +45,13 @@ bool SotaSpeechGesture::Start()
 	return true;
 }
 
+void SotaSpeechGesture::OnVoices(Voices * a_pVoices)
+{
+	m_pVoices = a_pVoices;
+	if (ActiveRequest() != NULL)
+		StartSpeech();
+}
+
 bool SotaSpeechGesture::Execute(GestureDelegate a_Callback, const ParamsMap & a_Params)
 {
 	if (PushRequest(a_Callback, a_Params))
@@ -95,23 +102,25 @@ void SotaSpeechGesture::StartSpeech()
 
 bool SotaSpeechGesture::Abort()
 {
-	return false;
-}
+	if ( HaveRequests() )
+	{
+		Log::Debug("SotaSpeechGesture", "Abort() invoked.");
 
-void SotaSpeechGesture::OnVoices(Voices * a_pVoices)
-{
-	m_pVoices = a_pVoices;
-	if (ActiveRequest() != NULL)
-		StartSpeech();
+		PopAllRequests();
+
+		SelfInstance::GetInstance()->GetSensorManager()->ResumeSensorType(AudioData::GetStaticRTTI().GetName() );
+		return true;
+	}
+	
+	return false;
 }
 
 void SotaSpeechGesture::OnSpeechData(Sound * a_pSound)
 {
-	Request * pReq = ActiveRequest();
-
 	// play the provided WAV file..
 	if (a_pSound != NULL)
 	{
+		SelfInstance::GetInstance()->GetSensorManager()->PauseSensorType(AudioData::GetStaticRTTI().GetName() );
 		ThreadPool::Instance()->InvokeOnThread<Sound *>(DELEGATE(SotaSpeechGesture, OnPlaySpeech, Sound *, this), a_pSound);
 	}
 	else
@@ -123,23 +132,19 @@ void SotaSpeechGesture::OnSpeechData(Sound * a_pSound)
 
 void SotaSpeechGesture::OnPlaySpeech(Sound * a_pSound)
 {
-#ifndef _WIN32
-	std::string wav_file_name = "WatsonTTS4Sota.wav";
-	if (a_pSound->SaveToFile("tmp.wav"))
-	{
-		FILE * stream = popen("aplay -q tmp.wav", "r");
-		char buffer[1024];
-		int read = fread(buffer, sizeof(char), sizeof(buffer) / sizeof(char), stream);
-		fclose(stream);
-	}
-#endif
+	std::string tmpFile( Config::Instance()->GetInstanceDataPath() + "tmp.wav" );
+	a_pSound->SaveToFile( tmpFile );
+	delete a_pSound;
 
-	ThreadPool::Instance()->InvokeOnMain(VOID_DELEGATE(SotaSpeechGesture, OnSpeechDone, this));
+	if ( system( StringUtil::Format( "aplay %s", tmpFile.c_str() ).c_str() ) != 0 )
+		Log::Error( "LinuxSpeechGesture", "Failed to play wav file." );
+
+	ThreadPool::Instance()->InvokeOnMain( VOID_DELEGATE( SotaSpeechGesture, OnSpeechDone, this ) );
 }
 
 void SotaSpeechGesture::OnSpeechDone()
 {
-	//SelfInstance::GetInstance()->GetSensorManager()->ResumeSensorType( "AudioData" );
+	SelfInstance::GetInstance()->GetSensorManager()->ResumeSensorType(AudioData::GetStaticRTTI().GetName());
 
 	// start the next speech if we have any..
 	if (PopRequest())

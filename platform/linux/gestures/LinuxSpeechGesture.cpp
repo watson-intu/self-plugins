@@ -19,7 +19,8 @@
 #include "sensors/AudioData.h"
 #include "skills/SkillManager.h"
 #include "utils/ThreadPool.h"
-
+#include "utils/StringUtil.h"
+#include "services/ITextToSpeech.h"
 #include "SelfInstance.h"
 
 #include <stdlib.h>
@@ -34,7 +35,7 @@ bool LinuxSpeechGesture::Start()
     if (! SpeechGesture::Start() )
         return false;
 
-    TextToSpeech * pTTS = SelfInstance::GetInstance()->FindService<TextToSpeech>();
+	ITextToSpeech * pTTS = SelfInstance::GetInstance()->FindService<ITextToSpeech>();
     if ( pTTS == NULL )
     {
         Log::Error( "LinuxSpeechGesture", "TextToSpeech service is missing." );
@@ -50,13 +51,6 @@ void LinuxSpeechGesture::OnVoices( Voices * a_pVoices )
     m_pVoices = a_pVoices;
     if( m_pVoices )
         Log::Debug("LinuxSpeechGesture", "TTS returned %d available voices", m_pVoices->m_Voices.size());
-}
-
-bool LinuxSpeechGesture::CanExecute(const ParamsMap & a_Params)
-{
-    if (!a_Params.ValidPath("text"))
-        return false;
-    return true;
 }
 
 bool LinuxSpeechGesture::Execute(GestureDelegate a_Callback, const ParamsMap & a_Params)
@@ -92,7 +86,7 @@ void LinuxSpeechGesture::StartSpeech()
             }
         }
 
-        TextToSpeech * pTextToSpeech = SelfInstance::GetInstance()->FindService<TextToSpeech>();
+		ITextToSpeech * pTextToSpeech = SelfInstance::GetInstance()->FindService<ITextToSpeech>();
         if ( pTextToSpeech != NULL )
         {
             // call the service to get the audio data for playing ..
@@ -109,6 +103,8 @@ void LinuxSpeechGesture::StartSpeech()
     {
         Log::Debug("LinuxSpeechGesture", "Caught Active Request == NULL");
     }
+	if (! bSuccess )
+		OnSpeechDone();
 }
 
 bool LinuxSpeechGesture::Abort()
@@ -128,31 +124,33 @@ bool LinuxSpeechGesture::Abort()
 
 void LinuxSpeechGesture::OnSpeechData( Sound * a_pSound )
 {
-    if ( a_pSound )
+    if ( a_pSound != NULL )
     {
         SelfInstance::GetInstance()->GetSensorManager()->PauseSensorType(AudioData::GetStaticRTTI().GetName() );
-        SelfInstance::GetInstance()->GetSkillManager()->UseSkill("change_avatar_state_speaking", ParamsMap(),
-                                                                 Delegate<SkillInstance *>());
-
-        a_pSound->SaveToFile("tmp.wav");
-        system("aplay tmp.wav");
-        ThreadPool::Instance()->InvokeOnMain( VOID_DELEGATE( LinuxSpeechGesture, OnSpeechDone, this ) );
+		ThreadPool::Instance()->InvokeOnThread<Sound *>( DELEGATE( LinuxSpeechGesture, OnPlaySpeech, Sound *, this), a_pSound );
     }
     else
     {
         Log::Error("LinuxSpeechGesture", "NULL response from TTS");
-    }
+		OnSpeechDone();
+	}
+}
+
+void LinuxSpeechGesture::OnPlaySpeech( Sound * a_pSound )
+{
+	std::string tmpFile( Config::Instance()->GetInstanceDataPath() + "tmp.wav" );
+	a_pSound->SaveToFile( tmpFile );
+	delete a_pSound;
+
+	if ( system( StringUtil::Format( "aplay %s", tmpFile.c_str() ).c_str() ) != 0 )
+		Log::Error( "LinuxSpeechGesture", "Failed to play wav file." );
+
+	ThreadPool::Instance()->InvokeOnMain( VOID_DELEGATE( LinuxSpeechGesture, OnSpeechDone, this ) );
 }
 
 void LinuxSpeechGesture::OnSpeechDone()
 {
     SelfInstance::GetInstance()->GetSensorManager()->ResumeSensorType(AudioData::GetStaticRTTI().GetName());
-    SelfInstance::GetInstance()->GetSkillManager()->UseSkill("change_avatar_state_idle", ParamsMap(),
-                                                             Delegate<SkillInstance *>());
-
-    Request * pReq = ActiveRequest();
-    if ( pReq != NULL && pReq->m_Callback.IsValid() )
-        pReq->m_Callback( this );
 
     // start the next speech if we have any..
     if ( PopRequest() )

@@ -19,8 +19,8 @@
 #define SOTA_SPEECH_GESTURE_H
 
 #include "gestures/SpeechGesture.h"
+#include "utils/Sound.h"
 
-class Sound;
 struct Voices;
 
 //! This gesture wraps DirectSound so the local windows box can speak.

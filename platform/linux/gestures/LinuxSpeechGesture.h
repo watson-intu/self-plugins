@@ -20,7 +20,8 @@
 
 #include "gestures/SpeechGesture.h"
 #include "utils/Sound.h"
-#include "services/TextToSpeech/TextToSpeech.h"
+
+struct Voices;
 
 //! This gesture wraps aplay for linux platform.
 class LinuxSpeechGesture : public SpeechGesture
@@ -34,15 +35,15 @@ public:
 
     //! IGesture interface
     virtual bool Start();
-    virtual bool CanExecute( const ParamsMap & a_Params );
     virtual bool Execute( GestureDelegate a_Callback, const ParamsMap & a_Params );
     virtual bool Abort();
 
 private:
     void StartSpeech();
-    void OnSpeechData( Sound * );
+	void OnVoices( Voices * );
+	void OnSpeechData( Sound * );
+	void OnPlaySpeech( Sound * );
     void OnSpeechDone();
-    void OnVoices( Voices * );
 
     Voices *    m_pVoices;
 };

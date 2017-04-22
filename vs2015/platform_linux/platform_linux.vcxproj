@@ -93,15 +93,20 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\platform\linux\gestures\LinuxSpeechGesture.cpp" />
     <ClCompile Include="..\..\platform\linux\sensors\LinuxMicrophone.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\platform\linux\gestures\LinuxSpeechGesture.h" />
     <ClInclude Include="..\..\platform\linux\sensors\LinuxMicrophone.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\platform\linux\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\lib\cpp-sdk\vs2015\jsoncpp\jsoncpp.vcxproj">
+      <Project>{28ba4301-4c55-41d2-b122-01dbde375452}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\lib\cpp-sdk\vs2015\utils\utils.vcxproj">
       <Project>{9b6c58b8-9a51-4634-ab23-f23f6a458bad}</Project>
     </ProjectReference>
