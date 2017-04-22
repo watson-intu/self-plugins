@@ -46,7 +46,8 @@ PCLObjectRecognition::PCLObjectRecognition() :
 	m_RFRad( 0.015f ),
 	m_CGSize( 0.02f ),
 	m_CGThresh( 1.0f ),
-	m_LowHeight( -2.5f )
+	m_LowHeight( -2.5f ),
+	m_DistThreshold(0.01f)
 {}
 
 void PCLObjectRecognition::Serialize(Json::Value & json)
@@ -60,6 +61,7 @@ void PCLObjectRecognition::Serialize(Json::Value & json)
 	json["m_CGSize"] = m_CGSize;
 	json["m_CGThresh"] = m_CGThresh;
 	json["m_LowHeight"] = m_LowHeight;
+	json["m_DistThreshold"] = m_DistThreshold;
 
 	SerializeVector( "m_Objects", m_Objects, json );
 }
@@ -83,6 +85,8 @@ void PCLObjectRecognition::Deserialize(const Json::Value & json)
 		m_CGThresh = json["m_CGThresh"].asFloat();
 	if ( json["m_LowHeight"].isNumeric() )
 		m_LowHeight = json["m_LowHeight"].asFloat();
+	if ( json["m_DistThreshold"].isNumeric() )
+		m_DistThreshold = json["m_DistThreshold"].asFloat();
 
 	DeserializeVector( "m_Objects", json, m_Objects );
 
@@ -132,7 +136,8 @@ void PCLObjectRecognition::ClassifyObjects(const std::string & a_DepthImageData,
 
 void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 {
-	//Log::Status( "PCLObjectRecogition", "Processing %u bytes of depth data.", a_pData->m_DepthData.size() );
+	double startTime = Time().GetEpochTime();
+	Log::Status( "PCLObjectRecogition", "Processing %u bytes of depth data.", a_pData->m_DepthData.size() );
 
 	// convert depth data into PCD
 	const std::string & data = a_pData->m_DepthData;
@@ -178,8 +183,8 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 	seg.setOptimizeCoefficients(false);
 	seg.setModelType(pcl::SACMODEL_PLANE);
 	seg.setMethodType(pcl::SAC_RANSAC);
-	seg.setDistanceThreshold(0.01);
 	seg.setInputCloud( spScene );
+	seg.setDistanceThreshold(m_DistThreshold);
 	seg.segment(*inliers, *coefficients);
 
 	if (inliers->indices.size() > 0) 
@@ -211,6 +216,7 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 #endif
 #endif
 
+#if 1
 	//
 	// Temporary remove lower part of points to reduce calculation
 	//
@@ -229,6 +235,7 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 	// save to a local file 
 	pcl::io::savePCDFile( "scene_clipped.pcd", *spScene );
 #endif
+#endif
 
 	//
 	// Compute Normals
@@ -239,6 +246,11 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 	norm_est.setInputCloud(spScene);
 	norm_est.compute(*scene_normals);
 
+#if WRITE_SCENE_PCD
+	// save to a local file 
+	pcl::io::savePCDFile( "scene_normals.pcd", *scene_normals );
+#endif
+
 	//
 	// Downsample Clouds to Extract keypoints
 	//
@@ -247,6 +259,11 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 	uniform_sampling.setInputCloud(spScene);
 	uniform_sampling.setLeafSize(m_SceneSS, m_SceneSS, m_SceneSS);
 	uniform_sampling.filter(*scene_keypoints);
+
+#if WRITE_SCENE_PCD
+	// save to a local file 
+	pcl::io::savePCDFile( "scene_keypoints.pcd", *scene_keypoints );
+#endif
 
 	//
 	// Compute Descriptor for keypoints
@@ -259,6 +276,10 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 	descr_est.setSearchSurface(spScene);
 	descr_est.compute(*scene_descriptors);
 
+#if WRITE_SCENE_PCD
+	// save to a local file 
+	pcl::io::savePCDFile( "scene_descriptors.pcd", *scene_descriptors );
+#endif
 	// find objects in PCD
 	a_pData->m_Results["objects"] = Json::Value( Json::arrayValue );
 
@@ -283,6 +304,10 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 
 		for (size_t mi = 0; mi < object.m_PCD.size(); mi++) 
 		{
+			double elapsed = Time().GetEpochTime() - startTime;
+			Log::Status( "PCLObjectRecognition", "Checking model %d of object %s, %.2f seconds elapsed.", 
+				mi, object.m_ObjectId.c_str(), elapsed );
+
 			//
 			// Find Model-Scene Correspondences with KdTree
 			//
@@ -426,6 +451,9 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 			}
 		}
 	}
+
+	double elapsed = Time().GetEpochTime() - startTime;
+	Log::Status( "PCLObjectRecognition", "Recognition completed in %.2f seconds, found %u objects", elapsed, a_pData->m_Results["objects"].size() );
 
 	// return results..
 	ThreadPool::Instance()->InvokeOnMain<ProcessDepthData *>( DELEGATE( PCLObjectRecognition, SendResults, ProcessDepthData *, this ), a_pData );
