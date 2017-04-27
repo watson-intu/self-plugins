@@ -43,12 +43,10 @@ public:
     void GetCurrentConditions( Location * a_Location, SendCallback a_Callback );
     void GetHourlyForecast( Location * a_Location, SendCallback a_Callback );
     void GetTenDayForecast( Location * a_Location, SendCallback a_Callback );
-    bool GetLatitudeAndLongitude( Location * a_Location, std::string & a_Lat, std::string & a_Long);
+    bool VerifyLocation( Location * a_Location);
 
 private:
 	//! Data
-    float m_Latitude;
-    float m_Longitude;
     std::string m_Units;
     std::string m_Language;
 };
