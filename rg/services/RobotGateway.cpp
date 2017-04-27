@@ -182,6 +182,11 @@ void RobotGateway::Process(const LogRecord & a_Record)
 	}
 }
 
+void RobotGateway::SetLogLevel( LogLevel a_Level )
+{
+	m_PersistLogLevel = a_Level;
+}
+
 void RobotGateway::UpdateEmbodimentName(Delegate<const Json::Value &> a_Callback)
 {
 	SelfInstance * pInstance = SelfInstance::GetInstance();
