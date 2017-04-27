@@ -44,6 +44,7 @@ public:
 
 	//! ILogReactor interface
 	virtual void Process(const LogRecord & a_Record);
+	virtual void SetLogLevel( LogLevel a_Level );
 
 	//! IGateway interface
 	virtual void RegisterEmbodiment( Delegate<const Json::Value &> a_Callback );
