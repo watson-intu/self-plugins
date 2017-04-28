@@ -21,7 +21,7 @@
 #ifndef SELF_MOTIONEXTRACTOR_H
 #define SELF_MOTIONEXTRACTOR_H
 
-#include "extractors/IFeatureExtractor.h"
+#include "extractors/IExtractor.h"
 #include "sensors/SensorManager.h"
 #include "sensors/RemoteDeviceData.h"
 #include "blackboard/Motion.h"
@@ -30,7 +30,7 @@
 
 class SelfInstance;
 
-class MotionExtractor : public IFeatureExtractor
+class MotionExtractor : public IExtractor
 {
 public:
 	RTTI_DECL();
