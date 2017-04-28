@@ -23,7 +23,7 @@
 #include "MotionExtractor.h"
 
 REG_SERIALIZABLE(MotionExtractor);
-RTTI_IMPL(MotionExtractor, IFeatureExtractor);
+RTTI_IMPL(MotionExtractor, IExtractor);
 
 const char * MotionExtractor::GetName() const
 {
