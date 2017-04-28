@@ -1,5 +1,5 @@
 /**
-* Copyright 2016 IBM Corp. All Rights Reserved.
+* Copyright 2017 IBM Corp. All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -15,12 +15,16 @@
 *
 */
 
-#include "wiringPi.h"
+
 #include "RaspiAnimateGesture.h"
 #include "SelfInstance.h"
 #include "utils/ThreadPool.h"
 #include "blackboard/BlackBoard.h"
 #include "blackboard/Status.h"
+
+#ifndef _WIN32
+#include "wiringPi.h"
+#endif
 
 REG_OVERRIDE_SERIALIZABLE( AnimateGesture, RaspiAnimateGesture );
 REG_SERIALIZABLE(RaspiAnimateGesture);
@@ -54,6 +58,7 @@ void RaspiAnimateGesture::AnimateThread( Request * a_pReq )
 
 void RaspiAnimateGesture::DoAnimateThread(RaspiAnimateGesture::Request * a_pReq)
 {
+#ifndef _WIN32
 	Log::Debug( "RaspiAnimateGesture", "Gesture %s is running.", m_GestureId.c_str() );
 	if ( !m_bWiredPi )
 	{
@@ -68,6 +73,7 @@ void RaspiAnimateGesture::DoAnimateThread(RaspiAnimateGesture::Request * a_pReq)
 		digitalWrite(m_PinNumber, LOW);
 		delay(200);
 	}
+#endif
 }
 
 void RaspiAnimateGesture::AnimateDone( Request * a_pReq )
