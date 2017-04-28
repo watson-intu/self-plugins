@@ -29,5 +29,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="platform_linux.licenseheader" />
   </ItemGroup>
 </Project>

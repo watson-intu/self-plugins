@@ -1,5 +1,5 @@
 /**
-* Copyright 2016 IBM Corp. All Rights Reserved.
+* Copyright 2017 IBM Corp. All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -15,13 +15,19 @@
 *
 */
 
-#include "wiringPi.h"
-#include "softPwm.h"
+
+#pragma warning(disable:4244)
+
 #include "RaspiMoveJointGesture.h"
 #include "SelfInstance.h"
 #include "utils/ThreadPool.h"
 #include "blackboard/BlackBoard.h"
 #include "blackboard/Status.h"
+
+#ifndef _WIN32
+#include "wiringPi.h"
+#include "softPwm.h"
+#endif
 
 REG_OVERRIDE_SERIALIZABLE( MoveJointGesture, RaspiMoveJointGesture );
 REG_SERIALIZABLE(RaspiMoveJointGesture);
@@ -47,8 +53,10 @@ void RaspiMoveJointGesture::MoveJointThread( Request * a_pReq )
         if ( !m_bWiredPi )
         {
             m_bWiredPi = true;
-            wiringPiSetup();
+#ifndef _WIN32
+			wiringPiSetup();
             softPwmCreate(m_PinNumber, 0, 50);
+#endif
         }
         MoveArm();
     }
@@ -63,7 +71,8 @@ void RaspiMoveJointGesture::MoveJointThread( Request * a_pReq )
 
 void RaspiMoveJointGesture::MoveArm()
 {
-    if(PWMValue() > m_CurrentPWMArmState) //move arm upward
+#ifndef _WIN32
+	if(PWMValue() > m_CurrentPWMArmState) //move arm upward
     {
         Log::Debug("RaspiMoveJointGesture", "Current Raspi Arm State %d and Moving Raspi Arm Upward to %d", m_CurrentPWMArmState, PWMValue() );
         for(int i = m_CurrentPWMArmState ; i <= PWMValue(); i++)
@@ -85,11 +94,12 @@ void RaspiMoveJointGesture::MoveArm()
         }
         wiringPiSetup();
     }
-
+#endif
 }
 
-int RaspiMoveJointGesture::PWMValue(){
-    return (  ( abs(m_fAngles.front()) % 360   )/360.0 ) * 100;
+int RaspiMoveJointGesture::PWMValue()
+{
+    return (  ( abs( (int)m_fAngles.front()) % 360   )/360.0 ) * 100;
 }
 
 void RaspiMoveJointGesture::MoveJointDone( Request * a_pReq )

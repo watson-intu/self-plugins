@@ -23,5 +23,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="kinect_plugin.licenseheader" />
   </ItemGroup>
 </Project>

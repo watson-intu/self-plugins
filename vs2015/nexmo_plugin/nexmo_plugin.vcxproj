@@ -27,6 +27,9 @@
       <Project>{22fd607f-5015-49ea-9010-1ad4ba706e7f}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="nexmo_plugin.licenseheader" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1DA05531-F1E9-4202-91C8-C19ECBA96FE3}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

@@ -15,4 +15,7 @@
       <Filter>services</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="iva_plugin.licenseheader" />
+  </ItemGroup>
 </Project>

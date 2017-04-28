@@ -36,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="platform_win.licenseheader" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2CA9F579-1EB9-46D0-A7DA-77B8832721BD}</ProjectGuid>

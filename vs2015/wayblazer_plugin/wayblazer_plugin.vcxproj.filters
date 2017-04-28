@@ -15,4 +15,7 @@
       <Filter>services</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="wayblazer_plugin.licenseheader" />
+  </ItemGroup>
 </Project>

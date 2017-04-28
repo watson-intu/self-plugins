@@ -15,6 +15,7 @@
 *
 */
 
+
 #include "NaturalLanguageUnderstanding.h"
 
 REG_SERIALIZABLE(NaturalLanguageUnderstanding);

@@ -27,6 +27,9 @@
       <Project>{22fd607f-5015-49ea-9010-1ad4ba706e7f}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="pointgrey_plugin.licenseheader" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{48D20533-1299-46C8-9F80-A807B50FC5B6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

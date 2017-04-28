@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="gestures">
+      <UniqueIdentifier>{6d00c1c7-c79f-4e53-81aa-918726ed7274}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sensors">
+      <UniqueIdentifier>{1c5c05ef-8a94-4835-bcd1-0be2ab4cf654}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\platform\raspi\gestures\RaspiAnimateGesture.cpp">
+      <Filter>gestures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\platform\raspi\gestures\RaspiMoveJointGesture.cpp">
+      <Filter>gestures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\platform\raspi\gestures\RaspiSpeechGesture.cpp">
+      <Filter>gestures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\platform\raspi\sensors\RaspiMicrophone.cpp">
+      <Filter>sensors</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\platform\raspi\gestures\RaspiAnimateGesture.h">
+      <Filter>gestures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\platform\raspi\gestures\RaspiMoveJointGesture.h">
+      <Filter>gestures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\platform\raspi\gestures\RaspiSpeechGesture.h">
+      <Filter>gestures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\platform\raspi\sensors\RaspiMicrophone.h">
+      <Filter>sensors</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

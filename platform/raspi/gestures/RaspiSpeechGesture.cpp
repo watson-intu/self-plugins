@@ -1,5 +1,5 @@
 /**
-* Copyright 2016 IBM Corp. All Rights Reserved.
+* Copyright 2017 IBM Corp. All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
 * limitations under the License.
 *
 */
+
 
 #include "RaspiSpeechGesture.h"
 #include "sensors/AudioData.h"
@@ -34,7 +35,7 @@ bool RaspiSpeechGesture::Start()
 	if (! SpeechGesture::Start() )
 		return false;
 
-	TextToSpeech * pTTS = SelfInstance::GetInstance()->FindService<TextToSpeech>();
+	ITextToSpeech * pTTS = SelfInstance::GetInstance()->FindService<ITextToSpeech>();
 	if ( pTTS == NULL )
 	{
 		Log::Error( "RaspiSpeechGesture", "TextToSpeech service is missing." );
@@ -92,7 +93,7 @@ void RaspiSpeechGesture::StartSpeech()
 			}
 		}
 
-		TextToSpeech * pTextToSpeech = SelfInstance::GetInstance()->FindService<TextToSpeech>();
+		ITextToSpeech * pTextToSpeech = SelfInstance::GetInstance()->FindService<ITextToSpeech>();
 		if ( pTextToSpeech != NULL )
 		{
 			// call the service to get the audio data for playing ..
@@ -131,11 +132,10 @@ void RaspiSpeechGesture::OnSpeechData( Sound * a_pSound )
 	if ( a_pSound )
 	{
 		SelfInstance::GetInstance()->GetSensorManager()->PauseSensorType(AudioData::GetStaticRTTI().GetName() );
-		SelfInstance::GetInstance()->GetSkillManager()->UseSkill("change_avatar_state_speaking", ParamsMap(),
-		                                                         Delegate<SkillInstance *>());
 
 		a_pSound->SaveToFile("tmp.wav");
 		system("aplay tmp.wav");
+
 		ThreadPool::Instance()->InvokeOnMain( VOID_DELEGATE( RaspiSpeechGesture, OnSpeechDone, this ) );
 	}
 	else
@@ -147,8 +147,6 @@ void RaspiSpeechGesture::OnSpeechData( Sound * a_pSound )
 void RaspiSpeechGesture::OnSpeechDone()
 {
 	SelfInstance::GetInstance()->GetSensorManager()->ResumeSensorType(AudioData::GetStaticRTTI().GetName());
-	SelfInstance::GetInstance()->GetSkillManager()->UseSkill("change_avatar_state_idle", ParamsMap(),
-	                                                         Delegate<SkillInstance *>());
 
 	Request * pReq = ActiveRequest();
 	if ( pReq != NULL && pReq->m_Callback.IsValid() )

@@ -51,4 +51,7 @@
       <UniqueIdentifier>{f4a6e063-4bcf-4553-b9d4-ce43cdeed6f0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="smartthings_plugin.licenseheader" />
+  </ItemGroup>
 </Project>
