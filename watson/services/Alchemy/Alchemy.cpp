@@ -55,7 +55,7 @@ bool Alchemy::Start()
 
 	// add the AlchemyNews service if no INews service is available.
 	if ( Config::Instance()->FindService<INews>() == NULL )
-		Config::Instance()->AddService( new AlchemyNews() );
+		Config::Instance()->AddService( IService::SP( new AlchemyNews() ) );
 
 	return true;
 }

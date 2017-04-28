@@ -64,7 +64,7 @@ bool WeatherCompanyData::Start()
 	}
 
 	if (Config::Instance()->FindService<ILocation>() == NULL)
-		Config::Instance()->AddService(new WeatherCompanyLocation());
+		Config::Instance()->AddService( IService::SP( new WeatherCompanyLocation() ) );
 
 	return true;
 }
