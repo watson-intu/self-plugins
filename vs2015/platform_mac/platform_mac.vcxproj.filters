@@ -27,4 +27,7 @@
   <ItemGroup>
     <Text Include="..\..\platform\mac\CMakeLists.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="platform_mac.licenseheader" />
+  </ItemGroup>
 </Project>

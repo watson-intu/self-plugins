@@ -104,6 +104,9 @@
   <ItemGroup>
     <ClInclude Include="..\..\iva\services\IVA.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="iva_plugin.licenseheader" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

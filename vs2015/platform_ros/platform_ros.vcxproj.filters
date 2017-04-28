@@ -17,4 +17,7 @@
     </ClCompile>
     <ClCompile Include="..\..\platform\ros\RosPlatform.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="platform_ros.licenseheader" />
+  </ItemGroup>
 </Project>

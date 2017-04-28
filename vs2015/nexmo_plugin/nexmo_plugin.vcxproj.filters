@@ -15,4 +15,7 @@
       <Filter>services</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="nexmo_plugin.licenseheader" />
+  </ItemGroup>
 </Project>

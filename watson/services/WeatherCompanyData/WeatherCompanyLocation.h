@@ -15,6 +15,7 @@
 *
 */
 
+
 #ifndef WDC_WEATHER_LOCATION_H
 #define WDC_WEATHER_LOCATION_H
 

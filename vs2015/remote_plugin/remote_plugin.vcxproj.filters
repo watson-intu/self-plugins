@@ -66,4 +66,7 @@
       <Filter>gestures</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="remote_plugin.licenseheader" />
+  </ItemGroup>
 </Project>

@@ -17,4 +17,7 @@
     </ClInclude>
     <ClInclude Include="..\..\platform\abb\ABBPlatform.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="platform_abb.licenseheader" />
+  </ItemGroup>
 </Project>

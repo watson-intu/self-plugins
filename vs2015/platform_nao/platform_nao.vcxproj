@@ -182,6 +182,9 @@
   <ItemGroup>
     <Text Include="..\..\platform\nao\CMakeLists.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="platform_nao.licenseheader" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

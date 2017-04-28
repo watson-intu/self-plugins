@@ -484,6 +484,7 @@
     <None Include="..\..\pcl\lib\eigen\Eigen\SVD" />
     <None Include="..\..\pcl\lib\eigen\Eigen\UmfPackSupport" />
     <None Include="packages.config" />
+    <None Include="pcl_plugin.licenseheader" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\lib\cpp-sdk\vs2015\jsoncpp\jsoncpp.vcxproj">

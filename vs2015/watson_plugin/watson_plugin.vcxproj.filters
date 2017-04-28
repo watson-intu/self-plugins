@@ -222,4 +222,7 @@
       <Filter>services\WeatherCompanyData</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="watson_plugin.licenseheader" />
+  </ItemGroup>
 </Project>

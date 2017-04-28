@@ -33,4 +33,7 @@
       <Filter>services</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="rg_plugin.licenseheader" />
+  </ItemGroup>
 </Project>

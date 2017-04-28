@@ -15,4 +15,7 @@
       <Filter>sensors</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="pointgrey_plugin.licenseheader" />
+  </ItemGroup>
 </Project>

@@ -902,5 +902,6 @@
       <Filter>lib\eigen</Filter>
     </None>
     <None Include="packages.config" />
+    <None Include="pcl_plugin.licenseheader" />
   </ItemGroup>
 </Project>

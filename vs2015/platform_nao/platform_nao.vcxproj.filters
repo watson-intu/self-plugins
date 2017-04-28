@@ -209,4 +209,7 @@
   <ItemGroup>
     <Text Include="..\..\platform\nao\CMakeLists.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="platform_nao.licenseheader" />
+  </ItemGroup>
 </Project>
