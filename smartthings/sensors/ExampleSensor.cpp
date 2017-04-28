@@ -19,7 +19,7 @@
 
 REG_SERIALIZABLE(ExampleSensor);
 RTTI_IMPL(ExampleSensor, ISensor);
-RTTI_IMPL(ExampleSensor::Rest, ISerializable);
+RTTI_IMPL_EMBEDDED(ExampleSensor, Rest, ISerializable);
 
 void ExampleSensor::Serialize(Json::Value & json)
 {
