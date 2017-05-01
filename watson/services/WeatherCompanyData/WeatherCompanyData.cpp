@@ -18,6 +18,7 @@
 
 #include "WeatherCompanyData.h"
 #include "WeatherCompanyLocation.h"
+#include "services/ILocation.h"
 #include "utils/JsonHelpers.h"
 #include "utils/Config.h"
 
@@ -25,15 +26,13 @@ REG_SERIALIZABLE( WeatherCompanyData );
 REG_OVERRIDE_SERIALIZABLE( IWeather, WeatherCompanyData );
 RTTI_IMPL(WeatherCompanyData, IWeather);
 
-WeatherCompanyData::WeatherCompanyData() : IWeather("WeatherCompanyDataV1"), m_Latitude(30.16f), m_Longitude(97.44f), m_Language("en-US")
+WeatherCompanyData::WeatherCompanyData() : IWeather("WeatherCompanyDataV1"), m_Language("en-US")
 {}
 
 void WeatherCompanyData::Serialize(Json::Value & json)
 {
 	IWeather::Serialize(json);
 
-	json["m_Latitude"] = m_Latitude;
-	json["m_Longitude"] = m_Longitude;
 	json["m_Units"] = m_Units;
 	json["m_Language"] = m_Language;
 }
@@ -42,10 +41,6 @@ void WeatherCompanyData::Deserialize(const Json::Value & json)
 {
 	IWeather::Deserialize(json);
 
-	if (json.isMember("m_Latitude"))
-		m_Latitude = json["m_Latitude"].asFloat();
-	if (json.isMember("m_Longitude"))
-		m_Longitude = json["m_Longitude"].asFloat();
 	if (json.isMember("m_Units"))
 		m_Units = json["m_Units"].asString();
 	if (json.isMember("m_Language"))
@@ -70,10 +65,12 @@ bool WeatherCompanyData::Start()
 	return true;
 }
 
-void WeatherCompanyData::GetCurrentConditions(SendCallback a_Callback)
+void WeatherCompanyData::GetCurrentConditions(Location * a_Location, SendCallback a_Callback)
 {
+	VerifyLocation(a_Location);
 	std::string parameters = "/v1";
-	parameters += "/geocode/" + StringUtil::Format("%f", m_Latitude) + "/" + StringUtil::Format("%f", m_Longitude);
+	parameters += "/geocode/" + StringUtil::Format("%f", a_Location->GetLatitude()) + "/"
+				  + StringUtil::Format("%f", a_Location->GetLongitude());
 	parameters += "/forecast/hourly/48hour.json";
 	parameters += "?units=" + m_Units;
 	parameters += "&language=" + m_Language;
@@ -81,21 +78,12 @@ void WeatherCompanyData::GetCurrentConditions(SendCallback a_Callback)
 	new RequestJson(this, parameters, "GET", m_Headers, EMPTY_STRING, a_Callback);
 }
 
-void WeatherCompanyData::GetCurrentConditions(const std::string & a_Lat, const std::string & a_Long, SendCallback a_Callback)
+void WeatherCompanyData::GetHourlyForecast(Location * a_Location, SendCallback a_Callback)
 {
+	VerifyLocation(a_Location);
 	std::string parameters = "/v1";
-	parameters += "/geocode/" + a_Lat + "/" + a_Long;
-	parameters += "/forecast/hourly/48hour.json";
-	parameters += "?units=" + m_Units;
-	parameters += "&language=" + m_Language;
-
-	new RequestJson(this, parameters, "GET", m_Headers, EMPTY_STRING, a_Callback);
-}
-
-void WeatherCompanyData::GetHourlyForecast(SendCallback a_Callback)
-{
-	std::string parameters = "/v1";
-	parameters += "/geocode/" + StringUtil::Format("%f", m_Latitude) + "/" + StringUtil::Format("%f", m_Longitude);
+	parameters += "/geocode/" + StringUtil::Format("%f", a_Location->GetLatitude()) + "/"
+				  + StringUtil::Format("%f", a_Location->GetLongitude());
 	parameters += "/forecast/hourly/24hour.json";
 	parameters += "?units=" + m_Units;
 	parameters += "&language=" + m_Language;
@@ -103,10 +91,12 @@ void WeatherCompanyData::GetHourlyForecast(SendCallback a_Callback)
 	new RequestJson(this, parameters, "GET", m_Headers, EMPTY_STRING, a_Callback);
 }
 
-void WeatherCompanyData::GetTenDayForecast(SendCallback a_Callback)
+void WeatherCompanyData::GetTenDayForecast(Location * a_Location, SendCallback a_Callback)
 {
+	VerifyLocation(a_Location);
 	std::string parameters = "/v1";
-	parameters += "/geocode/" + StringUtil::Format("%f", m_Latitude) + "/" + StringUtil::Format("%f", m_Longitude);
+	parameters += "/geocode/" + StringUtil::Format("%f", a_Location->GetLatitude()) + "/"
+				  + StringUtil::Format("%f", a_Location->GetLongitude());
 	parameters += "/forecast/daily/10day.json";
 	parameters += "?units=" + m_Units;
 	parameters += "&language=" + m_Language;
@@ -114,14 +104,10 @@ void WeatherCompanyData::GetTenDayForecast(SendCallback a_Callback)
 	new RequestJson(this, parameters, "GET", m_Headers, EMPTY_STRING, a_Callback);
 }
 
-void WeatherCompanyData::GetTenDayForecast(const std::string & a_Lat, const std::string & a_Long, SendCallback a_Callback)
+bool WeatherCompanyData::VerifyLocation(Location * a_Location)
 {
-	std::string parameters = "/v1";
-	parameters += "/geocode/" + a_Lat + "/" + a_Long;
-	parameters += "/forecast/daily/10day.json";
-	parameters += "?units=" + m_Units;
-	parameters += "&language=" + m_Language;
-
-	new RequestJson(this, parameters, "GET", m_Headers, EMPTY_STRING, a_Callback);
+	if ( a_Location == NULL )
+		a_Location = new Location();
+	return true;
 }
 

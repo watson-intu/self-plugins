@@ -20,6 +20,7 @@
 #define WDC_WEATHERCOMPANYDATA_H
 
 #include "services/IWeather.h"
+#include "services/ILocation.h"
 
 class WeatherCompanyData : public IWeather
 {
@@ -40,18 +41,13 @@ public:
     virtual bool Start();
 
 	//! IWeather interface
-    void GetCurrentConditions( SendCallback a_Callback );
-    void GetCurrentConditions(const std::string & a_Lat, const std::string & a_Long, 
-		SendCallback a_Callback);
-    void GetHourlyForecast( SendCallback a_Callback );
-    void GetTenDayForecast( SendCallback a_Callback );
-    void GetTenDayForecast(const std::string & a_Lat, const std::string & a_Long,
-		SendCallback a_Callback);
+    void GetCurrentConditions( Location * a_Location, SendCallback a_Callback );
+    void GetHourlyForecast( Location * a_Location, SendCallback a_Callback );
+    void GetTenDayForecast( Location * a_Location, SendCallback a_Callback );
+    bool VerifyLocation( Location * a_Location);
 
 private:
 	//! Data
-    float m_Latitude;
-    float m_Longitude;
     std::string m_Units;
     std::string m_Language;
 };
