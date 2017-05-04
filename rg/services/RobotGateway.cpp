@@ -84,9 +84,9 @@ bool RobotGateway::Start()
 
 	// add sub-services if no existing service is found.
 	if ( pInstance->FindService<IAuthenticate>() == NULL )
-		pInstance->AddService( IService::SP( new RobotAuthenticate() ) );
+		pInstance->GetService<RobotAuthenticate>();
 	if ( pInstance->FindService<IMail>() == NULL )
-		pInstance->AddService( IService::SP( new RobotMail() ) );
+		pInstance->GetService<RobotMail>();
 
 	m_Headers["Content-Type"] = "application/json";
 	m_Headers["macId"] = m_MacId;
