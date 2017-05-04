@@ -85,6 +85,9 @@
     <Filter Include="lib\pcl\io\depth_sense">
       <UniqueIdentifier>{d412de75-a1f5-458d-aefe-fe704b007244}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tests">
+      <UniqueIdentifier>{1eebc575-3419-4273-97bd-c7bf92429360}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\pcl\lib\pcl\common\src\fft\kiss_fft.c">
@@ -803,6 +806,9 @@
     </ClCompile>
     <ClCompile Include="..\..\pcl\lib\pcl\octree\src\octree_impl.cpp">
       <Filter>lib\pcl\octree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pcl\tests\TestPCLObjectRecogntion.cpp">
+      <Filter>tests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

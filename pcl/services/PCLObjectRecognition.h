@@ -95,6 +95,11 @@ public:
 	virtual void ClassifyObjects(const std::string & a_DepthImageData,
 		OnClassifyObjects a_Callback );
 
+	void SetObjects( const std::vector<ObjectModel> & a_Objects )
+	{
+		m_Objects = a_Objects;
+	}
+
 private:
 	//! Types
 	struct ProcessDepthData

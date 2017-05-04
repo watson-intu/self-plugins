@@ -452,6 +452,7 @@
     <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\supervoxel_clustering.cpp" />
     <ClCompile Include="..\..\pcl\lib\pcl\segmentation\src\unary_classifier.cpp" />
     <ClCompile Include="..\..\pcl\services\PCLObjectRecognition.cpp" />
+    <ClCompile Include="..\..\pcl\tests\TestPCLObjectRecogntion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\pcl\lib\eigen\Eigen\Cholesky" />

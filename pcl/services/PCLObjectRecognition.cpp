@@ -140,6 +140,15 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 	double startTime = Time().GetEpochTime();
 	Log::Status( "PCLObjectRecogition", "Processing %u bytes of depth data.", a_pData->m_DepthData.size() );
 
+#if 0
+	FILE * fp = fopen( "scene.png", "wb" );
+	if ( fp != NULL )
+	{
+		fwrite( a_pData->m_DepthData.data(), 1, a_pData->m_DepthData.size(), fp );
+		fclose( fp );
+	}
+#endif
+
 	// convert depth data into PCD
 	const std::string & data = a_pData->m_DepthData;
 	std::vector<unsigned char> encoded( (unsigned char *)data.data(), (unsigned char *)data.data() + data.size() );
@@ -162,7 +171,7 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 			pcl::PointXYZ & pt = spScene->points[depth_idx];
 			pt.z = decoded.at<unsigned short>( depth_idx ) * 0.001f;
 			pt.x = static_cast<float>(u) * pt.z * constant;
-			pt.y = static_cast<float>(v) * pt.z * -constant;
+			pt.y = static_cast<float>(v) * pt.z * constant;
 		}
 	}
 	spScene->sensor_origin_.setZero();
@@ -247,11 +256,6 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 	norm_est.setInputCloud(spScene);
 	norm_est.compute(*scene_normals);
 
-#if WRITE_SCENE_PCD
-	// save to a local file 
-	pcl::io::savePCDFile( "scene_normals.pcd", *scene_normals );
-#endif
-
 	//
 	// Downsample Clouds to Extract keypoints
 	//
@@ -260,11 +264,6 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 	uniform_sampling.setInputCloud(spScene);
 	uniform_sampling.setLeafSize(m_SceneSS, m_SceneSS, m_SceneSS);
 	uniform_sampling.filter(*scene_keypoints);
-
-#if WRITE_SCENE_PCD
-	// save to a local file 
-	pcl::io::savePCDFile( "scene_keypoints.pcd", *scene_keypoints );
-#endif
 
 	//
 	// Compute Descriptor for keypoints
@@ -277,10 +276,6 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 	descr_est.setSearchSurface(spScene);
 	descr_est.compute(*scene_descriptors);
 
-#if WRITE_SCENE_PCD
-	// save to a local file 
-	pcl::io::savePCDFile( "scene_descriptors.pcd", *scene_descriptors );
-#endif
 	// find objects in PCD
 	a_pData->m_Results["objects"] = Json::Value( Json::arrayValue );
 
@@ -469,13 +464,15 @@ void PCLObjectRecognition::SendResults( ProcessDepthData * a_pData )
 
 bool PCLObjectRecognition::ObjectModel::LoadPCD( float a_ModelSS, float a_DescRad )
 {
-	const std::string & staticData = SelfInstance::GetInstance()->GetStaticDataPath();
+	const std::string & staticData = Config::Instance()->GetStaticDataPath();
 	for(size_t i=0;i<m_Models.size();++i)
 	{
+		std::string modelPath( staticData + m_Models[i] );
+
 		ModelPCD pcd;
-		if ( pcl::io::loadPCDFile( staticData + m_Models[i], *pcd.m_Model ) < 0 )
+		if ( pcl::io::loadPCDFile( modelPath, *pcd.m_Model ) < 0 )
 		{
-			Log::Error( "ObjectModel", "Failed to load %s", m_Models[i].c_str() );
+			Log::Error( "ObjectModel", "Failed to load %s", modelPath.c_str() );
 			return false;
 		}
 
