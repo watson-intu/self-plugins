@@ -33,6 +33,7 @@ RTTI_IMPL( AQSpeechGesture, SpeechGesture );
 
 bool AQSpeechGesture::Start()
 {
+    MacPlatform::Instance();
 	if (! SpeechGesture::Start() )
 		return false;
 

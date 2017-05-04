@@ -22,6 +22,8 @@
 #include "gestures/SpeechGesture.h"
 #include "utils/Sound.h"
 
+#include "MacPlatform.h"
+
 struct Voices;
 
 //! This gesture wraps DirectSound so the local windows box can speak.
