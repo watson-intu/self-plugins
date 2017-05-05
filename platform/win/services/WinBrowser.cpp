@@ -16,6 +16,8 @@
 */
 
 #include "WinBrowser.h"
+#include <windows.h>
+#include <ShellAPI.h>
 
 REG_SERIALIZABLE(WinBrowser);
 RTTI_IMPL(WinBrowser, IBrowser);
@@ -52,6 +54,6 @@ bool WinBrowser::Stop()
 void WinBrowser::ShowURL(const Url::SP & a_spUrlAgent, UrlCallback a_Callback)
 {
 	Log::Debug("MacBrowser", "Opening the following URL: %s", a_spUrlAgent->GetURL().c_str());
-//	std::string command = "open " + a_spUrlAgent->GetURL();
-//	system(command.c_str());
+	ShellExecute(NULL, "open", a_spUrlAgent->GetURL().c_str(),
+		NULL, NULL, SW_SHOWNORMAL);
 }
