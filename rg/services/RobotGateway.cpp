@@ -84,9 +84,9 @@ bool RobotGateway::Start()
 
 	// add sub-services if no existing service is found.
 	if ( pInstance->FindService<IAuthenticate>() == NULL )
-		pInstance->AddService( IService::SP( new RobotAuthenticate() ) );
+		pInstance->GetService<RobotAuthenticate>();
 	if ( pInstance->FindService<IMail>() == NULL )
-		pInstance->AddService( IService::SP( new RobotMail() ) );
+		pInstance->GetService<RobotMail>();
 
 	m_Headers["Content-Type"] = "application/json";
 	m_Headers["macId"] = m_MacId;
@@ -437,7 +437,7 @@ void RobotGateway::OnConfigured(ServiceList* a_pServiceList)
 		// post health object to the blackboard..
 		SelfInstance * pInstance = SelfInstance::GetInstance();
 		if ( pInstance != NULL )
-			pInstance->GetBlackBoard()->AddThing( Health::SP( new Health( "ConfigurationFailure", true, true ) ) );
+			pInstance->GetBlackBoard()->AddThing( Health::SP( new Health("Configuration", "RobotGatewayDown", true, true ) ) );
 	}
 }
 

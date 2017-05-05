@@ -36,4 +36,7 @@
       <Filter>sensors</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="platform_raspi.licenseheader" />
+  </ItemGroup>
 </Project>

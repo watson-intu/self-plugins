@@ -84,7 +84,7 @@ bool KinectDepthCamera::OnStart()
 			{
 				m_pSensor->NuiImageStreamSetImageFrameFlags(m_hDepthStream, m_bNearMode ? NUI_IMAGE_STREAM_FLAG_ENABLE_NEAR_MODE : 0);
 				m_spWaitTimer = TimerPool::Instance()->StartTimer(VOID_DELEGATE(KinectDepthCamera, OnCaptureData, this), (1.0f / m_fFramesPerSec), false, true);
-				Log::Status("KinectCamera", "Camera has started");
+				Log::Status("KinectDepthCamera", "Camera has started");
 			}
 			else
 			{
@@ -94,7 +94,7 @@ bool KinectDepthCamera::OnStart()
 		}
 
 		if (m_pSensor == NULL)
-			Log::Warning("kinectCamera", "Failed to open camera");
+			Log::Warning("KinectDepthCamera", "Failed to open camera");
 	}
 
 	return true;
@@ -119,7 +119,7 @@ bool KinectDepthCamera::OnStop()
 		m_pSensor = NULL;
 	}
 
-	Log::Debug("KinectCamera", "Camera has stopped...");
+	Log::Debug("KinectDepthCamera", "Camera has stopped...");
 	return true;
 }
 
