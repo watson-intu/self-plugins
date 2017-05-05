@@ -116,6 +116,11 @@ bool PCLObjectRecognition::Start()
 	if (! IObjectRecognition::Start() )
 		return false;
 
+#ifndef _DEBUG
+	// turn off spam from PCL in release builds..
+	pcl::console::setVerbosityLevel(pcl::console::L_ALWAYS);
+#endif
+
 	int modelsLoaded = 0;
 	for(size_t i=0;i<m_Objects.size();++i)
 	{
