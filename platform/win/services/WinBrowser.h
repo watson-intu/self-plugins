@@ -39,10 +39,8 @@ public:
 	virtual void Serialize(Json::Value & json);
 	virtual void Deserialize(const Json::Value & json);
 
-
+	//! IBrowser interface
 	virtual void ShowURL(const Url::SP & a_spUrlAgent, UrlCallback a_Callback);
-private:
-
 };
 
 

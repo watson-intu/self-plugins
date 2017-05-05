@@ -25,24 +25,22 @@
 class MacBrowser : public IBrowser
 {
 public:
-    RTTI_DECL();
+	RTTI_DECL();
 
-    //! Construction
-    MacBrowser() : IBrowser("URLServiceV1")
-    {}
+	//! Construction
+	MacBrowser() : IBrowser("URLServiceV1")
+	{}
 
-    //! IService
-    virtual bool Start();
-    virtual bool Stop();
+	//! IService
+	virtual bool Start();
+	virtual bool Stop();
 
-    //! ISerializable
-    virtual void Serialize(Json::Value & json);
-    virtual void Deserialize(const Json::Value & json);
+	//! ISerializable
+	virtual void Serialize(Json::Value & json);
+	virtual void Deserialize(const Json::Value & json);
 
-
-    virtual void ShowURL(const Url::SP & a_spUrlAgent, UrlCallback a_Callback);
-private:
-
+	//! IBrowser interface
+	virtual void ShowURL(const Url::SP & a_spUrlAgent, UrlCallback a_Callback);
 };
 
 
