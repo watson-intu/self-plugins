@@ -14,12 +14,14 @@
     <ClInclude Include="..\..\platform\win\gestures\WinSoundGesture.h" />
     <ClInclude Include="..\..\platform\win\gestures\WinSpeechGesture.h" />
     <ClInclude Include="..\..\platform\win\sensors\WinMicrophone.h" />
+    <ClInclude Include="..\..\platform\win\services\WinBrowser.h" />
     <ClInclude Include="..\..\platform\win\utils\QIRef.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\platform\win\gestures\WinSoundGesture.cpp" />
     <ClCompile Include="..\..\platform\win\gestures\WinSpeechGesture.cpp" />
     <ClCompile Include="..\..\platform\win\sensors\WinMicrophone.cpp" />
+    <ClCompile Include="..\..\platform\win\services\WinBrowser.cpp" />
     <ClCompile Include="..\..\platform\win\tests\TestWinMicrophone.cpp" />
     <ClCompile Include="..\..\platform\win\tests\TestWinSoundGesture.cpp" />
   </ItemGroup>

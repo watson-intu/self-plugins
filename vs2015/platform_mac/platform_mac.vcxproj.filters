@@ -7,6 +7,9 @@
     <Filter Include="gestures">
       <UniqueIdentifier>{647503c1-1108-44a4-8a45-487868f55058}</UniqueIdentifier>
     </Filter>
+    <Filter Include="services">
+      <UniqueIdentifier>{fe1426f0-1ca3-4239-b0f9-4a81c11be47c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\platform\mac\gestures\AQSpeechGesture.cpp">
@@ -15,6 +18,9 @@
     <ClCompile Include="..\..\platform\mac\sensors\AQMicrophone.cpp">
       <Filter>sensors</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\platform\mac\services\MacBrowser.cpp">
+      <Filter>services</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\platform\mac\gestures\AQSpeechGesture.h">
@@ -22,6 +28,9 @@
     </ClInclude>
     <ClInclude Include="..\..\platform\mac\sensors\AQMicrophone.h">
       <Filter>sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\platform\mac\services\MacBrowser.h">
+      <Filter>services</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

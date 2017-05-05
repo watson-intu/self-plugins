@@ -5,6 +5,7 @@ qi_create_lib(platform_mac SHARED
         gestures/AQSpeechGesture.cpp
         gestures/MacSoundGesture.cpp
         sensors/AQMicrophone.cpp
+        services/MacBrowser.cpp
         tests/TestMacSoundGesture.cpp)
 
 qi_use_lib(platform_mac self utils portaudio)

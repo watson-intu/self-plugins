@@ -13,6 +13,9 @@
     <Filter Include="utils">
       <UniqueIdentifier>{0da65c93-fbfd-41da-a28f-0201c0bbff01}</UniqueIdentifier>
     </Filter>
+    <Filter Include="services">
+      <UniqueIdentifier>{8f00eb50-3e01-42b2-9ff0-509a52fdc04f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\platform\win\sensors\WinMicrophone.cpp">
@@ -30,6 +33,9 @@
     <ClCompile Include="..\..\platform\win\tests\TestWinSoundGesture.cpp">
       <Filter>tests</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\platform\win\services\WinBrowser.cpp">
+      <Filter>services</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\platform\win\utils\QIRef.h">
@@ -43,6 +49,9 @@
     </ClInclude>
     <ClInclude Include="..\..\platform\win\gestures\WinSoundGesture.h">
       <Filter>gestures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\platform\win\services\WinBrowser.h">
+      <Filter>services</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
