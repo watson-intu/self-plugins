@@ -94,11 +94,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\platform\mac\gestures\AQSpeechGesture.cpp" />
+    <ClCompile Include="..\..\platform\mac\MacPlatform.cpp" />
     <ClCompile Include="..\..\platform\mac\sensors\AQMicrophone.cpp" />
+    <ClCompile Include="..\..\platform\mac\services\MacBrowser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\platform\mac\gestures\AQSpeechGesture.h" />
+    <ClInclude Include="..\..\platform\mac\MacPlatform.h" />
     <ClInclude Include="..\..\platform\mac\sensors\AQMicrophone.h" />
+    <ClInclude Include="..\..\platform\mac\services\MacBrowser.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\platform\mac\CMakeLists.txt" />
