@@ -18,8 +18,36 @@
 #include "MacBrowser.h"
 
 REG_SERIALIZABLE( MacBrowser );
-REG_OVERRIDE_SERIALIZABLE( IBrowser, MacBrowser );
 RTTI_IMPL( MacBrowser, IBrowser );
+
+REG_OVERRIDE_SERIALIZABLE( IBrowser, MacBrowser );
+
+void MacBrowser::Serialize(Json::Value & json)
+{
+    IBrowser::Serialize(json);
+}
+
+void MacBrowser::Deserialize(const Json::Value & json)
+{
+    IBrowser::Deserialize(json);
+}
+
+bool MacBrowser::Start()
+{
+    Log::Status( "MacBrowser", "Starting.." );
+
+    if (! IBrowser::Start() )
+        return false;
+
+    return true;
+}
+
+bool MacBrowser::Stop()
+{
+    Log::Status( "MacBrowser", "Stopping.." );
+
+    return IBrowser::Stop();
+}
 
 void MacBrowser::ShowURL(const Url::SP & a_spUrlAgent, UrlCallback a_Callback)
 {
