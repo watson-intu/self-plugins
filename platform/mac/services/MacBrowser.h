@@ -28,18 +28,17 @@ public:
     RTTI_DECL();
 
     //! Construction
-    MacBrowser()
+    MacBrowser() : IBrowser("URLServiceV1")
     {}
 
-    //! Types
-    struct URLServiceData
-    {
-        Json::Value             m_JsonValue;
-        Url::SP                 m_spUrl;
-    };
+    //! IService
+    virtual bool Start();
+    virtual bool Stop();
 
-    //! Typedefs
-    typedef Delegate<URLServiceData *>		        UrlCallback;
+    //! ISerializable
+    virtual void Serialize(Json::Value & json);
+    virtual void Deserialize(const Json::Value & json);
+
 
     virtual void ShowURL(const Url::SP & a_spUrlAgent, UrlCallback a_Callback);
 private:
