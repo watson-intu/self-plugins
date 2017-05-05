@@ -281,7 +281,7 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 	//
 	pcl::PointCloud<PointType>::Ptr scene_keypoints(new pcl::PointCloud<PointType>());
 	pcl::VoxelGrid<PointType> uniform_sampling;
-	uniform_sampling.setInputCloud(spScene);
+	uniform_sampling.setInputCloud(scene_reduced);
 	uniform_sampling.setLeafSize(m_SceneSS, m_SceneSS, m_SceneSS);
 	uniform_sampling.filter(*scene_keypoints);
 
@@ -298,7 +298,7 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 	descr_est.setRadiusSearch(m_DescRad);
 	descr_est.setInputCloud(scene_keypoints);
 	descr_est.setInputNormals(scene_normals);
-	descr_est.setSearchSurface(spScene);
+	descr_est.setSearchSurface(scene_reduced);
 	descr_est.compute(*scene_descriptors);
 
 	// find objects in PCD
@@ -375,7 +375,7 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 			rf_est.compute(*model_rf);
 			rf_est.setInputCloud(scene_keypoints);
 			rf_est.setInputNormals(scene_normals);
-			rf_est.setSearchSurface(spScene);
+			rf_est.setSearchSurface(scene_reduced);
 			rf_est.compute(*scene_rf);
 
 			//
