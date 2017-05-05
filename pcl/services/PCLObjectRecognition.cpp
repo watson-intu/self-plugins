@@ -47,8 +47,9 @@ PCLObjectRecognition::PCLObjectRecognition() :
 	m_RFRad( 0.015f ),
 	m_CGSize( 0.02f ),
 	m_CGThresh( 1.0f ),
-	m_LowHeight( -2.5f ),
-	m_DistThreshold(0.01f)
+	m_LowHeight( -1.5f ),
+	m_maxDist( 0.5f ),
+	m_DistThreshold( 0.01f )
 {}
 
 void PCLObjectRecognition::Serialize(Json::Value & json)
@@ -62,6 +63,7 @@ void PCLObjectRecognition::Serialize(Json::Value & json)
 	json["m_CGSize"] = m_CGSize;
 	json["m_CGThresh"] = m_CGThresh;
 	json["m_LowHeight"] = m_LowHeight;
+	json["m_maxDist"] = m_maxDist;
 	json["m_DistThreshold"] = m_DistThreshold;
 
 	SerializeVector( "m_Objects", m_Objects, json );
@@ -86,6 +88,8 @@ void PCLObjectRecognition::Deserialize(const Json::Value & json)
 		m_CGThresh = json["m_CGThresh"].asFloat();
 	if ( json["m_LowHeight"].isNumeric() )
 		m_LowHeight = json["m_LowHeight"].asFloat();
+	if ( json["m_maxDist"].isNumeric() )
+		m_maxDist = json["m_maxDist"].asFloat();
 	if ( json["m_DistThreshold"].isNumeric() )
 		m_DistThreshold = json["m_DistThreshold"].asFloat();
 
@@ -138,7 +142,7 @@ void PCLObjectRecognition::ClassifyObjects(const std::string & a_DepthImageData,
 void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 {
 	double startTime = Time().GetEpochTime();
-	Log::Status( "PCLObjectRecogition", "Processing %u bytes of depth data.", a_pData->m_DepthData.size() );
+	Log::Status( "PCLObjectRecognition", "Processing %u bytes of depth data.", a_pData->m_DepthData.size() );
 
 #if 0
 	FILE * fp = fopen( "scene.png", "wb" );
@@ -190,7 +194,7 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 	pcl::ModelCoefficients::Ptr coefficients(new pcl::ModelCoefficients);
 	pcl::PointIndices::Ptr inliers(new pcl::PointIndices);
 	pcl::SACSegmentation<PointType> seg;
-	seg.setOptimizeCoefficients(false);
+	seg.setOptimizeCoefficients(true);
 	seg.setModelType(pcl::SACMODEL_PLANE);
 	seg.setMethodType(pcl::SAC_RANSAC);
 	seg.setInputCloud( spScene );
@@ -235,7 +239,7 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 
 	for (size_t p = 0; p < points.size(); p++) 
 	{
-		if ( points[p].z < -m_LowHeight)
+		if (points[p].y < m_maxDist && points[p].z < -m_LowHeight)
 			spScene->points.push_back(points[p]);
 	}
 	spScene->width = spScene->points.size();
@@ -247,13 +251,29 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 #endif
 #endif
 
+#if 1
+	//
+	// Reduce data amount
+	//
+	pcl::PointCloud<PointType>::Ptr scene_reduced(new pcl::PointCloud<PointType>());
+	pcl::VoxelGrid<PointType> reduce;
+	reduce.setInputCloud(spScene);
+	reduce.setLeafSize(m_SceneSS / 5.0, m_SceneSS / 5.0, m_SceneSS / 5.0);
+	reduce.filter(*scene_reduced);
+
+#if WRITE_SCENE_PCD
+	// save to a local file 
+	pcl::io::savePCDFile( "scene_reduced.pcd", *scene_reduced );
+#endif
+#endif
+
 	//
 	// Compute Normals
 	//
 	pcl::PointCloud<NormalType>::Ptr scene_normals(new pcl::PointCloud<NormalType>());
 	pcl::NormalEstimationOMP<PointType, NormalType> norm_est;
 	norm_est.setKSearch(10);
-	norm_est.setInputCloud(spScene);
+	norm_est.setInputCloud(scene_reduced);
 	norm_est.compute(*scene_normals);
 
 	//
@@ -264,6 +284,11 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
 	uniform_sampling.setInputCloud(spScene);
 	uniform_sampling.setLeafSize(m_SceneSS, m_SceneSS, m_SceneSS);
 	uniform_sampling.filter(*scene_keypoints);
+
+#if WRITE_SCENE_PCD
+	// save to a local file 
+	pcl::io::savePCDFile( "scene_keypoints.pcd", *scene_keypoints);
+#endif
 
 	//
 	// Compute Descriptor for keypoints
