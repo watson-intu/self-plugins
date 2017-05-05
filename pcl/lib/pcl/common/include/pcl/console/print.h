@@ -43,12 +43,22 @@
 #include <pcl/pcl_exports.h>
 #include <pcl/pcl_config.h>
 
+#if 1
+#include "utils/Log.h"
+#define PCL_ALWAYS(...)  Log::DebugHigh( "PCL-Critical", __VA_ARGS__ )
+#define PCL_ERROR(...)   Log::DebugHigh( "PCL-Error", __VA_ARGS__ )
+#define PCL_WARN(...)    Log::DebugHigh( "PCL-Warn", __VA_ARGS__ )
+#define PCL_INFO(...)    Log::DebugHigh( "PCL-Info", __VA_ARGS__ )
+#define PCL_DEBUG(...)   Log::DebugHigh( "PCL-Debug", __VA_ARGS__ )
+#define PCL_VERBOSE(...) Log::DebugHigh( "PCL-Verbose", __VA_ARGS__ )
+#else
 #define PCL_ALWAYS(...)  pcl::console::print (pcl::console::L_ALWAYS, __VA_ARGS__)
 #define PCL_ERROR(...)   pcl::console::print (pcl::console::L_ERROR, __VA_ARGS__)
 #define PCL_WARN(...)    pcl::console::print (pcl::console::L_WARN, __VA_ARGS__)
 #define PCL_INFO(...)    pcl::console::print (pcl::console::L_INFO, __VA_ARGS__)
 #define PCL_DEBUG(...)   pcl::console::print (pcl::console::L_DEBUG, __VA_ARGS__)
 #define PCL_VERBOSE(...) pcl::console::print (pcl::console::L_VERBOSE, __VA_ARGS__)
+#endif
 
 #define PCL_ASSERT_ERROR_PRINT_CHECK(pred, msg) \
     do \
