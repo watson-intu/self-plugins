@@ -36,7 +36,6 @@
     <ClCompile Include="..\..\platform\win\services\WinBrowser.cpp">
       <Filter>services</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\platform\win\WinPlatform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\platform\win\utils\QIRef.h">
@@ -54,7 +53,6 @@
     <ClInclude Include="..\..\platform\win\services\WinBrowser.h">
       <Filter>services</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\platform\win\WinPlatform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

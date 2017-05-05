@@ -22,7 +22,6 @@
 #include "skills/SkillManager.h"
 #include "utils/ThreadPool.h"
 #include "utils/Sound.h"
-#include "WinPlatform.h"
 
 #include "SelfInstance.h"
 
@@ -44,7 +43,6 @@ RTTI_IMPL( WinSpeechGesture, SpeechGesture );
 
 bool WinSpeechGesture::Start()
 {
-	WinPlatform::Instance();
 	if (! SpeechGesture::Start() )
 		return false;
 

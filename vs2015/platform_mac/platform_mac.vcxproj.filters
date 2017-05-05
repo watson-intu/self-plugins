@@ -21,7 +21,6 @@
     <ClCompile Include="..\..\platform\mac\services\MacBrowser.cpp">
       <Filter>services</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\platform\mac\MacPlatform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\platform\mac\gestures\AQSpeechGesture.h">
@@ -33,7 +32,6 @@
     <ClInclude Include="..\..\platform\mac\services\MacBrowser.h">
       <Filter>services</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\platform\mac\MacPlatform.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\platform\mac\CMakeLists.txt" />

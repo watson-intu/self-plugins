@@ -16,7 +16,6 @@
     <ClInclude Include="..\..\platform\win\sensors\WinMicrophone.h" />
     <ClInclude Include="..\..\platform\win\services\WinBrowser.h" />
     <ClInclude Include="..\..\platform\win\utils\QIRef.h" />
-    <ClInclude Include="..\..\platform\win\WinPlatform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\platform\win\gestures\WinSoundGesture.cpp" />
@@ -25,7 +24,6 @@
     <ClCompile Include="..\..\platform\win\services\WinBrowser.cpp" />
     <ClCompile Include="..\..\platform\win\tests\TestWinMicrophone.cpp" />
     <ClCompile Include="..\..\platform\win\tests\TestWinSoundGesture.cpp" />
-    <ClCompile Include="..\..\platform\win\WinPlatform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\lib\cpp-sdk\vs2015\jsoncpp\jsoncpp.vcxproj">
