@@ -437,7 +437,7 @@ void RobotGateway::OnConfigured(ServiceList* a_pServiceList)
 		// post health object to the blackboard..
 		SelfInstance * pInstance = SelfInstance::GetInstance();
 		if ( pInstance != NULL )
-			pInstance->GetBlackBoard()->AddThing( Health::SP( new Health("RobotGateway", "ConfigurationFailure", true, true ) ) );
+			pInstance->GetBlackBoard()->AddThing( Health::SP( new Health("Configuration", "RobotGatewayDown", true, true ) ) );
 	}
 }
 
