@@ -126,6 +126,7 @@ private:
 	float							m_CGSize;
 	float							m_CGThresh;
 	float							m_LowHeight;
+	float							m_maxDist;
 	float							m_DistThreshold;
 };
 
