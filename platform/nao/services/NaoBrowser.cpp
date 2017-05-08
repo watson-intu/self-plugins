@@ -79,14 +79,6 @@ bool NaoBrowser::Start()
 
 	ThreadPool::Instance()->InvokeOnThread( VOID_DELEGATE(NaoBrowser, TabletThread, this) );
 
-	// wait a bit for the table to get connected
-	double startTime = Time().GetEpochTime();
-	while(! m_bTabletConnected && (Time().GetEpochTime() - startTime) < 30.0f )
-	{
-		boost::this_thread::yield();
-		ThreadPool::Instance()->ProcessMainThread();
-	}
-
 	return true;
 }
 
@@ -103,14 +95,11 @@ bool NaoBrowser::Stop()
 
 void NaoBrowser::ShowURL( const Url::SP & a_spUrl, UrlCallback a_Callback )
 {
-	if ( m_bTabletConnected )
-	{
-		Log::Status( "NaoURLService", "Sending URL: %s", a_spUrl->GetURL().c_str() );
+	Log::Status( "NaoURLService", "Sending URL: %s", a_spUrl->GetURL().c_str() );
 
-		m_RequestListLock.lock();
-		m_RequestList.push_back( UrlRequest( a_spUrl, a_Callback ) );
-		m_RequestListLock.unlock();
-	}
+	m_RequestListLock.lock();
+	m_RequestList.push_back( UrlRequest( a_spUrl, a_Callback ) );
+	m_RequestListLock.unlock();
 }
 
 //--------------------------
