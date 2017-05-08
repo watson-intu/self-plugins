@@ -139,8 +139,8 @@ void NaoDepthCamera::DoStreamingThread(void *arg)
 
         camProxy.releaseImage(m_ClientName);
 
-        boost::this_thread:sleep(boost::posix_time::milliseconds(1000 / m_fFramesPerSec));
-    }
+		boost::this_thread::sleep(boost::posix_time::milliseconds(1000 / m_fFramesPerSec));
+	}
 
     Log::Debug("NaoDepthCamera", "Closing Video feed with m_ClientName: %s", m_ClientName.c_str());
     camProxy.unsubscribe(m_ClientName);
