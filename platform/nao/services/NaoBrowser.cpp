@@ -81,7 +81,7 @@ bool NaoBrowser::Start()
 
 	// wait a bit for the table to get connected
 	double startTime = Time().GetEpochTime();
-	while(! m_bTabletConnected && (Time().GetEpochTime() - startTime) < m_TabletCheckInterval )
+	while(! m_bTabletConnected && (Time().GetEpochTime() - startTime) < 30.0f )
 	{
 		boost::this_thread::yield();
 		ThreadPool::Instance()->ProcessMainThread();
