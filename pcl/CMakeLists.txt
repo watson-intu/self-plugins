@@ -20,6 +20,8 @@ include_directories(.
 	)
 
 file(GLOB_RECURSE SERVICES_CPP RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "services/*.cpp")
+file(GLOB_RECURSE TESTS_CPP RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "tests/*.cpp")
+
 list(APPEND FLANN_CPP "lib/flann/src/cpp/flann/flann.cpp" "lib/flann/src/cpp/flann/flann_cpp.cpp")
 file(GLOB_RECURSE FLANN_C RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "lib/flann/src/*.c")
 file(GLOB_RECURSE PCL_COMMON_CPP RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "lib/pcl/common/src/*.cpp")
@@ -45,6 +47,7 @@ list(APPEND PCL_IO_CPP "lib/pcl/io/src/pcd_io.cpp"
 
 qi_create_lib(pcl_plugin SHARED 
 	${SERVICES_CPP} 
+ 	${TESTS_CPP}	
 	${FLANN_CPP} 
 	${FLANN_C} 
 	${PCL_COMMON_CPP}

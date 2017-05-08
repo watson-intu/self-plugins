@@ -910,4 +910,7 @@
     <None Include="packages.config" />
     <None Include="pcl_plugin.licenseheader" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\pcl\CMakeLists.txt" />
+  </ItemGroup>
 </Project>

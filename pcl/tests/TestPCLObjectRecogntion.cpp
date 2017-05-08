@@ -26,7 +26,7 @@ class TestPCLObjectRecognition : UnitTest
 {
 public:
 	//! Construction
-	TestPCLObjectRecognition() : UnitTest("TestPCLObjectRecognition"),
+	TestPCLObjectRecognition() : UnitTest("TestPCL"),
 		m_bObjectRecogized(false)
 	{ }
 
