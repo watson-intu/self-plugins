@@ -118,7 +118,7 @@ void NaoCamera::DoStreamingThread(void *arg)
 			camProxy.releaseImage(m_ClientName);
 		}
 
-		tthread::this_thread::sleep_for(tthread::chrono::milliseconds(1000 / m_fFramesPerSec));
+		boost::this_thread:sleep(boost::posix_time::milliseconds(1000 / m_fFramesPerSec));
 	}
 
 	Log::Debug("NaoVideo", "Closing Video feed with m_ClientName: %s", m_ClientName.c_str());
