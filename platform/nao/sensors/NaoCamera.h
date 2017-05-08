@@ -30,7 +30,7 @@ class NaoCamera : public Camera
 public:
 	RTTI_DECL();
 
-	NaoCamera() : m_StopThread( false ), m_ClientName( "self" )
+	NaoCamera() : m_StopThread( false ), m_ClientName( "NaoCamera" )
 	{}
 
 	//! ISensor interface

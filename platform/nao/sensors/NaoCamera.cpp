@@ -100,9 +100,9 @@ void NaoCamera::DoStreamingThread(void *arg)
 				continue;
 			}
 
-			int width = img[0].GetInt();
-			int height = img[1].GetInt();
-			int depth = img[2].GetInt();
+			int width = (int)img[0];
+			int height = (int)img[1];
+			int depth = (int)img[2];
 
 			Log::Debug( "NaoCamera", "Grabbed image %dx%dx%d", width, height, depth );
 

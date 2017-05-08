@@ -95,28 +95,43 @@ void Nao3DCamera::DoStreamingThread(void *arg)
 
     AL::ALVideoDeviceProxy  camProxy(robotIp, 9559);
     camProxy.setParam(AL::kCameraSelectID, 2);
-    m_ClientName = camProxy.subscribe("test", AL::kQVGA, 17, 15);
+    m_ClientName = camProxy.subscribe(m_ClientName, AL::kQVGA, 17, 15);
 
     AL::ALValue lImage;
     lImage.arraySetSize(7);
 
     while(!m_StopThread)
     {
-        cv::Mat imgHeader = cv::Mat(cv::Size(m_Width, m_Height), CV_16UC1);
-
         AL::ALValue img = camProxy.getImageRemote(m_ClientName);
-        if(img.getSize() != 12) {
+        if(img.getSize() != 12) 
+		{
             Log::Error("Nao3DCamera", "Image Size: %d", img.getSize());
-            tthread::this_thread::sleep_for(tthread::chrono::milliseconds(3000));
-            continue;
+			boost::this_thread::sleep(boost::posix_time::milliseconds(3000));
+			continue;
         }
-        imgHeader.data = (uchar*)img[6].GetBinary();
 
+		int width = (int)img[0];
+		int height = (int)img[1];
+		int depth = (int)img[2];
 
-//        cv::imwrite("test_17.png", imgHeader * 8);
+		if ( depth != 2 )
+		{
+			Log::Error( "Nao3DCamera", "depth != 2");
+			continue;
+		}
+
+		cv::Mat imgHeader = cv::Mat(cv::Size(width, height), CV_16UC1);
+		imgHeader.data = (uchar*)img[6].GetBinary();
+
+		if ( imgHeader.data == NULL )
+		{
+			Log::Error("Nao3DCamera", "Failed to grab remote image.");
+			boost::this_thread::sleep(boost::posix_time::milliseconds(3000));
+			continue;
+		}
 
         std::vector<unsigned char> outputVector;
-        if ( cv::imencode(".png", imgHeader * 8, outputVector) && m_Paused <= 0 )
+        if ( cv::imencode(".png", imgHeader, outputVector) && m_Paused <= 0 )
             ThreadPool::Instance()->InvokeOnMain<DepthVideoData *>( DELEGATE( Nao3DCamera, SendingData, DepthVideoData *, this ), new DepthVideoData(outputVector));
         else
             Log::Error( "Nao3DCamera", "Failed to imencode()" );
