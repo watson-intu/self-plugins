@@ -31,7 +31,7 @@ public:
     RTTI_DECL();
 
     NaoDepthCamera() : m_StopThread( false ),
-		m_ClientName("Nao3DCamera"),
+		m_ClientName("Self"),
 		m_Width(320),
 		m_Height(240)
     {}
