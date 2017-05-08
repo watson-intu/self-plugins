@@ -22,13 +22,13 @@
 #include "services/IBrowser.h"
 #include "qi/session.hpp"
 
-class NaoURLService : public IBrowser
+class NaoBrowser : public IBrowser
 {
 public:
     RTTI_DECL();
 
     //! Construction
-    NaoURLService();
+    NaoBrowser();
 
     //! IService
     virtual bool Start();

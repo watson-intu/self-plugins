@@ -16,7 +16,8 @@
 */
 
 
-#include "NaoURLService.h"
+#include "NaoBrowser.h"
+
 #include <qi/signal.hpp>
 #include <qi/type/proxysignal.hpp>
 #include "qi/anyobject.hpp"
@@ -24,14 +25,14 @@
 #include "SelfInstance.h"
 #include "NaoPlatform.h"
 
-REG_SERIALIZABLE(NaoURLService);
-RTTI_IMPL( NaoURLService, IBrowser);
+REG_SERIALIZABLE(NaoBrowser);
+RTTI_IMPL( NaoBrowser, IBrowser);
 
 #ifndef _WIN32
-REG_OVERRIDE_SERIALIZABLE( IBrowser, NaoURLService);
+REG_OVERRIDE_SERIALIZABLE( IBrowser, NaoBrowser);
 #endif
 
-NaoURLService::NaoURLService() : IBrowser("URLServiceV1"),
+NaoBrowser::NaoBrowser() : IBrowser("URLServiceV1"),
 	m_bServiceActive( false ),
 	m_bThreadStopped( true ),
 	m_bTabletConnected(false), 
@@ -43,7 +44,7 @@ NaoURLService::NaoURLService() : IBrowser("URLServiceV1"),
 	m_fBrightness(1.0)
 {}
 
-void NaoURLService::Serialize(Json::Value & json)
+void NaoBrowser::Serialize(Json::Value & json)
 {
 	IBrowser::Serialize(json);
 
@@ -52,7 +53,7 @@ void NaoURLService::Serialize(Json::Value & json)
 	json["m_fBrightness"] = m_fBrightness;
 }
 
-void NaoURLService::Deserialize(const Json::Value & json)
+void NaoBrowser::Deserialize(const Json::Value & json)
 {
 	IBrowser::Deserialize(json);
 
@@ -65,7 +66,7 @@ void NaoURLService::Deserialize(const Json::Value & json)
 
 }
 
-bool NaoURLService::Start() 
+bool NaoBrowser::Start() 
 {
 	Log::Status( "NaoURLService", "Starting.." );
 
@@ -76,11 +77,20 @@ bool NaoURLService::Start()
 	m_bThreadStopped = false;
 	m_LogoUrl = SelfInstance::GetInstance()->GetLogoUrl();
 
-	ThreadPool::Instance()->InvokeOnThread( VOID_DELEGATE(NaoURLService, TabletThread, this) );
+	ThreadPool::Instance()->InvokeOnThread( VOID_DELEGATE(NaoBrowser, TabletThread, this) );
+
+	// wait a bit for the table to get connected
+	double startTime = Time().GetEpochTime();
+	while(! m_bTabletConnected && (Time().GetEpochTime() - startTime) < m_TabletCheckInterval )
+	{
+		boost::this_thread::yield();
+		ThreadPool::Instance()->ProcessMainThread();
+	}
+
 	return true;
 }
 
-bool NaoURLService::Stop()
+bool NaoBrowser::Stop()
 {
 	Log::Status( "NaoURLService", "Stopping.." );
 
@@ -91,7 +101,7 @@ bool NaoURLService::Stop()
 	return IBrowser::Stop();
 }
 
-void NaoURLService::ShowURL( const Url::SP & a_spUrl, UrlCallback a_Callback )
+void NaoBrowser::ShowURL( const Url::SP & a_spUrl, UrlCallback a_Callback )
 {
 	if ( m_bTabletConnected )
 	{
@@ -106,7 +116,7 @@ void NaoURLService::ShowURL( const Url::SP & a_spUrl, UrlCallback a_Callback )
 //--------------------------
 
 
-void NaoURLService::TabletThread()
+void NaoBrowser::TabletThread()
 {
 	m_LastCheck = Time().GetEpochTime();
 	m_LastUpdate = Time().GetEpochTime();
@@ -140,7 +150,7 @@ void NaoURLService::TabletThread()
 	m_bThreadStopped = true;
 }
 
-void NaoURLService::TabletShowURL( const Url::SP & a_spUrl, UrlCallback a_Callback )
+void NaoBrowser::TabletShowURL( const Url::SP & a_spUrl, UrlCallback a_Callback )
 {
 	std::string url( IBrowser::EscapeUrl( a_spUrl->GetURL()) );
 	try {
@@ -165,7 +175,7 @@ void NaoURLService::TabletShowURL( const Url::SP & a_spUrl, UrlCallback a_Callba
 	}
 }
 
-void NaoURLService::CheckConnection()
+void NaoBrowser::CheckConnection()
 {
 	try {
 		m_LastCheck = Time().GetEpochTime();
@@ -191,7 +201,7 @@ void NaoURLService::CheckConnection()
 		ConfigureTablet();
 }
 
-void NaoURLService::ConfigureTablet()
+void NaoBrowser::ConfigureTablet()
 {	
 	try {
 		m_bTabletConnected = false;
@@ -221,7 +231,7 @@ void NaoURLService::ConfigureTablet()
 					if (! set )
 						Log::Error("NaoURLService", "Failed to set brightness");
 
-					m_Tablet.connect("onTouchDown", qi::AnyFunction::fromDynamicFunction( boost::bind( &NaoURLService::OnTouchData, this, _1 ) ) );
+					m_Tablet.connect("onTouchDown", qi::AnyFunction::fromDynamicFunction( boost::bind( &NaoBrowser::OnTouchData, this, _1 ) ) );
 				}
 			}
 		}
@@ -237,7 +247,7 @@ void NaoURLService::ConfigureTablet()
 	}
 }
 
-void NaoURLService::DisplayLogo()
+void NaoBrowser::DisplayLogo()
 {
 	try {
 		if ( !m_Tablet.call<bool>("showImage", m_LogoUrl.c_str() ) )
@@ -251,7 +261,7 @@ void NaoURLService::DisplayLogo()
 	}
 }
 
-qi::AnyReference NaoURLService::OnTouchData(const std::vector <qi::AnyReference> & args)
+qi::AnyReference NaoBrowser::OnTouchData(const std::vector <qi::AnyReference> & args)
 {
 	m_LastUpdate = Time().GetEpochTime();
 	return qi::AnyReference();

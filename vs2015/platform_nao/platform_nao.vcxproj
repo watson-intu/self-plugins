@@ -121,7 +121,7 @@
     <ClInclude Include="..\..\platform\nao\sensors\NaoSonar.h" />
     <ClInclude Include="..\..\platform\nao\sensors\NaoSpeechToText.h" />
     <ClInclude Include="..\..\platform\nao\sensors\NaoTouch.h" />
-    <ClInclude Include="..\..\platform\nao\services\NaoURLService.h" />
+    <ClInclude Include="..\..\platform\nao\services\NaoBrowser.h" />
     <ClInclude Include="..\..\platform\nao\utils\AlHelpers.h" />
     <ClInclude Include="..\..\platform\nao\utils\QiHelpers.h" />
   </ItemGroup>
@@ -148,7 +148,7 @@
     <ClCompile Include="..\..\platform\nao\sensors\NaoSonar.cpp" />
     <ClCompile Include="..\..\platform\nao\sensors\NaoSpeechToText.cpp" />
     <ClCompile Include="..\..\platform\nao\sensors\NaoTouch.cpp" />
-    <ClCompile Include="..\..\platform\nao\services\NaoURLService.cpp" />
+    <ClCompile Include="..\..\platform\nao\services\NaoBrowser.cpp" />
     <ClCompile Include="..\..\platform\nao\tests\TestLIBQI.cpp" />
     <ClCompile Include="..\..\platform\nao\tests\TestNao3DCamera.cpp" />
     <ClCompile Include="..\..\platform\nao\tests\TestNaoCamera.cpp" />

@@ -73,9 +73,6 @@
     <ClInclude Include="..\..\platform\nao\sensors\NaoMood.h">
       <Filter>sensors</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\platform\nao\services\NaoURLService.h">
-      <Filter>services</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\platform\nao\gestures\NaoSystemGesture.h">
       <Filter>gestures</Filter>
     </ClInclude>
@@ -90,6 +87,9 @@
     </ClInclude>
     <ClInclude Include="..\..\platform\nao\sensors\NaoDepthCamera.h">
       <Filter>sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\platform\nao\services\NaoBrowser.h">
+      <Filter>services</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -175,9 +175,6 @@
     <ClCompile Include="..\..\platform\nao\sensors\NaoMood.cpp">
       <Filter>sensors</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\platform\nao\services\NaoURLService.cpp">
-      <Filter>services</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\platform\nao\gestures\NaoSystemGesture.cpp">
       <Filter>gestures</Filter>
     </ClCompile>
@@ -204,6 +201,9 @@
     </ClCompile>
     <ClCompile Include="..\..\platform\nao\sensors\NaoDepthCamera.cpp">
       <Filter>sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\platform\nao\services\NaoBrowser.cpp">
+      <Filter>services</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
