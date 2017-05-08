@@ -100,8 +100,14 @@ void NaoCamera::DoStreamingThread(void *arg)
 				continue;
 			}
 
+			int width = img[0].GetInt();
+			int height = img[1].GetInt();
+			int depth = img[2].GetInt();
+
+			Log::Debug( "NaoCamera", "Grabbed image %dx%dx%d", width, height, depth );
+
 			std::string encoded;
-			if ( JpegHelpers::EncodeImage( pRGB, 320, 240, 3, encoded ) )
+			if ( JpegHelpers::EncodeImage( pRGB, width, height, depth, encoded ) )
 			{
 				ThreadPool::Instance()->InvokeOnMain<VideoData *>(
 					DELEGATE( NaoCamera, SendingData, VideoData *, this ), new VideoData(encoded));
