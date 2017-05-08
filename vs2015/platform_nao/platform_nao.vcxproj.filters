@@ -67,9 +67,6 @@
     <ClInclude Include="..\..\platform\nao\sensors\NaoSonar.h">
       <Filter>sensors</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\platform\nao\sensors\Nao3DCamera.h">
-      <Filter>sensors</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\platform\nao\sensors\NaoGaze.h">
       <Filter>sensors</Filter>
     </ClInclude>
@@ -89,6 +86,9 @@
       <Filter>sensors</Filter>
     </ClInclude>
     <ClInclude Include="..\..\platform\nao\sensors\NaoLaser.h">
+      <Filter>sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\platform\nao\sensors\NaoDepthCamera.h">
       <Filter>sensors</Filter>
     </ClInclude>
   </ItemGroup>
@@ -169,9 +169,6 @@
     <ClCompile Include="..\..\platform\nao\tests\TestNaoSonar.cpp">
       <Filter>tests</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\platform\nao\sensors\Nao3DCamera.cpp">
-      <Filter>sensors</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\platform\nao\sensors\NaoGaze.cpp">
       <Filter>sensors</Filter>
     </ClCompile>
@@ -204,6 +201,9 @@
     </ClCompile>
     <ClCompile Include="..\..\platform\nao\tests\TestNaoVolume.cpp">
       <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\platform\nao\sensors\NaoDepthCamera.cpp">
+      <Filter>sensors</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

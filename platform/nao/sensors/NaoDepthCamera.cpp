@@ -16,7 +16,7 @@
 */
 
 
-#include "Nao3DCamera.h"
+#include "NaoDepthCamera.h"
 #include "SelfInstance.h"
 
 #ifndef _WIN32
@@ -30,14 +30,14 @@
 
 #include "tinythread++/tinythread.h"
 
-REG_OVERRIDE_SERIALIZABLE(DepthCamera, Nao3DCamera);
+REG_OVERRIDE_SERIALIZABLE(DepthCamera, NaoDepthCamera);
 
 #ifndef _WIN32
-REG_SERIALIZABLE(Nao3DCamera);
+REG_SERIALIZABLE(NaoDepthCamera);
 #endif
-RTTI_IMPL(Nao3DCamera, DepthCamera);
+RTTI_IMPL(NaoDepthCamera, DepthCamera);
 
-void Nao3DCamera::Serialize(Json::Value & json)
+void NaoDepthCamera::Serialize(Json::Value & json)
 {
 	DepthCamera::Serialize(json);
 
@@ -45,7 +45,7 @@ void Nao3DCamera::Serialize(Json::Value & json)
 	json["m_Height"] = m_Height;
 }
 
-void Nao3DCamera::Deserialize(const Json::Value & json)
+void NaoDepthCamera::Deserialize(const Json::Value & json)
 {
 	DepthCamera::Deserialize(json);
 
@@ -55,16 +55,16 @@ void Nao3DCamera::Deserialize(const Json::Value & json)
 		m_Height = json["m_Height"].asInt();
 }
 
-bool Nao3DCamera::OnStart()
+bool NaoDepthCamera::OnStart()
 {
     Log::Debug("Nao3DCamera", "Starting up video device");
 
     m_StopThread = false;
-    ThreadPool::Instance()->InvokeOnThread<void *>( DELEGATE(Nao3DCamera, StreamingThread, void *, this ), NULL );
+    ThreadPool::Instance()->InvokeOnThread<void *>( DELEGATE(NaoDepthCamera, StreamingThread, void *, this ), NULL );
     return true;
 }
 
-bool Nao3DCamera::OnStop()
+bool NaoDepthCamera::OnStop()
 {
     m_StopThread = true;
     while(! m_ThreadStopped )
@@ -72,7 +72,7 @@ bool Nao3DCamera::OnStop()
     return true;
 }
 
-void Nao3DCamera::StreamingThread(void * arg)
+void NaoDepthCamera::StreamingThread(void * arg)
 {
     try
     {
@@ -85,7 +85,7 @@ void Nao3DCamera::StreamingThread(void * arg)
     m_ThreadStopped = true;
 }
 
-void Nao3DCamera::DoStreamingThread(void *arg)
+void NaoDepthCamera::DoStreamingThread(void *arg)
 {
 #ifndef _WIN32
 	std::string robotIp("127.0.0.1");
@@ -132,7 +132,7 @@ void Nao3DCamera::DoStreamingThread(void *arg)
 
         std::vector<unsigned char> outputVector;
         if ( cv::imencode(".png", imgHeader, outputVector) && m_Paused <= 0 )
-            ThreadPool::Instance()->InvokeOnMain<DepthVideoData *>( DELEGATE( Nao3DCamera, SendingData, DepthVideoData *, this ), new DepthVideoData(outputVector));
+            ThreadPool::Instance()->InvokeOnMain<DepthVideoData *>( DELEGATE( NaoDepthCamera, SendingData, DepthVideoData *, this ), new DepthVideoData(outputVector));
         else
             Log::Error( "Nao3DCamera", "Failed to imencode()" );
 
@@ -147,17 +147,17 @@ void Nao3DCamera::DoStreamingThread(void *arg)
 #endif
 }
 
-void Nao3DCamera::SendingData( DepthVideoData * a_pData )
+void NaoDepthCamera::SendingData( DepthVideoData * a_pData )
 {
     SendData( a_pData );
 }
 
-void Nao3DCamera::OnPause()
+void NaoDepthCamera::OnPause()
 {
     m_Paused++;
 }
 
-void Nao3DCamera::OnResume()
+void NaoDepthCamera::OnResume()
 {
     m_Paused--;
 }

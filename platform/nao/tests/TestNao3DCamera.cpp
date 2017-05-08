@@ -19,7 +19,7 @@
 #include "utils/UnitTest.h"
 #include "utils/Log.h"
 #include "utils/Time.h"
-#include "sensors/Nao3DCamera.h"
+#include "sensors/NaoDepthCamera.h"
 
 #ifndef _WIN32
 
@@ -33,7 +33,7 @@ public:
     virtual void RunTest()
     {
         ThreadPool pool(1);
-        Nao3DCamera video;
+        NaoDepthCamera video;
         video.Subscribe( DELEGATE( TestNao3DCamera, ReceiveVideo, IData *, this ) );
 
         Time start;

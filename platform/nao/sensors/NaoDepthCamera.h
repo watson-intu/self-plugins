@@ -25,12 +25,12 @@
 #include "sensors/DepthCamera.h"
 
 //! Nao implementation of the DepthCamera class
-class Nao3DCamera : public DepthCamera
+class NaoDepthCamera : public DepthCamera
 {
 public:
     RTTI_DECL();
 
-    Nao3DCamera() : m_StopThread( false ),
+    NaoDepthCamera() : m_StopThread( false ),
 		m_ClientName("Nao3DCamera"),
 		m_Width(320),
 		m_Height(240)
