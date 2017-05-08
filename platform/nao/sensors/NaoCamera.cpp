@@ -21,14 +21,13 @@
 
 #ifndef _WIN32
 #include <qi/os.hpp>
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
 #include <alvision/alvisiondefinitions.h>
 #include <alvision/alimage.h>
 #include <alproxies/alvideodeviceproxy.h>
 #endif
 
 #include "tinythread++/tinythread.h"
+#include "utils/JpegHelpers.h"
 
 #ifndef _WIN32
 REG_SERIALIZABLE(NaoCamera);
@@ -76,8 +75,6 @@ void NaoCamera::DoStreamingThread(void *arg)
 		robotIp = URL(pInstance->GetLocalConfig().m_RobotUrl).GetHost();
 
 	AL::ALVideoDeviceProxy  camProxy(robotIp.c_str(), 9559);
-	//Use the below instantiation if you want HIGHEST quality photos
-	//clientName = camProxy.subscribe(m_ClientName, AL::k4VGA, AL::kBGRColorSpace, m_fFramesPerSec);
 	m_ClientName = camProxy.subscribe(m_ClientName, AL::kQVGA, AL::kBGRColorSpace, m_fFramesPerSec);
 
 	AL::ALValue lImage;
@@ -87,8 +84,6 @@ void NaoCamera::DoStreamingThread(void *arg)
 	{
 		if ( m_Paused == 0 )
 		{
-			cv::Mat imgHeader = cv::Mat(cv::Size(320, 240), CV_8UC3);
-
 			AL::ALValue img = camProxy.getImageRemote(m_ClientName);
 			if(img.getSize() != 12) 
 			{
@@ -97,29 +92,22 @@ void NaoCamera::DoStreamingThread(void *arg)
 				continue;
 			}
 
-			imgHeader.data = (uchar *)img[6].GetBinary();
-			if ( imgHeader.data == NULL )
+			const unsigned char * pRGB = (const unsigned char *)img[6].GetBinary();
+			if ( pRGB == NULL )
 			{
-				Log::Error("NaoCamera", "Failed to retrieve image.");
+				Log::Error("NaoCamera", "Failed to get remote image." );
 				boost::this_thread::sleep(boost::posix_time::milliseconds(3000));
 				continue;
 			}
 
-			std::vector<int> p;
-			p.push_back(3);
-			p.push_back(10);
-
-			std::vector<unsigned char> outputVector;
-			if ( cv::imencode(".jpg", imgHeader, outputVector, p) )
+			std::string encoded;
+			if ( JpegHelpers::EncodeImage( pRGB, 320, 240, 3, encoded ) )
 			{
 				ThreadPool::Instance()->InvokeOnMain<VideoData *>(
-					DELEGATE( NaoCamera, SendingData, VideoData *, this ), new VideoData(outputVector));
+					DELEGATE( NaoCamera, SendingData, VideoData *, this ), new VideoData(encoded));
 			}
 			else
-			{
 				Log::Error( "NaoCamera", "Failed to imencode()" );
-				break;
-			}
 
 			camProxy.releaseImage(m_ClientName);
 		}
