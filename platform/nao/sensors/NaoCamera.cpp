@@ -93,7 +93,7 @@ void NaoCamera::DoStreamingThread(void *arg)
 			if(img.getSize() != 12) 
 			{
 				Log::Error("NaoCamera", "Image Size: %d", img.getSize());
-				boost::this_thread::sleep_for(boost::posix_time::milliseconds(3000));
+				boost::this_thread::sleep(boost::posix_time::milliseconds(3000));
 				continue;
 			}
 
@@ -101,7 +101,7 @@ void NaoCamera::DoStreamingThread(void *arg)
 			if ( imgHeader.data == NULL )
 			{
 				Log::Error("NaoCamera", "Failed to retrieve image.");
-				boost::this_thread::sleep_for(boost::posix_time::milliseconds(3000));
+				boost::this_thread::sleep(boost::posix_time::milliseconds(3000));
 				continue;
 			}
 
