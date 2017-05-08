@@ -75,7 +75,8 @@ void NaoCamera::DoStreamingThread(void *arg)
 		robotIp = URL(pInstance->GetLocalConfig().m_RobotUrl).GetHost();
 
 	AL::ALVideoDeviceProxy  camProxy(robotIp.c_str(), 9559);
-	m_ClientName = camProxy.subscribe(m_ClientName, AL::kQVGA, AL::kBGRColorSpace, m_fFramesPerSec);
+	camProxy.setParam(AL::kCameraSelectID, 0);
+	m_ClientName = camProxy.subscribe(m_ClientName, AL::kQVGA, AL::kBGRColorSpace, 30);
 
 	AL::ALValue lImage;
 	lImage.arraySetSize(7);
@@ -104,7 +105,7 @@ void NaoCamera::DoStreamingThread(void *arg)
 			int height = (int)img[1];
 			int depth = (int)img[2];
 
-			Log::Debug( "NaoDepthCamera", "Grabbed image %d x %d x %d", width, height, depth );
+			Log::Debug( "NaoCamera", "Grabbed image %d x %d x %d", width, height, depth );
 
 			std::string encoded;
 			if ( JpegHelpers::EncodeImage( pRGB, width, height, depth, encoded ) )
