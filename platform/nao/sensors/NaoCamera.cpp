@@ -77,8 +77,8 @@ void NaoCamera::DoStreamingThread(void *arg)
 
 	AL::ALVideoDeviceProxy  camProxy(robotIp.c_str(), 9559);
 	//Use the below instantiation if you want HIGHEST quality photos
-	//clientName = camProxy.subscribe("test", AL::k4VGA, AL::kBGRColorSpace, 30);
-	m_ClientName = camProxy.subscribe("test", AL::kQVGA, AL::kBGRColorSpace, 30);
+	//clientName = camProxy.subscribe(m_ClientName, AL::k4VGA, AL::kBGRColorSpace, m_fFramesPerSec);
+	m_ClientName = camProxy.subscribe(m_ClientName, AL::kQVGA, AL::kBGRColorSpace, m_fFramesPerSec);
 
 	AL::ALValue lImage;
 	lImage.arraySetSize(7);
@@ -90,12 +90,20 @@ void NaoCamera::DoStreamingThread(void *arg)
 			cv::Mat imgHeader = cv::Mat(cv::Size(320, 240), CV_8UC3);
 
 			AL::ALValue img = camProxy.getImageRemote(m_ClientName);
-			if(img.getSize() != 12) {
+			if(img.getSize() != 12) 
+			{
 				Log::Error("NaoCamera", "Image Size: %d", img.getSize());
-				tthread::this_thread::sleep_for(tthread::chrono::milliseconds(3000));
+				boost::this_thread::sleep_for(boost::posix_time::milliseconds(3000));
 				continue;
 			}
-			imgHeader.data = (uchar*)img[6].GetBinary();
+
+			imgHeader.data = (uchar *)img[6].GetBinary();
+			if ( imgHeader.data == NULL )
+			{
+				Log::Error("NaoCamera", "Failed to retrieve image.");
+				boost::this_thread::sleep_for(boost::posix_time::milliseconds(3000));
+				continue;
+			}
 
 			std::vector<int> p;
 			p.push_back(3);
