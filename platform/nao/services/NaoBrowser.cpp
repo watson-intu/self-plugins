@@ -68,7 +68,7 @@ void NaoBrowser::Deserialize(const Json::Value & json)
 
 bool NaoBrowser::Start() 
 {
-	Log::Status( "NaoURLService", "Starting.." );
+	Log::Status( "NaoBrowser", "Starting.." );
 
 	if (! IBrowser::Start() )
 		return false;
@@ -84,7 +84,7 @@ bool NaoBrowser::Start()
 
 bool NaoBrowser::Stop()
 {
-	Log::Status( "NaoURLService", "Stopping.." );
+	Log::Status( "NaoBrowser", "Stopping.." );
 
 	m_bServiceActive = false;
 	while(! m_bThreadStopped )
@@ -95,7 +95,7 @@ bool NaoBrowser::Stop()
 
 void NaoBrowser::ShowURL( const Url::SP & a_spUrl, UrlCallback a_Callback )
 {
-	Log::Status( "NaoURLService", "Sending URL: %s", a_spUrl->GetURL().c_str() );
+	Log::Status( "NaoBrowser", "Sending URL: %s", a_spUrl->GetURL().c_str() );
 
 	m_RequestListLock.lock();
 	m_RequestList.push_back( UrlRequest( a_spUrl, a_Callback ) );
@@ -143,7 +143,7 @@ void NaoBrowser::TabletShowURL( const Url::SP & a_spUrl, UrlCallback a_Callback 
 {
 	std::string url( IBrowser::EscapeUrl( a_spUrl->GetURL()) );
 	try {
-		Log::Status( "NaoURLService", "Showing URL: %s", url.c_str() );
+		Log::Status( "NaoBrowser", "Showing URL: %s", url.c_str() );
 		m_LastUpdate = Time().GetEpochTime();
 		m_bLogoDisplayed = false;
 
@@ -160,7 +160,7 @@ void NaoBrowser::TabletShowURL( const Url::SP & a_spUrl, UrlCallback a_Callback 
 	}
 	catch (  const std::exception & ex )
 	{
-		Log::Debug("NaoURLService", "Caught Exception: %s", ex.what());
+		Log::Debug("NaoBrowser", "Caught Exception: %s", ex.what());
 	}
 }
 
@@ -173,7 +173,7 @@ void NaoBrowser::CheckConnection()
 		{
 			std::string status = m_Tablet.call<std::string>("getWifiStatus");
 			m_bTabletConnected = status.compare("CONNECTED") == 0;
-			Log::Status("NaoURLService", "Tablet Status: %s (%s)", status.c_str(), m_bTabletConnected ? "Connected" : "Failed" );			
+			Log::Status("NaoBrowser", "Tablet Status: %s (%s)", status.c_str(), m_bTabletConnected ? "Connected" : "Failed" );			
 		}
 		else
 		{
@@ -182,7 +182,7 @@ void NaoBrowser::CheckConnection()
 	}
 	catch (const std::exception & e)
 	{
-		Log::Error("NaoURLService", "Threw exception during configure: %s", e.what() );
+		Log::Error("NaoBrowser", "Threw exception during configure: %s", e.what() );
 		m_bTabletConnected = false;		
 	}
 
@@ -208,17 +208,17 @@ void NaoBrowser::ConfigureTablet()
 
 				std::string status = m_Tablet.call<std::string>( "getWifiStatus" );
 				m_bTabletConnected = status.compare("CONNECTED") == 0;
-				Log::Status("NaoURLService", "Tablet Status: %s (%s)", status.c_str(), m_bTabletConnected ? "Connected" : "Failed" );			
+				Log::Status("NaoBrowser", "Tablet Status: %s (%s)", status.c_str(), m_bTabletConnected ? "Connected" : "Failed" );			
 
 				if ( m_bTabletConnected )
 				{
 					DisplayLogo();
 
 					// Other config
-					Log::Debug("NaoURLService", "Setting brightness to %.2f", m_fBrightness);
+					Log::Debug("NaoBrowser", "Setting brightness to %.2f", m_fBrightness);
 					bool set = m_Tablet.call<bool>("setBrightness", m_fBrightness);
 					if (! set )
-						Log::Error("NaoURLService", "Failed to set brightness");
+						Log::Error("NaoBrowser", "Failed to set brightness");
 
 					m_Tablet.connect("onTouchDown", qi::AnyFunction::fromDynamicFunction( boost::bind( &NaoBrowser::OnTouchData, this, _1 ) ) );
 				}
@@ -226,13 +226,13 @@ void NaoBrowser::ConfigureTablet()
 		}
 
 		if ( m_bTabletConnected )
-			Log::Status( "NaoURLService", "Tablet configured." );
+			Log::Status( "NaoBrowser", "Tablet configured." );
 		else
-			Log::Status( "NaoURLService", "Tablet not configured." );
+			Log::Status( "NaoBrowser", "Tablet not configured." );
 	}
 	catch (const std::exception & e)
 	{
-		Log::Error("NaoURLService", "Threw exception during configure: %s", e.what() );
+		Log::Error("NaoBrowser", "Threw exception during configure: %s", e.what() );
 	}
 }
 
@@ -240,13 +240,13 @@ void NaoBrowser::DisplayLogo()
 {
 	try {
 		if ( !m_Tablet.call<bool>("showImage", m_LogoUrl.c_str() ) )
-			Log::Error( "NaoURLService", "Failed to show logo" );
+			Log::Error( "NaoBrowser", "Failed to show logo" );
 		else
 			m_bLogoDisplayed = true;
 	}
 	catch (const std::exception & e)
 	{
-		Log::Error("NaoURLService", "Threw exception during configure: %s", e.what() );
+		Log::Error("NaoBrowser", "Threw exception during configure: %s", e.what() );
 	}
 }
 
