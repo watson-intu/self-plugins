@@ -101,10 +101,6 @@ void NaoURLService::ShowURL( const Url::SP & a_spUrl, UrlCallback a_Callback )
 		m_RequestList.push_back( UrlRequest( a_spUrl, a_Callback ) );
 		m_RequestListLock.unlock();
 	}
-	else
-	{
-		IBrowser::ShowURL( a_spUrl, a_Callback );
-	}
 }
 
 //--------------------------
