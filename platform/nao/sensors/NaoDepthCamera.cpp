@@ -57,7 +57,7 @@ void NaoDepthCamera::Deserialize(const Json::Value & json)
 
 bool NaoDepthCamera::OnStart()
 {
-    Log::Debug("Nao3DCamera", "Starting up video device");
+    Log::Debug("NaoDepthCamera", "Starting up video device");
 
     m_StopThread = false;
     ThreadPool::Instance()->InvokeOnThread<void *>( DELEGATE(NaoDepthCamera, StreamingThread, void *, this ), NULL );
@@ -80,7 +80,7 @@ void NaoDepthCamera::StreamingThread(void * arg)
     }
     catch( const std::exception & ex )
     {
-        Log::Error( "Nao3DCamera", "Caught Exception: %s", ex.what() );
+        Log::Error( "NaoDepthCamera", "Caught Exception: %s", ex.what() );
     }
     m_ThreadStopped = true;
 }
@@ -105,7 +105,7 @@ void NaoDepthCamera::DoStreamingThread(void *arg)
         AL::ALValue img = camProxy.getImageRemote(m_ClientName);
         if(img.getSize() != 12) 
 		{
-            Log::Error("Nao3DCamera", "Image Size: %d", img.getSize());
+            Log::Error("NaoDepthCamera", "Image Size: %d", img.getSize());
 			boost::this_thread::sleep(boost::posix_time::milliseconds(3000));
 			continue;
         }
@@ -116,7 +116,7 @@ void NaoDepthCamera::DoStreamingThread(void *arg)
 
 		if ( depth != 2 )
 		{
-			Log::Error( "Nao3DCamera", "depth != 2");
+			Log::Error( "NaoDepthCamera", "depth != 2");
 			continue;
 		}
 
@@ -125,25 +125,27 @@ void NaoDepthCamera::DoStreamingThread(void *arg)
 
 		if ( imgHeader.data == NULL )
 		{
-			Log::Error("Nao3DCamera", "Failed to grab remote image.");
+			Log::Error("NaoDepthCamera", "Failed to grab remote image.");
 			boost::this_thread::sleep(boost::posix_time::milliseconds(3000));
 			continue;
 		}
+
+		Log::Debug( "NaoDepthCamera", "Grabbed image %d x %d x %d", width, height, depth );
 
         std::vector<unsigned char> outputVector;
         if ( cv::imencode(".png", imgHeader, outputVector) && m_Paused <= 0 )
             ThreadPool::Instance()->InvokeOnMain<DepthVideoData *>( DELEGATE( NaoDepthCamera, SendingData, DepthVideoData *, this ), new DepthVideoData(outputVector));
         else
-            Log::Error( "Nao3DCamera", "Failed to imencode()" );
+            Log::Error( "NaoDepthCamera", "Failed to imencode()" );
 
         camProxy.releaseImage(m_ClientName);
 
         tthread::this_thread::sleep_for(tthread::chrono::milliseconds(1000 * m_fFramesPerSec));
     }
 
-    Log::Debug("Nao3DCamera", "Closing Video feed with m_ClientName: %s", m_ClientName.c_str());
+    Log::Debug("NaoDepthCamera", "Closing Video feed with m_ClientName: %s", m_ClientName.c_str());
     camProxy.unsubscribe(m_ClientName);
-    Log::Status("Nao3DCamera", "Stopped video device");
+    Log::Status("NaoDepthCamera", "Stopped video device");
 #endif
 }
 
