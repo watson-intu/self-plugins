@@ -246,7 +246,16 @@ void ConversationProxy::Request::OnTextClassified( ConversationResponse * a_pRes
 
 		bool bIgnore = false;
 		for (size_t i = 0; i < m_pProxy->m_Filters.size() && !bIgnore; ++i)
+		{
 			bIgnore |= m_pProxy->m_Filters[i]->ApplyFilter(pResult->m_Result);
+			if ( bIgnore )
+			{
+				Log::Debug("ConversationProxy", "Filter %s triggered, ignoring filtered intent: %s, TextId: %p", 
+					m_pProxy->m_Filters[i]->GetRTTI().GetName().c_str(), 
+					pResult->m_Result["top_class"].asCString(), 
+					m_spText.get() );
+			}
+		}
 
 		if (! bIgnore )
 		{
@@ -257,8 +266,6 @@ void ConversationProxy::Request::OnTextClassified( ConversationResponse * a_pRes
 		}
 		else
 		{
-			Log::Debug("ConversationProxy", "Ignoring filtered intent: %s, TextId: %p", 
-				pResult->m_Result["top_class"].asCString(), m_spText.get() );
 			pResult->m_TopClass = "ignored";
 			m_pProxy->m_bFocus = false;
 		}
