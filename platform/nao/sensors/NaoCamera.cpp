@@ -75,7 +75,7 @@ void NaoCamera::DoStreamingThread(void *arg)
 		robotIp = URL(pInstance->GetLocalConfig().m_RobotUrl).GetHost();
 
 	AL::ALVideoDeviceProxy  camProxy(robotIp.c_str(), 9559);
-	m_ClientName = camProxy.subscribeCamera(m_ClientName, 0, 1/*AL::kQVGA*/, 13 /*AL::kBGRColorSpace*/, 10 );
+	m_ClientName = camProxy.subscribeCamera(m_ClientName, 0, 1/*AL::kQVGA*/, 11 /*AL::kRGBColorSpace*/, 10 );
 
 	AL::ALValue lImage;
 	lImage.arraySetSize(7);
