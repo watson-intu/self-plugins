@@ -32,7 +32,6 @@ REG_SERIALIZABLE( ConversationProxy );
 ConversationProxy::ConversationProxy() :
 	m_ServiceId( "ConversationV1" ),
 	m_WorkspaceKey( "workspace_id" ),
-	m_pConversation( NULL ),
 	m_WorkspaceId( "Self" ),
 	m_IntentOverride( "m_IntentOverride" ),
 	m_PreviousIntent(""),
@@ -82,35 +81,35 @@ void ConversationProxy::Start()
 	SelfInstance * pInstance = SelfInstance::GetInstance();
 	assert( pInstance != NULL );
 
-	m_pConversation = pInstance->FindService<Conversation>( m_ServiceId );
-	if (m_pConversation == NULL )
-		Log::Error("ConversationProxy", "Conversation service not available.");
-
 	pInstance->GetBlackBoard()->SubscribeToType("EmotionalState",
 		DELEGATE(ConversationProxy, OnEmotionalState, const ThingEvent &, this), TE_ADDED);
 	pInstance->GetBlackBoard()->SubscribeToType("Entity",
 		DELEGATE(ConversationProxy, OnEntity, const ThingEvent &, this), TE_ADDED);
 
-	std::string precacheFile = pInstance->GetStaticDataPath() + m_PreCacheFile;
-	if ( boost::filesystem::exists( precacheFile ) )
+	Conversation * pConversation = pInstance->FindService<Conversation>( m_ServiceId );
+	if (pConversation != NULL )
 	{
-		std::ifstream input( precacheFile.c_str() );
-
-		std::string line;
-		while( std::getline( input, line ) )
+		std::string precacheFile = pInstance->GetStaticDataPath() + m_PreCacheFile;
+		if ( boost::filesystem::exists( precacheFile ) )
 		{
-			if ( line.size() == 0 || line[0] == '#' )
-				continue;		// skip newlines or lines starting with #
+			std::ifstream input( precacheFile.c_str() );
 
-			line = StringUtil::Trim( line, " \r\n\t");
-			m_pConversation->Message(
-				m_WorkspaceId,
-				m_MergedContext,
-				line, 
-				m_IntentOverride,
-				Delegate<ConversationResponse *>() );
+			std::string line;
+			while( std::getline( input, line ) )
+			{
+				if ( line.size() == 0 || line[0] == '#' )
+					continue;		// skip newlines or lines starting with #
+
+				line = StringUtil::Trim( line, " \r\n\t");
+				pConversation->Message(
+					m_WorkspaceId,
+					m_MergedContext,
+					line, 
+					m_IntentOverride,
+					Delegate<ConversationResponse *>() );
+			}
+			input.close();
 		}
-		input.close();
 	}
 
 	Log::Status("ConversationProxy", "ConversationProxy started for workspace %s", m_WorkspaceId.c_str() );
@@ -118,8 +117,11 @@ void ConversationProxy::Start()
 
 void ConversationProxy::Stop()
 {
-	SelfInstance::GetInstance()->GetBlackBoard()->UnsubscribeFromType("EmotionalState", this);
-	SelfInstance::GetInstance()->GetBlackBoard()->UnsubscribeFromType("Entity", this);
+	SelfInstance * pInstance = SelfInstance::GetInstance();
+	assert( pInstance != NULL );
+
+	pInstance->GetBlackBoard()->UnsubscribeFromType("EmotionalState", this);
+	pInstance->GetBlackBoard()->UnsubscribeFromType("Entity", this);
 }
 
 void ConversationProxy::OnEmotionalState(const ThingEvent & a_ThingEvent)
@@ -152,18 +154,21 @@ void ConversationProxy::OnEntity(const ThingEvent & a_ThingEvent)
 
 void ConversationProxy::ClassifyText( Text::SP a_spText, Delegate<ClassifyResult *> a_Callback )
 {
-	new Request( this, a_spText, a_Callback );
+	SP spThis( boost::static_pointer_cast<ConversationProxy>( shared_from_this() ) );
+	new Request( spThis, a_spText, a_Callback );
 }
 
 //! Helper object for handling specific request
-ConversationProxy::Request::Request(ConversationProxy * a_pProxy, Text::SP a_spText, Delegate<ClassifyResult *> a_Callback) : 
+ConversationProxy::Request::Request( const ConversationProxy::SP & a_pProxy, Text::SP a_spText, Delegate<ClassifyResult *> a_Callback) : 
 	m_pProxy( a_pProxy ),
 	m_spText( a_spText ),
 	m_Callback( a_Callback ),
 	m_bTextClassified( false )
 {
+	Conversation * pConversation = Config::Instance()->FindService<Conversation>( m_pProxy->m_ServiceId );
+
 	bool bRequestSent = false;
-	if ( m_pProxy->m_pConversation != NULL )
+	if ( pConversation != NULL )
 	{
 		JsonHelpers::Merge( m_pProxy->m_MergedContext, m_pProxy->m_Context );
 		JsonHelpers::Merge( m_pProxy->m_MergedContext, m_spText->GetData() );
@@ -171,14 +176,14 @@ ConversationProxy::Request::Request(ConversationProxy * a_pProxy, Text::SP a_spT
 		m_pProxy->m_MergedContext["m_PreviousIntent"] = m_pProxy->m_PreviousIntent;
 		m_pProxy->m_MergedContext["m_Objects"] = m_pProxy->m_RecognizedObjects;
 
-		m_pProxy->m_WorkspaceId = m_pProxy->m_pConversation->
+		m_pProxy->m_WorkspaceId = pConversation->
 			GetConfig()->GetKeyValue( m_pProxy->m_WorkspaceKey, m_pProxy->m_WorkspaceId );
 
 		if ( m_pProxy->m_WorkspaceId.size() > 0 )
 		{
 			// check the configuration for a "workspace_id", use it if found..
 			bRequestSent = true;
-			m_pProxy->m_pConversation->Message(
+			pConversation->Message(
 				m_pProxy->m_WorkspaceId,
 				m_pProxy->m_MergedContext,
 				m_spText->GetText(),
@@ -229,7 +234,7 @@ void ConversationProxy::Request::OnTextClassified( ConversationResponse * a_pRes
 		pResult->m_Result["top_class"] = a_pResponse->m_Intents[0].m_Intent;
 		pResult->m_Result["confidence"] = a_pResponse->m_Intents[0].m_fConfidence;
 
-		pResult->m_pParentProxy = m_pProxy;
+		pResult->m_pParentProxy = m_pProxy.get();
 
 		bool bAnswer = false;
 		std::vector<std::string> & output = a_pResponse->m_Output;

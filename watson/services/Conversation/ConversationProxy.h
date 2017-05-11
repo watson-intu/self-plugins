@@ -30,6 +30,10 @@ class ConversationProxy : public ITextClassifierProxy
 public:
 	RTTI_DECL();
 
+	//! Types
+	typedef boost::shared_ptr<ConversationProxy>		SP;
+	typedef boost::weak_ptr<ConversationProxy>			WP;
+
 	//! Construction
 	ConversationProxy();
 	virtual ~ConversationProxy();
@@ -58,8 +62,6 @@ private:
 	Json::Value						m_RecognizedObjects;
 	std::string						m_EntityParentGUID;
 	bool 							m_bUseCache;
-
-	Conversation *					m_pConversation;
 	float							m_EmotionalState;
 	std::string						m_PreviousIntent;
 
@@ -67,12 +69,12 @@ private:
 	class Request
 	{
 	public:
-		Request( ConversationProxy * a_pConversationProxy, Text::SP a_spText, Delegate<ClassifyResult *> a_Callback );
+		Request( const ConversationProxy::SP & a_pConversationProxy, Text::SP a_spText, Delegate<ClassifyResult *> a_Callback );
 
 		void OnTextClassified( ConversationResponse * a_pResponse );
 
 	private:
-		ConversationProxy *                 m_pProxy;
+		ConversationProxy::SP               m_pProxy;
 		Text::SP                         	m_spText;
 		Delegate<ClassifyResult *>     		m_Callback;
 		bool								m_bTextClassified;
