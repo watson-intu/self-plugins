@@ -47,11 +47,15 @@ public:
 
 private:
 	//! Static
-	static bool VerifyLocation( Location ** a_Location);
+	bool VerifyLocation( Location ** a_Location);
 
 	//! Data
     std::string m_Units;
     std::string m_Language;
+
+	std::string m_Location;
+	float		m_Long;
+	float		m_Lat;
 };
 
 #endif
