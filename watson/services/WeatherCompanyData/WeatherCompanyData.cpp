@@ -67,7 +67,8 @@ bool WeatherCompanyData::Start()
 
 void WeatherCompanyData::GetCurrentConditions(Location * a_Location, SendCallback a_Callback)
 {
-	VerifyLocation(a_Location);
+	VerifyLocation(&a_Location);
+
 	std::string parameters = "/v1";
 	parameters += "/geocode/" + StringUtil::Format("%f", a_Location->GetLatitude()) + "/"
 				  + StringUtil::Format("%f", a_Location->GetLongitude());
@@ -80,7 +81,8 @@ void WeatherCompanyData::GetCurrentConditions(Location * a_Location, SendCallbac
 
 void WeatherCompanyData::GetHourlyForecast(Location * a_Location, SendCallback a_Callback)
 {
-	VerifyLocation(a_Location);
+	VerifyLocation(&a_Location);
+
 	std::string parameters = "/v1";
 	parameters += "/geocode/" + StringUtil::Format("%f", a_Location->GetLatitude()) + "/"
 				  + StringUtil::Format("%f", a_Location->GetLongitude());
@@ -93,7 +95,8 @@ void WeatherCompanyData::GetHourlyForecast(Location * a_Location, SendCallback a
 
 void WeatherCompanyData::GetTenDayForecast(Location * a_Location, SendCallback a_Callback)
 {
-	VerifyLocation(a_Location);
+	VerifyLocation(&a_Location);
+
 	std::string parameters = "/v1";
 	parameters += "/geocode/" + StringUtil::Format("%f", a_Location->GetLatitude()) + "/"
 				  + StringUtil::Format("%f", a_Location->GetLongitude());
@@ -104,10 +107,10 @@ void WeatherCompanyData::GetTenDayForecast(Location * a_Location, SendCallback a
 	new RequestJson(this, parameters, "GET", m_Headers, EMPTY_STRING, a_Callback);
 }
 
-bool WeatherCompanyData::VerifyLocation(Location * a_Location)
+bool WeatherCompanyData::VerifyLocation(Location ** a_Location)
 {
-	if ( a_Location == NULL )
-		a_Location = new Location();
+	if ( *a_Location == NULL )
+		*a_Location = new Location();
 	return true;
 }
 
