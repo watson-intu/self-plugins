@@ -44,12 +44,18 @@ public:
     void GetCurrentConditions( Location * a_Location, SendCallback a_Callback );
     void GetHourlyForecast( Location * a_Location, SendCallback a_Callback );
     void GetTenDayForecast( Location * a_Location, SendCallback a_Callback );
-    bool VerifyLocation( Location * a_Location);
 
 private:
+	//! Static
+	bool VerifyLocation( Location ** a_Location);
+
 	//! Data
     std::string m_Units;
     std::string m_Language;
+
+	std::string m_Location;
+	float		m_Long;
+	float		m_Lat;
 };
 
 #endif
