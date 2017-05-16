@@ -160,7 +160,8 @@ void WinMicrophone::CaptureAudio( void * )
 			}
 
 			// send the capture buffer to the AudioListener
-			ThreadPool::Instance()->InvokeOnMain( DELEGATE(WinMicrophone, SendAudio, AudioData *, this),
+			boost::shared_ptr<WinMicrophone> spThis( boost::static_pointer_cast<WinMicrophone>( shared_from_this() ) );
+			ThreadPool::Instance()->InvokeOnMain( DELEGATE(WinMicrophone, SendAudio, AudioData *, spThis ),
 				new AudioData( std::string( (const char *)locked, lockedSize), m_RecordingHZ, m_RecordingChannels, m_RecordingBits ) );
 
 			// unlock the capture buffer
