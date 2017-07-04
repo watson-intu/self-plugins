@@ -141,7 +141,11 @@ void NaoBrowser::TabletThread()
 
 void NaoBrowser::TabletShowURL( const Url::SP & a_spUrl, UrlCallback a_Callback )
 {
-	std::string url( IBrowser::EscapeUrl( a_spUrl->GetURL()) );
+	// Map "localhost" to the IP address of the robot relative to the tablet
+	URL mappedURL = URL(a_spUrl->GetURL());
+	if (_stricmp(mappedURL.GetHost().c_str(), "localhost") == 0)
+		mappedURL.SetHost("198.18.0.1");
+	std::string url( IBrowser::EscapeUrl( mappedURL.GetURL()).c_str() );
 	try {
 		Log::Status( "NaoBrowser", "Showing URL: %s", url.c_str() );
 		m_LastUpdate = Time().GetEpochTime();
