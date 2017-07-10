@@ -15,519 +15,706 @@
 *
 */
 
-
-#define WRITE_SCENE_PCD			1
+//#define VISUALIZATION           1
+//#define WRITE_SCENE_PCD         1
 
 #include "PCLObjectRecognition.h"
 #include "SelfInstance.h"
 
 #include "opencv2/opencv.hpp"
-#include "pcl/point_cloud.h"
-#include "pcl/point_types.h"
-#include "pcl/common/transforms.h"
-#include "pcl/io/pcd_io.h"
-#include "pcl/features/normal_3d_omp.h"
-#include "pcl/features/shot_omp.h"
-#include "pcl/features/board.h"
-#include "pcl/filters/voxel_grid.h"
-#include "pcl/segmentation/sac_segmentation.h"
-#include "pcl/recognition/cg/hough_3d.h"
-#include "pcl/registration/icp.h"
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+#include <pcl/io/pcd_io.h>
+#include <pcl/common/transforms.h>
+#include <pcl/filters/passthrough.h>
+#include <pcl/filters/voxel_grid.h>
+#include <pcl/filters/statistical_outlier_removal.h>
+#include <pcl/segmentation/extract_clusters.h>
+#include <pcl/registration/icp.h>
+#include <pcl/visualization/pcl_visualizer.h>
 
 REG_SERIALIZABLE(PCLObjectRecognition);
-REG_OVERRIDE_SERIALIZABLE(IObjectRecognition,PCLObjectRecognition);
-RTTI_IMPL(PCLObjectRecognition,IObjectRecognition);
+REG_OVERRIDE_SERIALIZABLE(IObjectRecognition, PCLObjectRecognition);
+RTTI_IMPL(PCLObjectRecognition, IObjectRecognition);
 
-PCLObjectRecognition::PCLObjectRecognition() : 
-	IObjectRecognition( "PCL", AUTH_NONE ), 
-	m_ModelSS( 0.01f ),
-	m_DescRad( 0.02f ),
-	m_SceneSS( 0.01f ),
-	m_ShotDist( 0.25f ),
-	m_RFRad( 0.015f ),
-	m_CGSize( 0.02f ),
-	m_CGThresh( 1.0f ),
-	m_LowHeight( -1.5f ),
-	m_maxDist( 0.5f ),
-	m_DistThreshold( 0.01f )
+PCLObjectRecognition::PCLObjectRecognition() :
+    IObjectRecognition( "PCL", AUTH_NONE ),
+    m_ClusterSizeMin1( 0.01f ),
+    m_ClusterSizeMax1( 1.0f ),
+    m_ClusterSizeMin2( 0.1f ),
+    m_ClusterSizeMax2( 1.0f ),
+    m_ClusterTolerance1( 0.01f ),
+    m_ClusterTolerance2( 0.2f ),
+    m_AcceptableFittingScore( 0.00075f ),
+    m_DivRange( 0.125f ),
+    m_MeanK( 0.0f ),
+    m_SamplingSize( 0.005f ),
+    m_HistoryTerm( 10 )
 {}
 
-void PCLObjectRecognition::Serialize(Json::Value & json)
+void PCLObjectRecognition::Serialize(Json::Value& json)
 {
-	IObjectRecognition::Serialize(json);
-	json["m_ModelSS"] = m_ModelSS;
-	json["m_DescRad"] = m_DescRad;
-	json["m_SceneSS"] = m_SceneSS;
-	json["m_ShotDist"] = m_ShotDist;
-	json["m_RFRad"] = m_RFRad;
-	json["m_CGSize"] = m_CGSize;
-	json["m_CGThresh"] = m_CGThresh;
-	json["m_LowHeight"] = m_LowHeight;
-	json["m_maxDist"] = m_maxDist;
-	json["m_DistThreshold"] = m_DistThreshold;
+    IObjectRecognition::Serialize(json);
+    json["m_ClusterSizeMin1"] = m_ClusterSizeMin1;
+    json["m_ClusterSizeMax1"] = m_ClusterSizeMax1;
+    json["m_ClusterSizeMin2"] = m_ClusterSizeMin2;
+    json["m_ClusterSizeMax2"] = m_ClusterSizeMax2;
+    json["m_ClusterTolerance1"] = m_ClusterTolerance1;
+    json["m_ClusterTolerance2"] = m_ClusterTolerance2;
+    json["m_AcceptableFittingScore"] = m_AcceptableFittingScore;
+    json["m_DivRange"] = m_DivRange;
+    json["m_MeanK"] = m_MeanK;
+    json["m_SamplingSize"] = m_SamplingSize;
+    json["m_HistoryTerm"] = m_HistoryTerm;
 
-	SerializeVector( "m_Objects", m_Objects, json );
+    SerializeVector( "m_Objects", m_Objects, json );
 }
 
-void PCLObjectRecognition::Deserialize(const Json::Value & json)
+void PCLObjectRecognition::Deserialize(const Json::Value& json)
 {
-	IObjectRecognition::Deserialize(json);
-	if ( json["m_ModelSS"].isNumeric() )
-		m_ModelSS = json["m_ModelSS"].asFloat();
-	if ( json["m_DescRad"].isNumeric() )
-		m_DescRad = json["m_DescRad"].asFloat();
-	if ( json["m_SceneSS"].isNumeric() )
-		m_SceneSS = json["m_SceneSS"].asFloat();
-	if ( json["m_ShotDist"].isNumeric() )
-		m_ShotDist = json["m_ShotDist"].asFloat();
-	if ( json["m_RFRad"].isNumeric() )
-		m_RFRad = json["m_RFRad"].asFloat();
-	if ( json["m_CGSize"].isNumeric() )
-		m_CGSize = json["m_CGSize"].asFloat();
-	if ( json["m_CGThresh"].isNumeric() )
-		m_CGThresh = json["m_CGThresh"].asFloat();
-	if ( json["m_LowHeight"].isNumeric() )
-		m_LowHeight = json["m_LowHeight"].asFloat();
-	if ( json["m_maxDist"].isNumeric() )
-		m_maxDist = json["m_maxDist"].asFloat();
-	if ( json["m_DistThreshold"].isNumeric() )
-		m_DistThreshold = json["m_DistThreshold"].asFloat();
+    IObjectRecognition::Deserialize(json);
 
-	DeserializeVector( "m_Objects", json, m_Objects );
+    if ( json["m_ClusterSizeMin1"].isNumeric() )
+    {
+        m_ClusterSizeMin1 = json["m_ClusterSizeMin1"].asFloat();
+    }
 
-	// if no data is provided, initialize with some default data..
-	if ( m_Objects.size() == 0 )
-	{
-		std::vector<std::string> models;
-		models.push_back( "shared/pcd/drill/d000.pcd" );
-		models.push_back( "shared/pcd/drill/d045.pcd" );
-		models.push_back( "shared/pcd/drill/d090.pcd" );
-		models.push_back( "shared/pcd/drill/d135.pcd" );
-		models.push_back( "shared/pcd/drill/d180.pcd" );
-		models.push_back( "shared/pcd/drill/d225.pcd" );
-		models.push_back( "shared/pcd/drill/d270.pcd" );
-		models.push_back( "shared/pcd/drill/d315.pcd" );
-		m_Objects.push_back( ObjectModel( "drill", models ) );
-	}
+    if ( json["m_ClusterSizeMax1"].isNumeric() )
+    {
+        m_ClusterSizeMax1 = json["m_ClusterSizeMax1"].asFloat();
+    }
+
+    if ( json["m_ClusterSizeMin2"].isNumeric() )
+    {
+        m_ClusterSizeMin2 = json["m_ClusterSizeMin2"].asFloat();
+    }
+
+    if ( json["m_ClusterSizeMax2"].isNumeric() )
+    {
+        m_ClusterSizeMax2 = json["m_ClusterSizeMax2"].asFloat();
+    }
+
+    if ( json["m_ClusterTolerance1"].isNumeric() )
+    {
+        m_ClusterTolerance1 = json["m_ClusterTolerance1"].asFloat();
+    }
+
+    if ( json["m_ClusterTolerance2"].isNumeric() )
+    {
+        m_ClusterTolerance2 = json["m_ClusterTolerance2"].asFloat();
+    }
+
+    if ( json["m_AcceptableFittingScore"].isNumeric() )
+    {
+        m_AcceptableFittingScore = json["m_AcceptableFittingScore"].asFloat();
+    }
+
+    if ( json["m_DivRange"].isNumeric() )
+    {
+        m_DivRange = json["m_DivRange"].asFloat();
+    }
+
+    if ( json["m_MeanK"].isNumeric() )
+    {
+        m_MeanK = json["m_MeanK"].asFloat();
+    }
+
+    if ( json["m_SamplingSize"].isNumeric() )
+    {
+        m_SamplingSize = json["m_SamplingSize"].asFloat();
+    }
+
+    if ( json["m_HistoryTerm"].isNumeric() )
+    {
+        m_HistoryTerm = json["m_HistoryTerm"].asFloat();
+    }
+
+    DeserializeVector( "m_Objects", json, m_Objects );
+
+    // if no data is provided, initialize with some default data..
+    if ( m_Objects.size() == 0 )
+    {
+        std::vector<std::string> models;
+        models.push_back( "shared/pcd/nasa_drill/nasa_drill.pcd" );
+        m_Objects.push_back( ObjectModel( "nasa_drill", models ) );
+    }
 }
 
 bool PCLObjectRecognition::Start()
 {
-	if (! IObjectRecognition::Start() )
-		return false;
+    if (! IObjectRecognition::Start() )
+    {
+        return false;
+    }
 
-#ifndef _DEBUG
-	// turn off spam from PCL in release builds..
-	pcl::console::setVerbosityLevel(pcl::console::L_ALWAYS);
+    int modelsLoaded = 0;
+
+    for (size_t i = 0; i < m_Objects.size(); ++i)
+    {
+        if ( m_Objects[i].LoadPCD() )
+        {
+            Log::Status( "PCLObjectRecognition", "Loaded models for %s", m_Objects[i].m_ObjectId.c_str() );
+            modelsLoaded += 1;
+        }
+        else
+        {
+            Log::Error( "PCLObjectRecognition", "Failed to load models for object %s", m_Objects[i].m_ObjectId.c_str() );
+        }
+
+        m_Objects[i].setHistoryTerm( m_HistoryTerm );
+    }
+
+    Log::Status( "PCLObjectRecognition", "Loaded %d models", modelsLoaded );
+
+#ifdef VISUALIZATION
+    viewer = new pcl::visualization::PCLVisualizer("Object Localiser");
+    viewer->setSize(1600, 900);
+    viewer->setShowFPS(false);
+    viewer->setCameraPosition(0.0f, -1.0f, 3.5f, 0.0f, -1.0f, 0.0f);
 #endif
 
-	int modelsLoaded = 0;
-	for(size_t i=0;i<m_Objects.size();++i)
-	{
-		if ( m_Objects[i].LoadPCD( m_ModelSS, m_DescRad ) )
-		{
-			Log::Status( "PCLObjectRecognition", "Loaded models for %s", m_Objects[i].m_ObjectId.c_str() );
-			modelsLoaded += 1;
-		}
-		else
-			Log::Error( "PCLObjectRecognition", "Failed to load models for object %s", m_Objects[i].m_ObjectId.c_str() );
-	}
-
-	Log::Status( "PCLObjectRecognition", "Loaded %d models", modelsLoaded );
-	return true;
+    return true;
 }
 
-void PCLObjectRecognition::ClassifyObjects(const std::string & a_DepthImageData,
-	OnClassifyObjects a_Callback )
+void PCLObjectRecognition::ClassifyObjects(const std::string& a_DepthImageData,
+        OnClassifyObjects a_Callback )
 {
-	ThreadPool::Instance()->InvokeOnThread<ProcessDepthData *>( DELEGATE( PCLObjectRecognition, ProcessThread, ProcessDepthData *, this ), 
-		new ProcessDepthData( a_DepthImageData, a_Callback ) );
+    ThreadPool::Instance()->InvokeOnThread<ProcessDepthData*>( DELEGATE( PCLObjectRecognition, ProcessThread, ProcessDepthData*, this ),
+            new ProcessDepthData( a_DepthImageData, a_Callback ) );
 }
 
-void PCLObjectRecognition::ProcessThread( ProcessDepthData * a_pData )
+void PCLObjectRecognition::ProcessThread( ProcessDepthData* a_pData )
 {
-	double startTime = Time().GetEpochTime();
-	Log::Status( "PCLObjectRecognition", "Processing %u bytes of depth data.", a_pData->m_DepthData.size() );
+    double startTime = Time().GetEpochTime();
+//  Log::Status( "PCLObjectRecognition", "Processing %u bytes of depth data.", a_pData->m_DepthData.size() );
 
 #if 0
-	FILE * fp = fopen( "scene.png", "wb" );
-	if ( fp != NULL )
-	{
-		fwrite( a_pData->m_DepthData.data(), 1, a_pData->m_DepthData.size(), fp );
-		fclose( fp );
-	}
+    FILE* fp = fopen( "scene.png", "wb" );
+
+    if ( fp != NULL )
+    {
+        fwrite( a_pData->m_DepthData.data(), 1, a_pData->m_DepthData.size(), fp );
+        fclose( fp );
+    }
+
 #endif
 
-	// convert depth data into PCD
-	const std::string & data = a_pData->m_DepthData;
-	std::vector<unsigned char> encoded( (unsigned char *)data.data(), (unsigned char *)data.data() + data.size() );
-	cv::Mat decoded = cv::imdecode( encoded, CV_LOAD_IMAGE_ANYDEPTH );
-	
-	pcl::PointCloud<pcl::PointXYZ>::Ptr spScene( new pcl::PointCloud<PointType>() );
-	spScene->height = decoded.rows;
-	spScene->width = decoded.cols;
-	spScene->is_dense = false;
-	spScene->points.resize( spScene->width * spScene->height );
+    // convert depth data into PCD
+    const std::string& data = a_pData->m_DepthData;
+    std::vector<unsigned char> encoded( (unsigned char*)data.data(), (unsigned char*)data.data() + data.size() );
+    cv::Mat decoded = cv::imdecode( encoded, CV_LOAD_IMAGE_ANYDEPTH );
 
-	const float constant = 1.0f / 525;
-	const int centerX = spScene->width >> 1;
-	const int centerY = spScene->height >> 1;
-	register int depth_idx = 0;
-	for(int v=-centerY;v<centerY;++v)
-	{
-		for(register int u=-centerX;u<centerX;++u,++depth_idx)
-		{
-			pcl::PointXYZ & pt = spScene->points[depth_idx];
-			pt.z = decoded.at<unsigned short>( depth_idx ) * 0.001f;
-			pt.x = static_cast<float>(u) * pt.z * constant;
-			pt.y = static_cast<float>(v) * pt.z * constant;
-		}
-	}
-	spScene->sensor_origin_.setZero();
-	spScene->sensor_orientation_.w() = 0.0f;
-	spScene->sensor_orientation_.x() = 1.0f;
-	spScene->sensor_orientation_.y() = 0.0f;
-	spScene->sensor_orientation_.z() = 0.0f;
+    pcl::PointCloud<pcl::PointXYZ>::Ptr spScene( new pcl::PointCloud<PointType>() );
+    spScene->height = decoded.rows;
+    spScene->width = decoded.cols;
+    spScene->is_dense = false;
+    spScene->points.resize( spScene->width * spScene->height );
+
+    const float constant = 1.0f / 525;
+    const int centerX = spScene->width >> 1;
+    const int centerY = spScene->height >> 1;
+    register int depth_idx = 0;
+
+    for (int v = -centerY; v < centerY; ++v)
+    {
+        for (register int u = -centerX; u < centerX; ++u, ++depth_idx)
+        {
+            pcl::PointXYZ& pt = spScene->points[depth_idx];
+            pt.z = decoded.at<unsigned short>( depth_idx ) * 0.001f;
+            pt.x = static_cast<float>(-u) * pt.z * constant;
+            pt.y = static_cast<float>(-v) * pt.z * constant;
+        }
+    }
+
+    spScene->sensor_origin_.setZero();
+    spScene->sensor_orientation_.w() = 0.0f;
+    spScene->sensor_orientation_.x() = 1.0f;
+    spScene->sensor_orientation_.y() = 0.0f;
+    spScene->sensor_orientation_.z() = 0.0f;
+
+    ObjectModel& o = m_Objects[0];
+
+    pcl::PointCloud<PointType>::Ptr scene(new pcl::PointCloud<PointType>());
+    pcl::copyPointCloud(*spScene, *scene);
 
 #if WRITE_SCENE_PCD
-	// save to a local file 
-	pcl::io::savePCDFile( "scene.pcd", *spScene );
+    // save to a local file
+    pcl::io::savePCDFile( "scene.pcd", *scene );
 #endif
 
-#if 1
-	// segmentation for removing table and floor
-	pcl::ModelCoefficients::Ptr coefficients(new pcl::ModelCoefficients);
-	pcl::PointIndices::Ptr inliers(new pcl::PointIndices);
-	pcl::SACSegmentation<PointType> seg;
-	seg.setOptimizeCoefficients(true);
-	seg.setModelType(pcl::SACMODEL_PLANE);
-	seg.setMethodType(pcl::SAC_RANSAC);
-	seg.setInputCloud( spScene );
-	seg.setDistanceThreshold(m_DistThreshold);
-	seg.segment(*inliers, *coefficients);
+    //
+    // Down sampling
+    //
+    pcl::PointCloud<PointType> scene_sample; // reduced point cloud
+    pcl::VoxelGrid<PointType> us;
+    us.setInputCloud(scene);
+    us.setLeafSize(m_SamplingSize, m_SamplingSize, m_SamplingSize);
+    us.filter(scene_sample);
+    // Copy reduced point cloud to target point cloud 
+    scene->points.swap(scene_sample.points);
+    scene->width = scene_sample.width;
+    scene->height = scene_sample.height;
 
-	if (inliers->indices.size() > 0) 
-	{
-		size_t iindex = 0;
-		size_t p;
-
-		std::vector<PointType, Eigen::aligned_allocator<PointType> > points;
-		points.swap( spScene->points );
-		for (p = 0; p < points.size(); p++) {
-			if (p != inliers->indices[iindex]) {
-				spScene->points.push_back(points[p]);
-			}
-			else {
-				if (++iindex >= inliers->indices.size())
-					break;
-			}
-		}
-		for (; p < points.size(); p++) {
-			spScene->points.push_back(points[p]);
-		}
-
-		spScene->width = spScene->points.size();
-		spScene->height = 1;
-	}
-#if WRITE_SCENE_PCD
-	// save to a local file 
-	pcl::io::savePCDFile( "scene_segmented.pcd", *spScene );
-#endif
+#ifdef VISUALIZATION
+    // Keep original scene for visualization
+    pcl::PointCloud<PointType>::Ptr scene_all(new pcl::PointCloud<PointType>());
+    pcl::copyPointCloud(*scene, *scene_all);
 #endif
 
-#if 1
-	//
-	// Temporary remove lower part of points to reduce calculation
-	//
-	std::vector<PointType, Eigen::aligned_allocator<PointType> > points;
-	points.swap( spScene->points );
+    //
+    // Exclude point further than 1.5 meter
+    //
+    pcl::PointCloud<PointType> scene_clip; // clipped point cloud
+    pcl::PassThrough<PointType> ptf;
+    ptf.setInputCloud(scene);
+    // Set clipping z range within 1.5 meter
+    ptf.setFilterFieldName("z");
+    ptf.setFilterLimits(0.0, 1.5);
+    ptf.filter(scene_clip);
+    // Copy clipped point cloud to target point cloud
+    scene->points.swap(scene_clip.points);
+    scene->width = scene_clip.width;
+    scene->height = scene_clip.height;
 
-	for (size_t p = 0; p < points.size(); p++) 
-	{
-		if (points[p].y < m_maxDist && points[p].z < -m_LowHeight)
-			spScene->points.push_back(points[p]);
-	}
-	spScene->width = spScene->points.size();
-	spScene->height = 1;
+    // Check if enough points exists in this z range
+    if (scene->points.size() < o.m_PCD[0].m_Model->points.size() / 2) {
+    //  Log::Status( "PCLObjectRecognition", "No object in 1 meter range");
+        a_pData->m_Results["objects"] = Json::Value( Json::arrayValue );
+        Json::Value result;
+        result["objectId"] = -1;
+        result["confidence"] = 0.0;
+        Json::Value tf;
+        tf["x"] = 0.0;
+        tf["y"] = 0.0;
+        tf["z"] = 0.0;
+        result["translation"] = tf;
+        Json::Value rot;
+        rot["x"] = 0.0;
+        rot["y"] = 0.0;
+        rot["z"] = 0.0;
+        rot["w"] = 1.0;
+        result["rotation"] = rot;
+        a_pData->m_Results["objects"].append(result);
+#ifdef VISUALIZATION
+        // Visualize only non-target point cloud
+        viewer->removeAllPointClouds();
+        pcl::visualization::PointCloudColorHandlerCustom<PointType> all_color_handler(scene_all, 128, 128, 128);
+        viewer->addPointCloud(scene_all, all_color_handler, "scene_all");
+        viewer->spinOnce();
+#endif // VISUALIZATION
+        return;
+    }
 
-#if WRITE_SCENE_PCD
-	// save to a local file 
-	pcl::io::savePCDFile( "scene_clipped.pcd", *spScene );
+    //
+    // Smooth surface by removing noise
+    //
+    if (m_MeanK > 0.0) {
+        pcl::PointCloud<PointType> scene_revise; // revised point cloud
+        pcl::StatisticalOutlierRemoval<PointType> sor;
+        sor.setInputCloud(scene);
+        sor.setMeanK(m_MeanK); // set smoothing level
+        sor.setStddevMulThresh(1.0);
+        sor.filter(scene_revise);
+        // Copy revised point cloud to target point cloud
+        scene->points.swap(scene_revise.points);
+        scene->width = scene_revise.width;
+        scene->height = scene_revise.height;
+    }
+
+#ifdef VISUALIZATION
+    // Keep original scene for visualization
+    pcl::PointCloud<PointType>::Ptr scene_1m(new pcl::PointCloud<PointType>());
+    pcl::copyPointCloud(*scene, *scene_1m);
 #endif
-#endif
-
-#if 1
-	//
-	// Reduce data amount
-	//
-	pcl::PointCloud<PointType>::Ptr scene_reduced(new pcl::PointCloud<PointType>());
-	pcl::VoxelGrid<PointType> reduce;
-	reduce.setInputCloud(spScene);
-	reduce.setLeafSize(m_SceneSS / 5.0, m_SceneSS / 5.0, m_SceneSS / 5.0);
-	reduce.filter(*scene_reduced);
-
-#if WRITE_SCENE_PCD
-	// save to a local file 
-	pcl::io::savePCDFile( "scene_reduced.pcd", *scene_reduced );
-#endif
-#endif
-
-	//
-	// Compute Normals
-	//
-	pcl::PointCloud<NormalType>::Ptr scene_normals(new pcl::PointCloud<NormalType>());
-	pcl::NormalEstimationOMP<PointType, NormalType> norm_est;
-	norm_est.setKSearch(10);
-	norm_est.setInputCloud(scene_reduced);
-	norm_est.compute(*scene_normals);
-
-	//
-	// Downsample Clouds to Extract keypoints
-	//
-	pcl::PointCloud<PointType>::Ptr scene_keypoints(new pcl::PointCloud<PointType>());
-	pcl::VoxelGrid<PointType> uniform_sampling;
-	uniform_sampling.setInputCloud(scene_reduced);
-	uniform_sampling.setLeafSize(m_SceneSS, m_SceneSS, m_SceneSS);
-	uniform_sampling.filter(*scene_keypoints);
 
 #if WRITE_SCENE_PCD
-	// save to a local file 
-	pcl::io::savePCDFile( "scene_keypoints.pcd", *scene_keypoints);
+    // save to a local file
+    pcl::io::savePCDFile( "scene_1M.pcd", *scene );
 #endif
 
-	//
-	// Compute Descriptor for keypoints
-	//
-	pcl::PointCloud<DescriptorType>::Ptr scene_descriptors(new pcl::PointCloud<DescriptorType>());
-	pcl::SHOTEstimationOMP<PointType, NormalType, DescriptorType> descr_est;
-	descr_est.setRadiusSearch(m_DescRad);
-	descr_est.setInputCloud(scene_keypoints);
-	descr_est.setInputNormals(scene_normals);
-	descr_est.setSearchSurface(scene_reduced);
-	descr_est.compute(*scene_descriptors);
+    //
+    // Extract clusters which have equal or less points than the reference model
+    //
+    int nclusters = 0; // number of clusters
+    std::vector<pcl::PointCloud<PointType>::Ptr> cluster; // clustered point clouds
 
-	// find objects in PCD
-	a_pData->m_Results["objects"] = Json::Value( Json::arrayValue );
+    pcl::search::KdTree<PointType>::Ptr tree(new pcl::search::KdTree<PointType>);
+    tree->setInputCloud(scene);
+    std::vector<pcl::PointIndices> cindices; // index arrays for cluster separation
+    pcl::EuclideanClusterExtraction<PointType> ec;
+    // Set tolerance, minimum size, and maximum size for clustering stage 1
+    ec.setClusterTolerance(m_ClusterTolerance1);
+    ec.setMinClusterSize((int)((float)o.m_PCD[0].m_Model->points.size() * m_ClusterSizeMin1));
+    ec.setMaxClusterSize((int)((float)o.m_PCD[0].m_Model->points.size() * m_ClusterSizeMax1));
+    ec.setSearchMethod(tree);
+    ec.setInputCloud(scene);
+    // Extract clustering result indices
+    ec.extract(cindices);
 
-	//
-	// Loop for each reference model
-	//
-	std::vector<Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> > rototranslations_closest;
-	std::vector<pcl::Correspondences> clustered_corrs_closest;
-	int i_closest_object = -1;
+    //
+    // Divide scene to each cluster
+    //
+    int cn = cindices.end() - cindices.begin() + 1; // number of clusters in result
+    cluster.resize(cn);
+    // loop for each cluster
+    for (std::vector<pcl::PointIndices>::const_iterator it = cindices.begin(); it != cindices.end(); it++) {
+        // Allocate point cloud object for a cluster
+        cluster[nclusters] = (pcl::PointCloud<PointType>::Ptr)(new pcl::PointCloud<PointType>());
+        // Loop for each point
+        for (std::vector<int>::const_iterator pit = it->indices.begin(); pit != it->indices.end(); pit++)
+            // Copy point coordinates from target point cloud to clustered point cloud
+            cluster[nclusters]->points.push_back(scene->points[*pit]);
+        // Set basic information for this clustered point cloud
+        cluster[nclusters]->width = cluster[nclusters]->points.size();
+        cluster[nclusters]->height = 1;
+        cluster[nclusters]->is_dense = true;
+        nclusters++;
+    }
 
-	for(size_t i=0;i<m_Objects.size();++i)
-	{
-		ObjectModel & object = m_Objects[i];
+    //
+    // Merge the extracted clusters to single scene
+    //
+    pcl::PointCloud<PointType>::Ptr merged(new pcl::PointCloud<PointType>()); // Merged point cloud
+    // Loop for each clustered point cloud
+    for (int i = 0; i < nclusters; i++) {
+        *merged += *cluster[i];
+    }
+    // Copy merged point cloud to target point cloud
+    scene->points.swap(merged->points);
+    scene->width = merged->width;
+    scene->height = merged->height;
 
-		int corrs_closest = 0;
-		int i_closest = -1;
+#if WRITE_SCENE_PCD
+    // save to a local file
+    pcl::io::savePCDFile( "scene_stage1.pcd", *scene );
+#endif
 
-		std::vector<int> i_max_corrs;
-		i_max_corrs.resize( object.m_PCD.size() );
-		for(size_t k=0;k<i_max_corrs.size();++k)
-			i_max_corrs[k] = -1;
+    //
+    // Extract larger clusters which have similar number of points
+    //
+    nclusters = 0;
+    std::vector<pcl::PointCloud<PointType>::Ptr> cluster2; // clustered point clouds for stage 2
+    std::vector<Eigen::Vector4f> centroid2; // center position for each cluster
+    std::vector<float> score; // ICP fitting score (lower score is better)
+    std::vector<float> div; // divergence from moving average of controid position
+    std::vector<Eigen::Matrix4f> pose; // pose of the model which is ICPed on each cluster
 
-		for (size_t mi = 0; mi < object.m_PCD.size(); mi++) 
-		{
-			double elapsed = Time().GetEpochTime() - startTime;
-			Log::Status( "PCLObjectRecognition", "Checking model %d of object %s, %.2f seconds elapsed.", 
-				mi, object.m_ObjectId.c_str(), elapsed );
+    pcl::search::KdTree<PointType>::Ptr tree2(new pcl::search::KdTree<PointType>);
+    tree2->setInputCloud(scene);
+    std::vector<pcl::PointIndices> cindices2; // index arrays for cluster separation
+    pcl::EuclideanClusterExtraction<PointType> ec2;
+    // Set tolerance, minimum size, and maximum size for clustering stage 2
+    ec2.setClusterTolerance(m_ClusterTolerance2);
+    ec2.setMinClusterSize((int)((float)o.m_PCD[0].m_Model->points.size() * m_ClusterSizeMin2));
+    ec2.setMaxClusterSize((int)((float)o.m_PCD[0].m_Model->points.size() * m_ClusterSizeMax2));
+    ec2.setSearchMethod(tree2);
+    ec2.setInputCloud(scene);
+    // Extract clustering result indices
+    ec2.extract(cindices2);
 
-			//
-			// Find Model-Scene Correspondences with KdTree
-			//
-			pcl::CorrespondencesPtr model_scene_corrs(new pcl::Correspondences());
-			pcl::KdTreeFLANN<DescriptorType> match_search;
-			match_search.setInputCloud( object.m_PCD[mi].m_Descriptors);
+    //
+    // Divide scene to the clusters
+    //
+    cn = cindices2.end() - cindices2.begin() + 1; // number of clusters in result
+    // Resize array size to number of clusters
+    cluster2.resize(cn);
+    centroid2.resize(cn);
+    score.resize(cn);
+    div.resize(cn);
+    pose.resize(cn);
+    // loop for each cluster
+    for (std::vector<pcl::PointIndices>::const_iterator it = cindices2.begin(); it != cindices2.end(); it++) {
+        // Allocate point cloud object for a cluster
+        cluster2[nclusters] = (pcl::PointCloud<PointType>::Ptr)(new pcl::PointCloud<PointType>());
+        // Loop for each point
+        for (std::vector<int>::const_iterator pit = it->indices.begin(); pit != it->indices.end(); pit++)
+            // Copy point coordinates from target point cloud to clustered point cloud
+            cluster2[nclusters]->points.push_back(scene->points[*pit]);
+        // Set basic information for this clustered point cloud
+        cluster2[nclusters]->width = cluster2[nclusters]->points.size();
+        cluster2[nclusters]->height = 1;
+        cluster2[nclusters]->is_dense = true;
 
-			//
-			// For each scene keypoint descriptor, find nearest neighbor
-			// into the model keypoints descriptor cloud and add it to the correspondences vector.
-			//
-			for (size_t i = 0; i < scene_descriptors->size(); ++i) 
-			{
-				std::vector<int> neigh_indices(1);
-				std::vector<float> neigh_sqr_dists(1);
-				if (!pcl_isfinite(scene_descriptors->at(i).descriptor[0])) {
-					continue;
-				}
-				int found_neighs = match_search.nearestKSearch(
-					scene_descriptors->at(i), 1, neigh_indices, neigh_sqr_dists);
-				if(found_neighs == 1 && neigh_sqr_dists[0] < m_ShotDist) {
-					pcl::Correspondence corr(neigh_indices[0], static_cast<int>(i), neigh_sqr_dists[0]);
-					model_scene_corrs->push_back(corr);
-				}
-			}
+        //
+        // Apply ICP between each cluster and the reference model
+        //
+        pcl::compute3DCentroid(*cluster2[nclusters], centroid2[nclusters]);
+        Eigen::Matrix4f p; // transformation matrix to align reference model on each cluster
+        p <<
+            1.0, 0.0, 0.0, centroid2[nclusters][0],
+            0.0, 1.0, 0.0, centroid2[nclusters][1],
+            0.0, 0.0, 1.0, centroid2[nclusters][2],
+            0.0, 0.0, 0.0, 1.0;
+        pcl::PointCloud<PointType>::Ptr model_on_cluster(new pcl::PointCloud<PointType>()); // aligned reference model
+        // move reference model to centroid of a cluster
+        pcl::transformPointCloud(*o.m_PCD[0].m_Model, *model_on_cluster, p);
+        // Try to apply ICP to check fitting score
+        pcl::IterativeClosestPoint<PointType, PointType> icpc;
+        icpc.setInputSource(model_on_cluster);
+        icpc.setInputTarget(cluster2[nclusters]);
+        pcl::PointCloud<PointType> icpc_result; // ICPed reference model point cloud
+        // Calculate closest pose of reference model on a cluster
+        icpc.align(icpc_result);
+        // Check if converged
+        if (icpc.hasConverged()) {
+            // Calculate fitting score (lower score is better)
+            score[nclusters] = icpc.getFitnessScore();
+            // Get transformation matrix to move reference model to closest pose
+            Eigen::Matrix4f adj = icpc.getFinalTransformation();
+            // Calculate absolute transformation from zero point
+            pose[nclusters] = adj * p;
+            Eigen::Vector3f t = pose[nclusters].block<3, 1>(0, 3);
 
-			//
-			// Actual Clustering
-			//
-			std::vector<Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> > rototranslations;
-			std::vector<pcl::Correspondences> clustered_corrs;
+            // Get divergence from moving avegare position
+            div[nclusters] = o.getMovingAveDivergence(t);
+        }
+        else {
+            // Set worst score
+            score[nclusters] = 1.0;
+            // Set worst divergence
+            div[nclusters] = m_DivRange;
+        }
+        nclusters++;
+    }
 
-			//
-			// Compute (Keypoints) Reference Frames only for Hough
-			//
-			pcl::PointCloud<RFType>::Ptr model_rf(new pcl::PointCloud<RFType>());
-			pcl::PointCloud<RFType>::Ptr scene_rf(new pcl::PointCloud<RFType>());
-			pcl::BOARDLocalReferenceFrameEstimation<PointType, NormalType, RFType> rf_est;
-			rf_est.setFindHoles(true);
-			rf_est.setRadiusSearch(m_RFRad);
-			rf_est.setInputCloud(object.m_PCD[mi].m_Keypoints);
-			rf_est.setInputNormals(object.m_PCD[mi].m_Normals);
-			rf_est.setSearchSurface(object.m_PCD[mi].m_Model);
-			rf_est.compute(*model_rf);
-			rf_est.setInputCloud(scene_keypoints);
-			rf_est.setInputNormals(scene_normals);
-			rf_est.setSearchSurface(scene_reduced);
-			rf_est.compute(*scene_rf);
+    // Find highest fitting cluster
+    float best = 1.0f;
+    int ibest = -1;
+    for (int i = 0; i < nclusters; i++) {
+        if (score[i] < best) {
+            best = score[i];
+            ibest = i;
+        }
+    }
 
-			//
-			// Clustering
-			//
-			pcl::Hough3DGrouping<PointType, PointType, RFType, RFType> clusterer;
-			clusterer.setHoughBinSize(m_CGSize);
-			clusterer.setHoughThreshold(m_CGThresh);
-			clusterer.setUseInterpolation(true);
-			clusterer.setUseDistanceWeight(false);
-			clusterer.setInputCloud(object.m_PCD[mi].m_Keypoints);
-			clusterer.setInputRf(model_rf);
-			clusterer.setSceneCloud(scene_keypoints);
-			clusterer.setSceneRf(scene_rf);
-			clusterer.setModelSceneCorrespondences(model_scene_corrs);
-			//    clusterer.cluster (clustered_corrs);
-			clusterer.recognize(rototranslations, clustered_corrs);
+#if WRITE_SCENE_PCD
+    // save to a local file
+    if (ibest >= 0)
+    pcl::io::savePCDFile( "scene_stage2.pcd", *cluster2[ibest] );
+#endif
 
-			//
-			//  Output results
-			//
-			size_t max_corrs = 0;
-			for (size_t i = 0; i < rototranslations.size(); i++) {
-				Eigen::Matrix3f rotation = rototranslations[i].block<3,3>(0, 0);
-				Eigen::Vector3f translation = rototranslations[i].block<3,1>(0, 3);
-				if (clustered_corrs[i].size() > max_corrs && translation(0) * translation(1) * translation(2) != 0.0) {
-					max_corrs = clustered_corrs[i].size();
-					i_max_corrs[mi] = i;
-				}
-			}
-			if (i_max_corrs[mi] != -1) 
-			{
-				if (max_corrs > corrs_closest) 
-				{
-					corrs_closest = max_corrs;
-					i_closest = mi;
-					rototranslations_closest = rototranslations;
-					clustered_corrs_closest = clustered_corrs;
-				}
+    int found; // find decision if object localiser find the target object or not
+    Eigen::Vector3f translation; // final translation from zero point
+    Eigen::Matrix3f rotation;
 
-				Log::Status( "PCLObjectRecognition", "Object %s, Model[%d] instance %d/%u, has max # of correspondences: %u in %u", 
-					object.m_ObjectId.c_str(), i_max_corrs[mi], rototranslations.size(), clustered_corrs[i_max_corrs[mi]].size(), model_scene_corrs->size() );
-			}
-		} // loop for each reference model
+    if (ibest < 0 || score[ibest] > m_AcceptableFittingScore) {
+        // Fitting score too bad
+    //  Log::Status( "PCLObjectRecognition", "No candidates found");
+        found = false;
+    }
+    else {
+        // set translation of the best fit cluster as the final translation
+        translation = pose[ibest].block<3, 1>(0, 3);
+        // store translation as the latest position of moving average
+        o.updateMovingAve(translation);
 
-		if ( i_closest >= 0 )
-		{
-			if (i_max_corrs[i_closest] != -1) 
-			{
-				pcl::PointCloud<PointType>::Ptr rotated_model(new pcl::PointCloud<PointType>());
-				pcl::transformPointCloud(*object.m_PCD[i_closest].m_Model, *rotated_model,
-					rototranslations_closest[i_max_corrs[i_closest]]);
+        // Check if the distane from moving average is in the acceptance range
+        if (div[ibest] >= m_DivRange) {
+            // Too far from moving average position
+        //  Log::Status( "PCLObjectRecognition", "Candidate rejected\n        => Divergence (%1.3f) is too far from moving average", div[ibest]);
+            found = false;
+        }
+        else {
+            // Accept the result
+            rotation = pose[ibest].block<3, 3>(0, 0);
+            found = true;
+        }
+    }
 
-				//
-				// Apply Iterative Closest Point Algorithm
-				//
-				pcl::IterativeClosestPoint<PointType, PointType> icp;
-				icp.setInputSource(rotated_model);
-				icp.setInputTarget(spScene);
-				Eigen::Matrix4f pose = rototranslations_closest[i_max_corrs[i_closest]];
-				Eigen::Matrix3f rotation = pose.block<3,3>(0, 0);
-				Eigen::Vector3f translation = pose.block<3,1>(0, 3);
-				Eigen::Matrix4f adj = icp.getFinalTransformation();
-				Eigen::Matrix3f rotation2 = adj.block<3,3>(0, 0);
-				Eigen::Vector3f translation2 = adj.block<3,1>(0, 3);
-				rotation = rotation2 * rotation;
-				translation = translation2 + translation;
+    // find objects in PCD
+    a_pData->m_Results["objects"] = Json::Value( Json::arrayValue );
 
-				//
-				// Rotation for relative angle from 0 deg reference model
-				//
-				Eigen::Matrix3f rotate_45deg;
-				rotate_45deg <<
-					0.996948, 0.019142, 0.075708,
-					-0.0221982, 0.998964, 0.0397446,
-					-0.0748677, -0.0413032, 0.996339;
-				for (size_t j = 0; j < i_closest; j++) {
-					rotation = rotate_45deg * rotation;
-				}
+    Json::Value result;
 
-				//
-				// Print the rotation matrix and translation vector
-				//
-				Json::Value result;
-				result["objectId"] = object.m_ObjectId;
-				result["confidence"] = 0.9f;		// TODO
-				for(int i=0;i<3;++i)
-					result["transform"].append( translation(i) );
+    if (found) {
+        Eigen::Quaternionf q(rotation);
+        Log::Status( "PCLObjectRecognition", "Object detected\n        t = (%1.3f, %1.3f, %1.3f), r = (%1.3f, %1.3f, %1.3f, %1.3f)",
+            translation(0), translation(1), translation(2), -q.x(), q.y(), q.z(), q.w());
 
-				for(int i=0;i<3;++i)
-					for(int k=0;k<3;++k)
-						result["rotation"].append( rotation(i,k) );
-				a_pData->m_Results["objects"].append( result );
-			}
-		}
-	}
+        result["confidence"] = score[ibest] < m_AcceptableFittingScore / 2.0 ?
+                1.0: m_AcceptableFittingScore / 2.0 / score[ibest];
 
-	double elapsed = Time().GetEpochTime() - startTime;
-	Log::Status( "PCLObjectRecognition", "Recognition completed in %.2f seconds, found %u objects", elapsed, a_pData->m_Results["objects"].size() );
+        result["objectId"] = o.m_ObjectId;
+        //
+        // x <- (z), y <- (-x), z <- (-y)
+        //
+        Json::Value tf;
+        tf["x"] = translation(2);
+        tf["y"] = -translation(0);
+        tf["z"] = -translation(1);
+        result["translation"] = tf;
 
-	// return results..
-	ThreadPool::Instance()->InvokeOnMain<ProcessDepthData *>( DELEGATE( PCLObjectRecognition, SendResults, ProcessDepthData *, this ), a_pData );
+        Json::Value rot;
+        //
+        // x <- (y), y <- (x), z <- (-z), w <- (w)
+        //
+        rot["x"] = q.y();
+        rot["y"] = q.x();
+        rot["z"] = -q.z();
+        rot["w"] = q.w();
+        result["rotation"] = rot;
+
+    }
+    else {
+        result["objectId"] = -1;
+        result["confidence"] = 0.0;
+        Json::Value tf;
+        tf["x"] = 0.0;
+        tf["y"] = 0.0;
+        tf["z"] = 0.0;
+        result["translation"] = tf;
+
+        Json::Value rot;
+        rot["x"] = 0.0;
+        rot["y"] = 0.0;
+        rot["z"] = 0.0;
+        rot["w"] = 1.0;
+        result["rotation"] = rot;
+    }
+
+    a_pData->m_Results["objects"].append(result);
+
+#ifdef VISUALIZATION
+  viewer->removeAllPointClouds();
+
+  // Show whole scene on blue
+  pcl::visualization::PointCloudColorHandlerCustom<PointType> scene_all_color_handler(scene_all, 128, 128, 128);
+  viewer->addPointCloud(scene_all, scene_all_color_handler, "scene_all");
+
+  // Show scene in 1M range on green
+  pcl::visualization::PointCloudColorHandlerCustom<PointType> scene_color_handler(scene_1m, 255, 255, 255);
+  viewer->addPointCloud(scene_1m, scene_color_handler, "scene_1m");
+
+  // Show candidate clusters on red
+  for (int i = 0; i < nclusters; i++) {
+    int c = (i % 5) + 1;
+    int r = c & 4 ? 255: 192;
+    int g = c & 2 ? 255: 192;
+    int b = c & 1 ? 255: 192;
+    if (i == ibest) {
+      // Show detected object on yellow (acceptable) or on pink (unacceptable)
+      if (found) {
+        r = 255;
+        g = 255;
+        b = 0;
+      }
+      else {
+        r = 255;
+        g = 0;
+        b = 0;
+      }
+    }
+    pcl::visualization::PointCloudColorHandlerCustom<PointType> cluster_color_handler(cluster2[i], r, g, b);
+    std::stringstream ss;
+    ss << "cluster" << i;
+    viewer->addPointCloud(cluster2[i], cluster_color_handler, ss.str());
+  }
+
+  for (int i = 0; i < 100; i++)
+    viewer->spinOnce();
+
+#endif // VISUALIZATION
+
+    double elapsed = Time().GetEpochTime() - startTime;
+//  Log::Status( "PCLObjectRecognition", "Recognition completed in %.2f seconds, found %u objects", elapsed, a_pData->m_Results["objects"].size() );
+
+    // return results..
+    ThreadPool::Instance()->InvokeOnMain<ProcessDepthData*>( DELEGATE( PCLObjectRecognition, SendResults, ProcessDepthData*, this ), a_pData );
 }
 
-void PCLObjectRecognition::SendResults( ProcessDepthData * a_pData )
+void PCLObjectRecognition::SendResults( ProcessDepthData* a_pData )
 {
-	a_pData->m_Callback( a_pData->m_Results );
-	delete a_pData;
+    a_pData->m_Callback( a_pData->m_Results );
+    delete a_pData;
 }
 
 
-bool PCLObjectRecognition::ObjectModel::LoadPCD( float a_ModelSS, float a_DescRad )
+bool PCLObjectRecognition::ObjectModel::LoadPCD()
 {
-	const std::string & staticData = Config::Instance()->GetStaticDataPath();
-	for(size_t i=0;i<m_Models.size();++i)
-	{
-		std::string modelPath( staticData + m_Models[i] );
+    const std::string& staticData = Config::Instance()->GetStaticDataPath();
 
-		ModelPCD pcd;
-		if ( pcl::io::loadPCDFile( modelPath, *pcd.m_Model ) < 0 )
-		{
-			Log::Error( "ObjectModel", "Failed to load %s", modelPath.c_str() );
-			return false;
-		}
+    for (size_t i = 0; i < m_Models.size(); ++i)
+    {
+        std::string modelPath( staticData + m_Models[i] );
 
-		// compute normals
-		pcl::NormalEstimationOMP<PointType, NormalType> norm_est;
-		norm_est.setKSearch(10);
-		norm_est.setInputCloud(pcd.m_Model);
-		norm_est.compute(*pcd.m_Normals);
+        ModelPCD pcd;
 
-		// down sample clouds to extract keypoints
-		pcl::VoxelGrid<PointType> uniform_sampling;
-		uniform_sampling.setInputCloud(pcd.m_Model);
-		uniform_sampling.setLeafSize(a_ModelSS, a_ModelSS, a_ModelSS);
-		uniform_sampling.filter(*pcd.m_Keypoints);
+        if ( pcl::io::loadPCDFile( modelPath, *pcd.m_Model ) < 0 )
+        {
+            Log::Error( "ObjectModel", "Failed to load %s", modelPath.c_str() );
+            return false;
+        }
 
-		// compute descriptors for keypoints
-		pcl::SHOTEstimationOMP<PointType, NormalType, DescriptorType> descr_est;
-		descr_est.setRadiusSearch(a_DescRad);
-		descr_est.setInputCloud(pcd.m_Keypoints);
-		descr_est.setInputNormals(pcd.m_Normals);
-		descr_est.setSearchSurface(pcd.m_Model);
-		descr_est.compute(*pcd.m_Descriptors);
+        m_PCD.push_back( pcd );
+    }
 
-		m_PCD.push_back( pcd );
-	}
+    return true;
+}
 
-	return true;
+/*
+ * Calculate moving average from past position of the target object
+ */
+float PCLObjectRecognition::ObjectModel::getMovingAveDivergence(Eigen::Vector3f t)
+{
+    float d = 0.0f;
+
+    // Check if there is history
+    if (m_nHistory > 0) {
+        // Calculate moving average
+        Eigen::Vector3f tma; // moving average of 3D position
+        tma[0] = tma[1] = tma[2] = 0.0f;
+        // Loop for number od histories
+        for (int i = 0; i < m_nHistory; i++) {
+            // Add x, y, and z coordinates
+            tma[0] += m_TranslationHistory[i][0];
+            tma[1] += m_TranslationHistory[i][1];
+            tma[2] += m_TranslationHistory[i][2];
+        }
+        // Calculate average position for x, y, and z coordinates
+        tma[0] /= (float)m_nHistory;
+        tma[1] /= (float)m_nHistory;
+        tma[2] /= (float)m_nHistory;
+
+        // Calculate divergence (distance) from moving average
+        d = sqrt((t[0] - tma[0]) * (t[0] - tma[0])
+            + (t[1] - tma[1]) * (t[1] - tma[1])
+            + (t[2] - tma[2]) * (t[2] - tma[2]));
+    }
+
+    return d;
+}
+
+/*
+ * Update moving average with the latest position
+ */
+void PCLObjectRecognition::ObjectModel::updateMovingAve(Eigen::Vector3f t)
+{
+    // Shift moving average history
+    for (int i = m_HistoryTerm - 2; i >= 0; i--) {
+        m_TranslationHistory[i + 1][0] = m_TranslationHistory[i][0];
+        m_TranslationHistory[i + 1][1] = m_TranslationHistory[i][1];
+        m_TranslationHistory[i + 1][2] = m_TranslationHistory[i][2];
+    }
+    // Insert the latest value to the history
+    m_TranslationHistory[0][0] = t[0];
+    m_TranslationHistory[0][1] = t[1];
+    m_TranslationHistory[0][2] = t[2];
+    // Increase number of history until it reachs to the maximum size
+    m_nHistory = m_nHistory < m_HistoryTerm ? m_nHistory + 1: m_nHistory;
+
+#if 0
+    // Calcurate the latest moving average to show debug message
+    Eigen::Vector3f tma;
+    tma[0] = tma[1] = tma[2] = 0.0f;
+    for (int i = 0; i < m_nHistory; i++) {
+        tma[0] += m_TranslationHistory[i][0];
+        tma[1] += m_TranslationHistory[i][1];
+        tma[2] += m_TranslationHistory[i][2];
+    }
+    tma[0] /= (float)m_nHistory;
+    tma[1] /= (float)m_nHistory;
+    tma[2] /= (float)m_nHistory;
+    Log::Status( "PCLObjectRecognition", "Moving Average of t: (%1.3f, %1.3f, %1.3f), term = %d\n",
+            tma[0], tma[1], tma[2], m_nHistory);
+#endif
 }
