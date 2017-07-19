@@ -24,6 +24,7 @@
 
 #include "SelfInstance.h"
 #include "NaoPlatform.h"
+#include "utils/URL.h"
 
 REG_SERIALIZABLE(NaoBrowser);
 RTTI_IMPL( NaoBrowser, IBrowser);
@@ -40,7 +41,7 @@ NaoBrowser::NaoBrowser() : IBrowser("URLServiceV1"),
 	m_LastUpdate( 0 ),
 	m_LastCheck( 0 ),
 	m_TabletCheckInterval(10.0), 
-	m_TabletDisplayTime(120.0), 
+	m_TabletDisplayTime(0.0), 
 	m_fBrightness(1.0)
 {}
 
@@ -129,7 +130,7 @@ void NaoBrowser::TabletThread()
 			}
 			m_RequestListLock.unlock();
 
-			if ( !m_bLogoDisplayed && ((now - m_LastUpdate) > m_TabletDisplayTime) )
+			if ( !m_bLogoDisplayed && ((now - m_LastUpdate) > m_TabletDisplayTime) && m_TabletDisplayTime > 0 )
 				DisplayLogo();
 		}
 
