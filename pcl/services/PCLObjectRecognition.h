@@ -23,111 +23,120 @@
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
+#include <pcl/visualization/pcl_visualizer.h>
 
 class PCLObjectRecognition : public IObjectRecognition
 {
 public:
-	RTTI_DECL();
+    RTTI_DECL();
 
-	//! Types
-	typedef Delegate<const Json::Value &>	OnClassifyObjects;
+    //! Types
+    typedef Delegate<const Json::Value&>   OnClassifyObjects;
 
-	typedef pcl::PointXYZ		PointType;
-	typedef pcl::Normal			NormalType;
-	typedef pcl::SHOT352		DescriptorType;
-	typedef pcl::ReferenceFrame RFType;
+    typedef pcl::PointXYZ       PointType;
 
-	//! This structure is used to hold loaded point cloud data for a particular angle of a model
-	struct ModelPCD
-	{
-		ModelPCD() : 
-			m_Model( new pcl::PointCloud<PointType>() ),
-			m_Keypoints( new pcl::PointCloud<PointType>() ),
-			m_Normals( new pcl::PointCloud<NormalType>() ),
-			m_Descriptors( new pcl::PointCloud<DescriptorType>() )
-		{}
+    //! This structure is used to hold loaded point cloud data for a particular angle of a model
+    struct ModelPCD
+    {
+        ModelPCD() :
+            m_Model( new pcl::PointCloud<PointType>() )
+        {}
 
-		pcl::PointCloud<PointType>::Ptr	m_Model;
-		pcl::PointCloud<PointType>::Ptr m_Keypoints;
-		pcl::PointCloud<NormalType>::Ptr m_Normals;
-		pcl::PointCloud<DescriptorType>::Ptr m_Descriptors;
-	};
+        pcl::PointCloud<PointType>::Ptr m_Model;
+    };
 
-	struct ObjectModel : public ISerializable
-	{
-		ObjectModel()
-		{}
-		ObjectModel( const std::string & a_ObjectId, const std::vector<std::string> & a_Models ) :
-			m_ObjectId( a_ObjectId ), m_Models( a_Models )
-		{}
+    struct ObjectModel : public ISerializable
+    {
+        ObjectModel()
+        {}
+        ObjectModel( const std::string& a_ObjectId, const std::vector<std::string>& a_Models ) :
+            m_ObjectId( a_ObjectId ), m_Models( a_Models ) , m_nHistory ( 0 )
+        {}
 
-		std::string						m_ObjectId;		// the ID of this object
-		std::vector<std::string>		m_Models;		// list of files containing the PCD
-		std::vector<ModelPCD>			m_PCD;			// loaded point-cloud data
+        std::string                     m_ObjectId;     // the ID of this object
+        std::vector<std::string>        m_Models;       // list of files containing the PCD
+        std::vector<ModelPCD>           m_PCD;          // loaded point-cloud data
 
-		//! ISerializable interface
-		virtual void Serialize(Json::Value & json)
-		{
-			json["m_ObjectId"] = m_ObjectId;
-			SerializeVector( "m_Models", m_Models, json );
-		}
-		virtual void Deserialize(const Json::Value & json)
-		{
-			if ( json["m_ObjectId"].isString() )
-				m_ObjectId = json["m_ObjectId"].asString();
-			DeserializeVector( "m_Models", json, m_Models );
-		}
+        int                             m_HistoryTerm;  // History term to calculate moving average
+        int                             m_nHistory;     // number of moving average histories
+        std::vector<Eigen::Vector3f>    m_TranslationHistory; // historical data of position
 
-		bool LoadPCD( float a_ModelSS, float a_DescRad );
-	};
+        //! ISerializable interface
+        virtual void Serialize(Json::Value& json)
+        {
+            json["m_ObjectId"] = m_ObjectId;
+            SerializeVector( "m_Models", m_Models, json );
+        }
+        virtual void Deserialize(const Json::Value& json)
+        {
+            if ( json["m_ObjectId"].isString() )
+            {
+                m_ObjectId = json["m_ObjectId"].asString();
+            }
 
-	//! Construction 
-	PCLObjectRecognition();
+            DeserializeVector( "m_Models", json, m_Models );
+        }
+        virtual void setHistoryTerm(int term)
+        {
+            m_HistoryTerm = term;
+            m_TranslationHistory.resize(m_HistoryTerm);
+        }
 
-	//! ISerializable interface
-	virtual void Serialize(Json::Value & json);
-	virtual void Deserialize(const Json::Value & json);
+        bool LoadPCD();
+        float getMovingAveDivergence(Eigen::Vector3f t);
+        void updateMovingAve(Eigen::Vector3f t);
+    };
 
-	//! IService interface
-	virtual bool Start();
+    //! Construction
+    PCLObjectRecognition();
 
-	//! IObjectRecognition interface
-	virtual void ClassifyObjects(const std::string & a_DepthImageData,
-		OnClassifyObjects a_Callback );
+    //! ISerializable interface
+    virtual void Serialize(Json::Value& json);
+    virtual void Deserialize(const Json::Value& json);
 
-	void SetObjects( const std::vector<ObjectModel> & a_Objects )
-	{
-		m_Objects = a_Objects;
-	}
+    //! IService interface
+    virtual bool Start();
+
+    //! IObjectRecognition interface
+    virtual void ClassifyObjects(const std::string& a_DepthImageData,
+                                 OnClassifyObjects a_Callback );
+
+    void SetObjects( const std::vector<ObjectModel>& a_Objects )
+    {
+        m_Objects = a_Objects;
+    }
 
 private:
-	//! Types
-	struct ProcessDepthData
-	{
-		ProcessDepthData( const std::string & a_DepthData, OnClassifyObjects a_Callback ) :
-			m_DepthData( a_DepthData ), m_Callback( a_Callback )
-		{}
+    //! Types
+    struct ProcessDepthData
+    {
+        ProcessDepthData( const std::string& a_DepthData, OnClassifyObjects a_Callback ) :
+            m_DepthData( a_DepthData ), m_Callback( a_Callback )
+        {}
 
-		std::string			m_DepthData;
-		Json::Value			m_Results;
-		OnClassifyObjects	m_Callback;
-	};
+        std::string         m_DepthData;
+        Json::Value         m_Results;
+        OnClassifyObjects   m_Callback;
+    };
 
-	void ProcessThread( ProcessDepthData * a_pData );
-	void SendResults( ProcessDepthData * a_pData );
+    void ProcessThread( ProcessDepthData* a_pData );
+    void SendResults( ProcessDepthData* a_pData );
 
-	//! Data
-	std::vector<ObjectModel>		m_Objects;
-	float							m_ModelSS;
-	float							m_DescRad;
-	float							m_SceneSS;
-	float							m_ShotDist;
-	float							m_RFRad;
-	float							m_CGSize;
-	float							m_CGThresh;
-	float							m_LowHeight;
-	float							m_maxDist;
-	float							m_DistThreshold;
+    //! Data
+    std::vector<ObjectModel>        m_Objects;
+    float                           m_ClusterSizeMin1; // Minimum number of points for clustering stage 1
+    float                           m_ClusterSizeMax1; // Maximum number of points for clustering stage 1
+    float                           m_ClusterSizeMin2; // Minimum number of points for clustering stage 2
+    float                           m_ClusterSizeMax2; // Maximum number of points for clustering stage 2
+    float                           m_ClusterTolerance1; // Distance tolerance between points in clustering stage 1
+    float                           m_ClusterTolerance2; // Distance tolerance between points in clustering stage 2
+    float                           m_AcceptableFittingScore; // Maximum ICP fitting score to accept (lower score is better)
+    float                           m_DivRange; // Maximum acceptable divergence from moving average
+    int                             m_MeanK; // Coefficient to change smoothing level
+    float                           m_SamplingSize; // Sampling distance to reduce point cloud
+    int                             m_HistoryTerm; // History term to calculate moving average
+
+    pcl::visualization::PCLVisualizer *viewer; // visualization window handler
 };
 
 #endif
