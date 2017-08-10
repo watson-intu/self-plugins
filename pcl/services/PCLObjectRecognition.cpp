@@ -31,7 +31,10 @@
 #include <pcl/filters/statistical_outlier_removal.h>
 #include <pcl/segmentation/extract_clusters.h>
 #include <pcl/registration/icp.h>
+
+#ifdef VISUALIZATION
 #include <pcl/visualization/pcl_visualizer.h>
+#endif
 
 REG_SERIALIZABLE(PCLObjectRecognition);
 REG_OVERRIDE_SERIALIZABLE(IObjectRecognition, PCLObjectRecognition);
@@ -170,7 +173,7 @@ bool PCLObjectRecognition::Start()
     viewer = new pcl::visualization::PCLVisualizer("Object Localiser");
     viewer->setSize(1600, 900);
     viewer->setShowFPS(false);
-    viewer->setCameraPosition(0.0f, -1.0f, 3.5f, 0.0f, -1.0f, 0.0f);
+    viewer->setCameraPosition(0.0f, 0.0f, -1.0f, 0.0f, -1.0f, 0.0f);
 #endif
 
     return true;
@@ -210,7 +213,7 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData* a_pData )
     spScene->is_dense = false;
     spScene->points.resize( spScene->width * spScene->height );
 
-    const float constant = 1.0f / 525;
+    const float constant = 1.0f / 570;
     const int centerX = spScene->width >> 1;
     const int centerY = spScene->height >> 1;
     register int depth_idx = 0;
@@ -221,8 +224,8 @@ void PCLObjectRecognition::ProcessThread( ProcessDepthData* a_pData )
         {
             pcl::PointXYZ& pt = spScene->points[depth_idx];
             pt.z = decoded.at<unsigned short>( depth_idx ) * 0.001f;
-            pt.x = static_cast<float>(-u) * pt.z * constant;
-            pt.y = static_cast<float>(-v) * pt.z * constant;
+            pt.x = static_cast<float>(u) * pt.z * constant;
+            pt.y = static_cast<float>(v) * pt.z * constant;
         }
     }
 

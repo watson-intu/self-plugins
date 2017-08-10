@@ -23,7 +23,10 @@
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
+
+#ifdef VISUALIZATION
 #include <pcl/visualization/pcl_visualizer.h>
+#endif
 
 class PCLObjectRecognition : public IObjectRecognition
 {
@@ -136,7 +139,9 @@ private:
     float                           m_SamplingSize; // Sampling distance to reduce point cloud
     int                             m_HistoryTerm; // History term to calculate moving average
 
+#ifdef VISUALIZATION
     pcl::visualization::PCLVisualizer *viewer; // visualization window handler
+#endif
 };
 
 #endif
