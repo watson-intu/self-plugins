@@ -2,7 +2,7 @@ include_directories(".")
 
 add_subdirectory(lib)
 
-if(EXISTS lab)
+if(EXISTS iva)
 	add_subdirectory(iva)
 endif()
 if(EXISTS lab)
