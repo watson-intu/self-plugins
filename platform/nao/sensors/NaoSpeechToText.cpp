@@ -35,7 +35,7 @@ bool NaoSpeechToText::OnStart()
     Log::Status("NaoSpeechToText", "NaoSpeechToText started");
     m_Paused = 0;
 
-    ThreadPool::Instance()->InvokeOnThread<void *>(DELEGATE(NaoSpeechToText, ReceiveData, void *, this), NULL);
+    ReceiveData(this);
     return true;
 }
 
